@@ -1,344 +1,207 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trip App V10</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel App</title>
 
-<style>
-body { margin:0; font-family:system-ui; background:#f2f4f8; }
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui;
+      background: #f4f6f9;
+    }
 
-.page { display:none; padding:16px 16px 110px; }
-.page.active { display:block; }
+    .screen {
+      display: none;
+      padding: 16px;
+      padding-bottom: 80px;
+    }
 
-.card {
-  background:white;
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:12px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
-}
+    .active {
+      display: block;
+    }
 
-.btn {
-  background:#2d6cdf;
-  color:white;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  width:100%;
-  margin-top:10px;
-}
+    .card {
+      background: white;
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
 
-.nav {
-  position:fixed;
-  bottom:0;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-  padding:12px;
-  backdrop-filter:blur(10px);
-  background:rgba(255,255,255,0.8);
-}
+    .btn {
+      display: block;
+      padding: 12px;
+      margin-top: 10px;
+      background: #2d6cdf;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+      border: none;
+    }
 
-.tabs { display:flex; overflow:auto; }
+    .input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
 
-.tab {
-  padding:8px 12px;
-  margin-right:6px;
-  background:#e0e6f5;
-  border-radius:20px;
-}
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      background: white;
+      border-top: 1px solid #ddd;
+    }
 
-.tab.active { background:#2d6cdf; color:white; }
+    .nav-btn {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      font-size: 14px;
+      border: none;
+      background: none;
+    }
 
-.day-item {
-  background:#eef3ff;
-  padding:10px;
-  border-radius:10px;
-  margin-top:6px;
-  display:flex;
-  justify-content:space-between;
-}
-
-#map { height:250px; border-radius:12px; margin-top:10px; }
-</style>
+    #log {
+      font-size: 12px;
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div id="auth" class="page active">
-  <h2>Вход</h2>
-  <button class="btn" onclick="login()">Google</button>
+<!-- HOME -->
+<div id="home" class="screen active">
+  <h2>⭐ Избранное путешествие</h2>
+  <div class="card">Нет выбранного плана</div>
 </div>
 
-<div id="plans" class="page">
-  <h2>🌍 Планы</h2>
-
-  <button class="btn" onclick="loadPublic()">Публичные</button>
-  <button class="btn" onclick="loadMy()">Мои</button>
-
-  <div id="list"></div>
-
-  <button class="btn" onclick="openPage('create')">➕ Создать</button>
+<!-- PLANS -->
+<div id="plans" class="screen">
+  <h2>📋 Все планы</h2>
+  <div class="card">Пока пусто</div>
 </div>
 
-<div id="create" class="page">
-  <h2>Новый план</h2>
-  <input id="title" placeholder="Название">
-  <input id="start" type="date">
-  <input id="end" type="date">
-  <button class="btn" onclick="createPlan()">Создать</button>
+<!-- SETTINGS -->
+<div id="settings" class="screen">
+  <h2>⚙️ Настройки</h2>
+
+  <div class="card">
+    <h3>Авторизация</h3>
+
+    <button class="btn" onclick="loginGoogle()">Google</button>
+
+    <input id="email" class="input" placeholder="Email">
+    <input id="password" class="input" type="password" placeholder="Пароль">
+
+    <button class="btn" onclick="loginEmail()">Войти Email</button>
+    <button class="btn" onclick="registerEmail()">Регистрация</button>
+
+    <input id="phone" class="input" placeholder="+79999999999">
+    <div id="recaptcha"></div>
+    <button class="btn" onclick="loginPhone()">Телефон</button>
+
+    <div id="log"></div>
+  </div>
 </div>
 
-<div id="view" class="page">
-  <button onclick="openPage('plans')">⬅</button>
-
-  <h2 id="planTitle"></h2>
-  <div id="likes"></div>
-  <button class="btn" onclick="likePlan()">❤️ Лайк</button>
-  <button class="btn" onclick="savePlan()">💾 Сохранить</button>
-
-  <div id="tabs"></div>
-  <div id="dayContent"></div>
+<!-- NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn" onclick="show('home')">⭐</button>
+  <button class="nav-btn" onclick="show('plans')">📋</button>
+  <button class="nav-btn" onclick="show('settings')">⚙️</button>
 </div>
 
-<div id="profile" class="page">
-  <button onclick="openPage('plans')">⬅</button>
-  <h2>Профиль</h2>
-  <div id="myPlans"></div>
-</div>
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
-<div class="nav">
-  <button onclick="openPage('plans')">📋</button>
-  <button onclick="openProfile()">👤</button>
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-  getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-import {
-  getFirestore, collection, addDoc, doc, updateDoc, getDoc, query, where, onSnapshot
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-/* CONFIG */
+<script>
 const firebaseConfig = {
-  apiKey: "AIzaSyD...",
+  apiKey: "AIzaSyAtUfcAm2wKMTsfEf4zxF86yrBz20Fu8pw",
   authDomain: "travel-constructor-plan.firebaseapp.com",
-  projectId: "travel-constructor-plan"
+  projectId: "travel-constructor-plan",
 };
 
-const MAPS_KEY = "AIzaSyAtUfcAm2wKMTsfEf4zxF86yrBz20Fu8pw";
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+function log(msg) {
+  console.log(msg);
+  document.getElementById("log").innerText = msg;
+}
 
-let user, currentPlan, currentPlanId, currentDayIndex=0;
+/* НАВИГАЦИЯ */
+function show(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 
-/* AUTH */
-window.login = async ()=>{
-  await signInWithPopup(auth, new GoogleAuthProvider());
-};
+/* GOOGLE */
+function loginGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
 
-onAuthStateChanged(auth, u=>{
-  if(u){ user=u; openPage("plans"); loadPublic(); }
+  auth.signInWithPopup(provider)
+    .then(result => {
+      log("Успех: " + result.user.email);
+    })
+    .catch(err => {
+      log("Ошибка: " + err.message);
+    });
+}
+
+/* EMAIL LOGIN */
+function loginEmail() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(user => log("Вошёл: " + user.user.email))
+    .catch(err => log(err.message));
+}
+
+/* EMAIL REGISTER */
+function registerEmail() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(user => log("Создан: " + user.user.email))
+    .catch(err => log(err.message));
+}
+
+/* PHONE */
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {
+  size: 'normal'
 });
 
-/* NAV */
-window.openPage = (id)=>{
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-};
+function loginPhone() {
+  const phone = document.getElementById("phone").value;
 
-/* CREATE */
-window.createPlan = async ()=>{
-  const days=[];
-  let d=new Date(start.value);
+  auth.signInWithPhoneNumber(phone, window.recaptchaVerifier)
+    .then(confirm => {
+      const code = prompt("Введите код из SMS");
+      return confirm.confirm(code);
+    })
+    .then(() => log("Телефон авторизован"))
+    .catch(err => log(err.message));
+}
 
-  while(d<=new Date(end.value)){
-    days.push({date:d.toISOString().slice(0,10), items:[]});
-    d.setDate(d.getDate()+1);
+/* STATE */
+auth.onAuthStateChanged(user => {
+  if (user) {
+    log("Ты вошёл: " + user.uid);
+  } else {
+    log("Не авторизован");
   }
-
-  await addDoc(collection(db,"plans"), {
-    userId:user.uid,
-    title:title.value,
-    start:start.value,
-    end:end.value,
-    public:false,
-    likes:0,
-    days
-  });
-
-  openPage("plans");
-};
-
-/* LOAD */
-window.loadPublic = ()=>{
-  onSnapshot(query(collection(db,"plans"), where("public","==",true)), render);
-};
-
-window.loadMy = ()=>{
-  onSnapshot(query(collection(db,"plans"), where("userId","==",user.uid)), render);
-};
-
-function render(snap){
-  list.innerHTML="";
-  snap.forEach(d=>{
-    const p=d.data();
-    list.innerHTML+=`
-      <div class="card">
-        <b>${p.title}</b>
-        <div>❤️ ${p.likes||0}</div>
-        <button class="btn" onclick="openPlan('${d.id}')">Открыть</button>
-      </div>
-    `;
-  });
-}
-
-/* OPEN */
-window.openPlan = async (id)=>{
-  currentPlanId=id;
-  currentPlan=(await getDoc(doc(db,"plans",id))).data();
-
-  planTitle.innerText=currentPlan.title;
-  likes.innerText="❤️ "+(currentPlan.likes||0);
-
-  renderTabs();
-  openPage("view");
-};
-
-/* LIKE */
-window.likePlan = async ()=>{
-  const key="liked_"+currentPlanId;
-
-  if(localStorage.getItem(key)) return alert("Уже лайкал");
-
-  await updateDoc(doc(db,"plans",currentPlanId), {
-    likes:(currentPlan.likes||0)+1
-  });
-
-  localStorage.setItem(key,true);
-  openPlan(currentPlanId);
-};
-
-/* SAVE */
-window.savePlan = async ()=>{
-  await addDoc(collection(db,"plans"), {
-    ...currentPlan,
-    userId:user.uid,
-    public:false
-  });
-
-  alert("Сохранено");
-};
-
-/* PROFILE */
-window.openProfile = ()=>{
-  openPage("profile");
-
-  onSnapshot(query(collection(db,"plans"), where("userId","==",user.uid)), snap=>{
-    myPlans.innerHTML="";
-    snap.forEach(d=>{
-      myPlans.innerHTML+=`<div class="card">${d.data().title}</div>`;
-    });
-  });
-};
-
-/* TABS */
-function renderTabs(){
-  tabs.className="tabs";
-  tabs.innerHTML="";
-
-  currentPlan.days.forEach((d,i)=>{
-    tabs.innerHTML+=`<div class="tab" onclick="openDay(${i})">${d.date.slice(5)}</div>`;
-  });
-
-  openDay(0);
-}
-
-/* DAY */
-window.openDay = (i)=>{
-  currentDayIndex=i;
-  const d=currentPlan.days[i];
-
-  dayContent.innerHTML=`
-    <div class="card">
-      <b>${d.date}</b>
-
-      ${d.items.map((it,idx)=>`
-        <div class="day-item">
-          ${it}
-          <button onclick="removeItem(${idx})">❌</button>
-        </div>
-      `).join("")}
-
-      <input id="newItem">
-      <button class="btn" onclick="addItem()">Добавить</button>
-
-      <div id="map"></div>
-    </div>
-  `;
-
-  loadMap(d.items);
-};
-
-/* ADD */
-window.addItem = async ()=>{
-  currentPlan.days[currentDayIndex].items.push(newItem.value);
-
-  await updateDoc(doc(db,"plans",currentPlanId), {
-    days: currentPlan.days
-  });
-
-  openDay(currentDayIndex);
-};
-
-/* REMOVE */
-window.removeItem = async (i)=>{
-  currentPlan.days[currentDayIndex].items.splice(i,1);
-
-  await updateDoc(doc(db,"plans",currentPlanId), {
-    days: currentPlan.days
-  });
-
-  openDay(currentDayIndex);
-};
-
-/* MAP */
-function loadMap(places){
-  const script=document.createElement("script");
-  script.src=`https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&callback=initMap`;
-  script.async=true;
-
-  window.initMap=()=>{
-    const map=new google.maps.Map(document.getElementById("map"), {
-      zoom:4,
-      center:{lat:35.6,lng:139.6}
-    });
-
-    const geocoder=new google.maps.Geocoder();
-
-    places.forEach((p,i)=>{
-      geocoder.geocode({address:p}, (res,status)=>{
-        if(status==="OK"){
-          new google.maps.Marker({
-            position:res[0].geometry.location,
-            label:(i+1)+"",
-            map
-          });
-        }
-      });
-    });
-  };
-
-  document.body.appendChild(script);
-}
-
+});
 </script>
 
 </body>

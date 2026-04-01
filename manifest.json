@@ -2,14 +2,17 @@
   "name": "Пердящее путешествие: Япония + Шанхай",
   "short_name": "Japan Trip",
   "description": "Полный маршрут на 16 дней: Осака, Киото, Нара, Фудзи, Токио, Шанхай",
-  "start_url": "/index.html",
-  "scope": "/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#faf8f5",
   "theme_color": "#b03e3e",
   "lang": "ru",
-  "categories": ["travel", "navigation"],
+  "categories": [
+    "travel",
+    "navigation"
+  ],
   "icons": [
     {
       "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23b03e3e'/><text y='72' x='50' text-anchor='middle' font-size='60'>🗾</text></svg>",
@@ -31,8 +34,35 @@
     }
   ],
   "shortcuts": [
-    { "name": "Осака",  "url": "/osaka.html",  "icons": [{"src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌆</text></svg>", "sizes": "96x96"}] },
-    { "name": "Токио",  "url": "/tokyo.html",  "icons": [{"src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗼</text></svg>", "sizes": "96x96"}] },
-    { "name": "Бюджет", "url": "/budget.html", "icons": [{"src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>", "sizes": "96x96"}] }
+    {
+      "name": "Осака",
+      "url": "/osaka.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌆</text></svg>",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Токио",
+      "url": "/tokyo.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗼</text></svg>",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Бюджет",
+      "url": "/budget.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>",
+          "sizes": "96x96"
+        }
+      ]
+    }
   ]
 }

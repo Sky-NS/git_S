@@ -4,155 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- PWA -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#b03e3e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Japan Trip">
     <title>Визовые требования · Япония</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <style>
-        /* Дополнительные стили только для страницы визы */
-        .visa-card {
-            background-color: #f9f7f4;
-            border: 1px solid #efebe5;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            transition: all 0.2s;
-        }
-        .visa-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border-color: #b03e3e;
-        }
-        .visa-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 0;
-            margin-bottom: 15px;
-            color: #1a1a1a;
-        }
-        .checklist {
-            background: #f0fdf4;
-            border-radius: 20px;
-            padding: 1.5rem 2rem;
-            margin: 30px 0;
-            border: 1px solid #bbf7d0;
-        }
-        .checklist-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0.6rem 0;
-            border-bottom: 1px dashed #86efac;
-        }
-        .checklist-item:last-child {
-            border-bottom: none;
-        }
-        .checklist-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #b03e3e;
-        }
-        .warning-block {
-            background: #fff7ed;
-            border-left: 4px solid #f97316;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            font-weight: 500;
-            color: #7b341e;
-        }
-        .table-wrap {
-            overflow-x: auto;
-            margin: 20px 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #f8fafc;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        th {
-            background: #b03e3e;
-            color: white;
-            font-weight: 600;
-            padding: 12px;
-            text-align: left;
-        }
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        .two-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        @media (max-width: 768px) {
-            .two-columns {
-                grid-template-columns: 1fr;
-            }
-        }
-        .badge {
-            display: inline-block;
-            background-color: #b03e3e;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .quick-nav {
-            background: #f5f2eb;
-            padding: 12px 20px;
-            border-radius: 40px;
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-        .quick-nav a {
-            text-decoration: none;
-            color: #2d2d2d;
-            font-weight: 500;
-            padding: 5px 12px;
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-        .quick-nav a:hover {
-            background-color: #b03e3e;
-            color: white;
-        }
-        
-        .currency-note {
-            background-color: #fff9e6;
-            border-left: 4px solid #f0b400;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 0.9rem;
-        }
-        
-        .visa-deadline {
-            background-color: #fee2e2;
-            border-left: 4px solid #dc2626;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
-    </style>
 </head>
 <body>
     <div class="trip-card">
@@ -174,20 +32,6 @@
                 <li><a href="glossary.html">📖 Глоссарий</a></li>
             </ul>
         </div>
-
-        <nav class="site-nav" aria-label="Основная навигация">
-                    <a href="index.html">🏠 Главная</a>
-                    <a href="osaka.html">🌆 Осака</a>
-                    <a href="fuji.html">🗻 Фудзи</a>
-                    <a href="tokyo.html">🗼 Токио</a>
-                    <a href="shanghai.html">🏙 Шанхай</a>
-                    <a href="budget.html">💰 Общий бюджет</a>
-                    <a href="toilet-map.html">🚽 Карта туалетов</a>
-                    <a href="visa.html" class="active">🛂 Всё для визы</a>
-                    <a href="contacts.html">📞 Контакты</a>
-                    <a href="glossary.html">📖 Глоссарий</a>
-                </nav>
-
 
         <div class="currency-note" id="currencyNote">
             <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> <span id="exchangeRatePlaceholder">загрузка...</span>

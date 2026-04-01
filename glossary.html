@@ -4,134 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- PWA -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#b03e3e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Japan Trip">
     <title>Глоссарий · Полезные фразы и этикет</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <style>
-        .glossary-section {
-            margin: 40px 0;
-        }
-        .glossary-section h2 {
-            border-bottom: 2px solid #d4c9bc;
-            padding-bottom: 8px;
-            margin-top: 40px;
-        }
-        .phrase-card {
-            background-color: #f9f7f4;
-            border: 1px solid #efebe5;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            transition: transform 0.2s;
-        }
-        .phrase-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border-color: #b03e3e;
-        }
-        .phrase-card h3 {
-            margin-top: 0;
-            color: #b03e3e;
-            font-size: 1.2rem;
-        }
-        .phrase-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .phrase-item {
-            border-top: 1px solid #efebe5;
-            padding-top: 12px;
-        }
-        .phrase-ru {
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-        .phrase-original {
-            font-family: 'Noto Sans JP', monospace;
-            font-size: 1rem;
-            color: #2d7a6e;
-            margin: 5px 0;
-        }
-        .phrase-translit {
-            font-size: 0.85rem;
-            color: #6b5a4a;
-        }
-        .phrase-rus-translit {
-            font-size: 0.85rem;
-            color: #b03e3e;
-            font-style: normal;
-            margin-top: 3px;
-        }
-        .copy-btn {
-            background: none;
-            border: 1px solid #d4c9bc;
-            border-radius: 20px;
-            padding: 4px 10px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: all 0.2s;
-        }
-        .copy-btn:hover {
-            background-color: #b03e3e;
-            color: white;
-            border-color: #b03e3e;
-        }
-        .culture-tip {
-            background-color: #fff9e6;
-            border-left: 4px solid #f0b400;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-        .quick-nav {
-            background: #f5f2eb;
-            padding: 12px 20px;
-            border-radius: 40px;
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-        .quick-nav a {
-            text-decoration: none;
-            color: #2d2d2d;
-            font-weight: 500;
-            padding: 5px 12px;
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-        .quick-nav a:hover {
-            background-color: #b03e3e;
-            color: white;
-        }
-        .currency-note {
-            background-color: #fff9e6;
-            border-left: 4px solid #f0b400;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 0.9rem;
-        }
-        @media (max-width: 768px) {
-            .phrase-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .japanese-icon {
-            font-size: 1.5rem;
-            vertical-align: middle;
-            margin-right: 5px;
-        }
-    </style>
 </head>
 <body>
     <div class="trip-card">
@@ -153,20 +32,6 @@
                 <li><a href="glossary.html" class="active">📖 Глоссарий</a></li>
             </ul>
         </div>
-
-        <nav class="site-nav" aria-label="Основная навигация">
-                    <a href="index.html">🏠 Главная</a>
-                    <a href="osaka.html">🌆 Осака</a>
-                    <a href="fuji.html">🗻 Фудзи</a>
-                    <a href="tokyo.html">🗼 Токио</a>
-                    <a href="shanghai.html">🏙 Шанхай</a>
-                    <a href="budget.html">💰 Общий бюджет</a>
-                    <a href="toilet-map.html">🚽 Карта туалетов</a>
-                    <a href="visa.html">🛂 Всё для визы</a>
-                    <a href="contacts.html">📞 Контакты</a>
-                    <a href="glossary.html" class="active">📖 Глоссарий</a>
-                </nav>
-
 
         <div class="currency-note">
             <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> <span id="exchangeRatePlaceholder">загрузка...</span>

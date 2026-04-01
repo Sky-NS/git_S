@@ -5,25 +5,25 @@
 // - Одновременно обновляем кэш из сети
 // ====================================
 
-const CACHE_NAME = 'japan-trip-v2';
+const CACHE_NAME = 'japan-trip-v3';
 
 // Все страницы и ресурсы для кэширования
 const CACHE_ASSETS = [
-    '/',
-    '/index.html',
-    '/osaka.html',
-    '/fuji.html',
-    '/tokyo.html',
-    '/shanghai.html',
-    '/budget.html',
-    '/toilet-map.html',
-    '/visa.html',
-    '/contacts.html',
-    '/glossary.html',
-    '/CSS/style.css',
-    '/js/currency.js',
-    '/js/app.js',
-    '/manifest.json'
+    './',
+    './index.html',
+    './osaka.html',
+    './fuji.html',
+    './tokyo.html',
+    './shanghai.html',
+    './budget.html',
+    './toilet-map.html',
+    './visa.html',
+    './contacts.html',
+    './glossary.html',
+    './CSS/style.css',
+    './js/currency.js',
+    './js/app.js',
+    './manifest.json'
 ];
 
 // ── УСТАНОВКА: кэшируем все ресурсы ──

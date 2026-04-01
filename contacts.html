@@ -4,122 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- PWA -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#b03e3e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Japan Trip">
     <title>Полезные контакты — Япония и Китай</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <style>
-        .contacts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        .contact-card {
-            background-color: #f9f7f4;
-            border: 1px solid #efebe5;
-            border-radius: 20px;
-            padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .contact-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-color: #b03e3e;
-        }
-        .contact-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 0;
-            margin-bottom: 15px;
-            color: #b03e3e;
-            border-bottom: 2px solid #efebe5;
-            padding-bottom: 8px;
-        }
-        .contact-card ul {
-            padding-left: 0;
-            list-style: none;
-        }
-        .contact-card li {
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-        .contact-card a {
-            color: #2d7a6e;
-            text-decoration: none;
-            word-break: break-all;
-        }
-        .contact-card a:hover {
-            text-decoration: underline;
-        }
-        .emergency-badge {
-            display: inline-block;
-            background-color: #dc2626;
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-        .hotel-contact {
-            background-color: #f0f5fa;
-        }
-        .phrase-box {
-            background-color: #fef9e6;
-            border-left: 4px solid #f0b400;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-        .phrase-box p {
-            margin: 8px 0;
-        }
-        .phrase-jp {
-            font-family: 'Noto Sans JP', monospace;
-            font-size: 1rem;
-        }
-        .quick-nav {
-            background: #f5f2eb;
-            padding: 12px 20px;
-            border-radius: 40px;
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-        .quick-nav a {
-            text-decoration: none;
-            color: #2d2d2d;
-            font-weight: 500;
-            padding: 5px 12px;
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-        .quick-nav a:hover {
-            background-color: #b03e3e;
-            color: white;
-        }
-        .currency-note {
-            background-color: #fff9e6;
-            border-left: 4px solid #f0b400;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 0.9rem;
-        }
-        @media (max-width: 768px) {
-            .contacts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="trip-card">
@@ -141,20 +32,6 @@
                 <li><a href="glossary.html">📖 Глоссарий</a></li>
             </ul>
         </div>
-
-        <nav class="site-nav" aria-label="Основная навигация">
-                    <a href="index.html">🏠 Главная</a>
-                    <a href="osaka.html">🌆 Осака</a>
-                    <a href="fuji.html">🗻 Фудзи</a>
-                    <a href="tokyo.html">🗼 Токио</a>
-                    <a href="shanghai.html">🏙 Шанхай</a>
-                    <a href="budget.html">💰 Общий бюджет</a>
-                    <a href="toilet-map.html">🚽 Карта туалетов</a>
-                    <a href="visa.html">🛂 Всё для визы</a>
-                    <a href="contacts.html" class="active">📞 Контакты</a>
-                    <a href="glossary.html">📖 Глоссарий</a>
-                </nav>
-
 
         <div class="currency-note">
             <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> <span id="exchangeRatePlaceholder">загрузка...</span>

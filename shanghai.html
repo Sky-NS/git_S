@@ -4,187 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- PWA -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#b03e3e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Japan Trip">
     <title>Шанхай — транзит с шопингом и ночным видом</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <style>
-        /* Дополнительные стили для страницы Шанхая */
-        .day-highlight {
-            background-color: #fff9f5;
-            border: 1px solid #efebe5;
-            padding: 25px;
-            margin: 25px 0;
-            border-radius: 8px;
-            border-left: 4px solid #2d7a6e;
-            scroll-margin-top: 80px;
-        }
-        .day-highlight h3 {
-            margin-top: 0;
-            color: #1a1a1a;
-            font-size: 1.5rem;
-            border-bottom: 1px solid #efebe5;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
-        }
-        .transport-note {
-            background-color: #f5f2eb;
-            padding: 12px 18px;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            margin: 15px 0;
-            color: #4a4a4a;
-        }
-        .route-card {
-            background-color: white;
-            border: 1px solid #efebe5;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 6px;
-        }
-        .route-title {
-            font-weight: 600;
-            color: #2d2d2d;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        .route-detail {
-            display: flex;
-            justify-content: space-between;
-            margin: 5px 0;
-            padding: 3px 0;
-            border-bottom: 1px dotted #efebe5;
-        }
-        .total-day {
-            background-color: #2d7a6e;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 6px;
-            margin-top: 15px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-        }
-        .hotel-info {
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #2d7a6e;
-        }
-        .attraction-card {
-            background-color: #f9f7f4;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border: 1px solid #efebe5;
-            transition: transform 0.2s;
-        }
-        .attraction-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .attraction-card img {
-            width: 100%;
-            max-width: 650px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-        .attraction-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-        }
-        .attraction-badge {
-            display: inline-block;
-            background-color: #2d7a6e;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 8px;
-        }
-        .city-badge {
-            display: inline-block;
-            background-color: #2d7a6e;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        .scenario-card {
-            background-color: #fff9e6;
-            border-left: 4px solid #f0b400;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-        .scenario-a {
-            background-color: #e6f2ff;
-            border-left-color: #0066cc;
-        }
-        .scenario-b {
-            background-color: #e6f2e6;
-            border-left-color: #2d7a6e;
-        }
-        .locker-info {
-            background-color: #fff0e0;
-            border-left: 4px solid #ff8c00;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .currency-note {
-            background-color: #fff9e6;
-            border-left: 4px solid #f0b400;
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 0.9rem;
-        }
-        .quick-nav {
-            background: #f5f2eb;
-            padding: 12px 20px;
-            border-radius: 40px;
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-        }
-        .quick-nav a {
-            text-decoration: none;
-            color: #2d2d2d;
-            font-weight: 500;
-            padding: 5px 12px;
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-        .quick-nav a:hover {
-            background-color: #2d7a6e;
-            color: white;
-        }
-        .checklist-block {
-            background-color: #f0f5fa;
-            border-left: 4px solid #2d7a6e;
-        }
-        .checklist-block ul {
-            columns: 2;
-            margin: 0;
-        }
-        @media (max-width: 768px) {
-            .checklist-block ul {
-                columns: 1;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="trip-card">
@@ -206,20 +32,6 @@
                 <li><a href="glossary.html">📖 Глоссарий</a></li>
             </ul>
         </div>
-
-        <nav class="site-nav" aria-label="Основная навигация">
-                    <a href="index.html">🏠 Главная</a>
-                    <a href="osaka.html">🌆 Осака</a>
-                    <a href="fuji.html">🗻 Фудзи</a>
-                    <a href="tokyo.html">🗼 Токио</a>
-                    <a href="shanghai.html" class="active">🏙 Шанхай</a>
-                    <a href="budget.html">💰 Общий бюджет</a>
-                    <a href="toilet-map.html">🚽 Карта туалетов</a>
-                    <a href="visa.html">🛂 Всё для визы</a>
-                    <a href="contacts.html">📞 Контакты</a>
-                    <a href="glossary.html">📖 Глоссарий</a>
-                </nav>
-
 
         <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
             <span style="font-size: 4rem;">🏙️</span>

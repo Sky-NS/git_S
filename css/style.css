@@ -1,0 +1,122 @@
+/* ===== BASE ===== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+}
+
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #7f8c8d;
+}
+
+/* ===== SECTION ===== */
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  border-left: 4px solid #e74c3c;
+  padding-left: 10px;
+  margin: 24px 0 12px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* ===== CITY CARDS ===== */
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.city-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.city-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.city-card h3 {
+  margin: 10px 0 5px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #2d6cdf;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.btn.secondary {
+  background: #27ae60;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* ===== HIGHLIGHT BLOCKS ===== */
+.highlight {
+  background: #f1f5f9;
+  border-left: 4px solid #3498db;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* ===== IMPORTANT ===== */
+.important {
+  background: #fff3f3;
+  border-left: 4px solid #e74c3c;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+/* ===== DAY BLOCK ===== */
+.day {
+  border-left: 3px solid #e74c3c;
+  padding-left: 10px;
+  margin-top: 16px;
+}
+
+/* ===== SMALL TEXT ===== */
+.small {
+  color: #7f8c8d;
+  font-size: 13px;
+}

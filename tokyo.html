@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#b03e3e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Japan Trip">
+    <title>Токио — мегаполис + Камакура и Эносима</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        /* Дополнительные стили для страницы Токио */
+        .day-highlight {
+            background-color: #fff9f5;
+            border: 1px solid #efebe5;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 4px solid #b03e3e;
+            scroll-margin-top: 80px;
+        }
+        .day-highlight h3 {
+            margin-top: 0;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #efebe5;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .transport-note {
+            background-color: #f5f2eb;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin: 15px 0;
+            color: #4a4a4a;
+        }
+        .route-card {
+            background-color: white;
+            border: 1px solid #efebe5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        .route-title {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .route-detail {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px dotted #efebe5;
+        }
+        .total-day {
+            background-color: #b03e3e;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        .hotel-info {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #b03e3e;
+        }
+        .attraction-card {
+            background-color: #f9f7f4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #efebe5;
+            transition: transform 0.2s;
+        }
+        .attraction-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .attraction-card img {
+            width: 100%;
+            max-width: 650px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .attraction-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        .attraction-badge {
+            display: inline-block;
+            background-color: #b03e3e;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        .weather-note {
+            background-color: #e6f2f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2d7a6e;
+        }
+        .city-badge {
+            display: inline-block;
+            background-color: #b03e3e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .day-trip-header {
+            background-color: #fff0e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 30px 0 15px;
+            border-left: 4px solid #2d7a6e;
+            font-weight: 600;
+            color: #2d7a6e;
+        }
+        .currency-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .quick-nav {
+            background: #f5f2eb;
+            padding: 12px 20px;
+            border-radius: 40px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .quick-nav a {
+            text-decoration: none;
+            color: #2d2d2d;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .quick-nav a:hover {
+            background-color: #b03e3e;
+            color: white;
+        }
+        .checklist-block {
+            background-color: #f0f5fa;
+            border-left: 4px solid #2d7a6e;
+        }
+        .checklist-block ul {
+            columns: 2;
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .checklist-block ul {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html" class="active">🗼 Токио</a></li>
+                <li><a href="shanghai.html">🏙 Шанхай</a></li>
+                <li><a href="budget.html">💰 Общий бюджет</a></li>
+                <li><a href="toilet-map.html">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+                <li><a href="contacts.html">📞 Контакты</a></li>
+                <li><a href="glossary.html">📖 Глоссарий</a></li>
+            </ul>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <span style="font-size: 4rem;">🗼</span>
+            <div>
+                <h1 style="text-align: left; margin: 0; font-size: 3rem;">Токио</h1>
+                <p style="color: #6b5a4a; margin: 5px 0 0; font-size: 1.2rem;">Наша база на 5 ночей • 20–25 мая 2026</p>
+            </div>
+        </div>
+
+        <div class="currency-note" id="currencyNote">
+            <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> <span id="exchangeRatePlaceholder">загрузка...</span>
+        </div>
+
+        <div class="quick-nav">
+            <strong style="color: #b03e3e;">📅 Дни:</strong>
+            <a href="#day10">День 10 (20 мая)</a>
+            <a href="#day11">День 11 (21 мая)</a>
+            <a href="#day12">День 12 (22 мая)</a>
+            <a href="#day13">День 13 (23 мая)</a>
+            <a href="#day14">День 14 (24 мая)</a>
+            <a href="#day15">День 15 (25 мая)</a>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <span class="city-badge">🏠 Ryan inn (Higashi-Jujo)</span>
+            <span class="city-badge">🗼 Асакуса / Skytree</span>
+            <span class="city-badge">🎢 Disney / Сибуя</span>
+            <span class="city-badge">🏯 Камакура + Эносима</span>
+            <span class="city-badge">🌃 Синдзюку</span>
+        </div>
+
+        <div class="hotel-info">
+            <h3 style="margin-top: 0; color: #b03e3e;">🏠 RYAN INN — НАШ ДОМ В ТОКИО</h3>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between;">
+                <div>
+                    <p><strong>Ryan inn 99平米 戸建貸切 JR東十条駅徒歩3分</strong></p>
+                    <p>📍 <strong>Адрес:</strong> グレイスハイム東十条２, Токио, Япония</p>
+                    <p>📅 <strong>Заезд:</strong> 20 мая с 15:00 до 22:00 | <strong>Выезд:</strong> 25 мая до 10:00</p>
+                </div>
+                <div>
+                    <p><strong>🚉 Транспортная доступность:</strong></p>
+                    <p>• JR станция <strong>Higashi-Jujo (東十条)</strong> — 3 мин пешком</p>
+                    <p>• Линия <strong>Keihin-Tohoku</strong> (прямая до Токио, Уэно, Синдзюку)</p>
+                    <p>• До Токио ~15–20 мин</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a class="map-button" href="https://www.google.com/maps/search/グレイスハイム東十条２+Tokyo" target="_blank" style="background-color: #b03e3e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=%E3%82%B0%E3%83%AC%E3%82%A4%E3%82%B9%E3%83%8F%E3%82%A4%E3%83%A0%E6%9D%B1%E5%8D%81%E6%9D%A1%EF%BC%92%20Tokyo" target="_blank">📍 Maps.me</a>
+                    <a class="map-button" href="https://www.booking.com/Share-lQHXfZX" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+                </div>
+            </div>
+            <div class="transport-note" style="margin-bottom: 0; background-color: #ffe6e6;">
+                <strong>🏠 ВАЖНО:</strong> Каждый день мы возвращаемся ночевать в этот дом! Все маршруты построены с учётом возвращения.
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 10 (20 мая): ПЕРЕЕЗД ИЗ ФУДЗИ ===== -->
+        <div class="day-highlight" id="day10">
+            <h3>🚆 День 10 · 20 мая (ср) — Переезд из Фудзи в Токио</h3>
+            <p><strong>Выезд из отеля во Фудзикавагутико до 10:00</strong></p>
+            <div class="route-card">
+                <div class="route-title">🚌 ФУДЗИКАВАГУТИКО → ТОКИО — два варианта:</div>
+                <p><strong>🚌 Вариант 1: Прямой автобус (быстро и дёшево)</strong></p>
+                <div class="route-detail"><span>Kawaguchiko Station → Shinjuku Expressway Bus Terminal</span><span>¥<span data-jpy="2200">2200</span> <span class="rub-value" data-jpy="2200"></span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Время в пути: ~1 ч 45 мин – 2 ч 10 мин</span><span></span></div>
+                <p style="margin-top: 15px;"><strong>🚆 Вариант 2: Поезд Limited Express Fuji Excursion</strong></p>
+                <div class="route-detail"><span>Kawaguchiko Station → Shinjuku Station</span><span>¥<span data-jpy="4130">4130</span> <span class="rub-value" data-jpy="4130"></span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Время в пути: ~1 ч 55 мин</span><span></span></div>
+            </div>
+            <div class="route-card">
+                <div class="route-title">🏠 От Синдзюку до нашего дома:</div>
+                <div class="route-detail"><span>JR Shinjuku → JR Higashi-Jujo (Keihin-Tohoku Line)</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                <div class="route-detail"><span>Пешком от станции до дома</span><span>3 мин</span></div>
+                <div style="border-top: 1px solid #efebe5; margin-top: 5px; padding-top: 5px;">
+                    <div class="route-detail" style="font-weight: 700;"><span>ИТОГО от Синдзюку</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                </div>
+            </div>
+            <div class="transport-note">
+                <strong>🏨 Заселение:</strong> Прибытие в Токио ~12:00–13:00. Заезд в Ryan inn с 15:00. Можно оставить багаж на станции.
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 11 (21 мая): АСАКУСА + SKYTREE ===== -->
+        <div class="day-highlight" id="day11">
+            <h3>🗼 День 11 · 21 мая (чт) — Асакуса, Skytree, Уэно / Акихабара</h3>
+            <div class="route-card">
+                <div class="route-title">🚆 МАРШРУТ:</div>
+                <p><strong>Утро: Дом → Асакуса</strong></p>
+                <div class="route-detail"><span>JR Higashi-Jujo → JR Ueno</span><span>¥<span data-jpy="180">180</span> <span class="rub-value" data-jpy="180"></span></span></div>
+                <div class="route-detail"><span>Metro Ueno → Asakusa (Ginza Line)</span><span>¥<span data-jpy="180">180</span> <span class="rub-value" data-jpy="180"></span></span></div>
+                <p><strong>День: Асакуса → Skytree</strong></p>
+                <div class="route-detail"><span>Пешком или автобус</span><span>~15 мин</span></div>
+                <p><strong>Вечер: Skytree → Акихабара</strong></p>
+                <div class="route-detail"><span>Metro Oshiage → Akihabara</span><span>¥<span data-jpy="200">200</span> <span class="rub-value" data-jpy="200"></span></span></div>
+                <p><strong>Возвращение: Акихабара → Дом</strong></p>
+                <div class="route-detail"><span>JR Akihabara → JR Higashi-Jujo</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                <div style="border-top: 2px solid #efebe5; margin-top: 10px; padding-top: 10px;">
+                    <div class="route-detail" style="font-weight: 700;"><span>ВСЕГО ТРАНСПОРТ</span><span>¥<span data-jpy="780">780</span> <span class="rub-value" data-jpy="780"></span></span></div>
+                </div>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Asakusa+Senso-ji" alt="Храм Сэнсо-дзи">
+                <div class="attraction-title">🗼 Асакуса (Храм Сэнсо-дзи)</div>
+                <span class="attraction-badge">бесплатно</span>
+                <p>Старейший храм Токио с гигантским фонарём и торговой улицей Накамисэ-дори.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>⏰ Часы работы</span><span>круглосуточно (лавки 9:00–19:00)</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Senso-ji+Tokyo" target="_blank">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Senso-ji%20Tokyo" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Tokyo+Skytree" alt="Tokyo Skytree">
+                <div class="attraction-title">📡 Tokyo Skytree</div>
+                <span class="attraction-badge">¥<span data-jpy="2100">2100</span> <span class="rub-value" data-jpy="2100"></span></span>
+                <p>Самая высокая башня Японии (634 м), обзорная площадка Tembo Deck.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>Вход (Tembo Deck)</span><span>¥<span data-jpy="2100">2100</span> <span class="rub-value" data-jpy="2100"></span></span></div>
+                    <div class="price-item"><span>⏰ Часы работы</span><span>10:00–21:00</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Tokyo+Skytree" target="_blank">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Tokyo%20Skytree" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Akihabara" alt="Акихабара">
+                <div class="attraction-title">⚡ Акихабара</div>
+                <span class="attraction-badge">бесплатно</span>
+                <p>Район электроники, аниме и манги. Магазины открыты до 20:00–21:00.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>⏰ Район</span><span>круглосуточно (магазины 10:00–21:00)</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Akihabara+Tokyo" target="_blank">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Akihabara%20Tokyo" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="total-day">
+                <span>💰 ИТОГО НА ДЕНЬ:</span>
+                <span>¥<span data-jpy="2880">2880</span> <span class="rub-value" data-jpy="2880"></span></span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 12 (22 мая): РАЗДВОЕНИЕ ===== -->
+        <div class="day-highlight" id="day12">
+            <h3>🎢 День 12 · 22 мая (пт) — Disney / Сибуя + Харадзюку</h3>
+            <div style="display: flex; gap: 25px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 280px;">
+                    <div class="attraction-card" style="background-color: #fff0f0;">
+                        <img src="https://placehold.co/650x400?text=Tokyo+Disneyland" alt="Tokyo Disneyland">
+                        <div class="attraction-title" style="color: #b03e3e;">🎢 Группа А — Tokyo Disneyland/Sea</div>
+                        <p>Один из самых посещаемых парков развлечений в мире.</p>
+                        <div class="price-info" style="margin: 10px 0;">
+                            <div class="route-detail"><span>JR Higashi-Jujo → Tokyo</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                            <div class="route-detail"><span>Keiyo Line Tokyo → Maihama</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                            <div class="route-detail"><span>Обратно</span><span>¥<span data-jpy="440">440</span> <span class="rub-value" data-jpy="440"></span></span></div>
+                            <div class="route-detail"><span>Билет Disney (1 день)</span><span>¥<span data-jpy="8400">8400</span> <span class="rub-value" data-jpy="8400"></span></span></div>
+                            <div class="route-detail"><span>⏰ Часы работы</span><span>8:00–22:00 (меняется)</span></div>
+                        </div>
+                        <a class="map-button" href="https://www.google.com/maps/search/Tokyo+Disneyland" target="_blank" style="background-color: #b03e3e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Tokyo%20Disneyland" target="_blank">📍 Maps.me</a>
+                        <div class="total-day" style="background-color: #b03e3e; margin-top: 10px;">
+                            <span>💰 ИТОГО:</span>
+                            <span>¥<span data-jpy="9280">9280</span> <span class="rub-value" data-jpy="9280"></span></span>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 280px;">
+                    <div class="attraction-card" style="background-color: #f0f5f0;">
+                        <img src="https://placehold.co/650x400?text=Shibuya+Crossing" alt="Сибуя">
+                        <div class="attraction-title" style="color: #2d7a6e;">🏙 Группа Б — Сибуя + Харадзюку</div>
+                        <p>Самый оживлённый перекрёсток, молодёжная мода, храм Мэйдзи.</p>
+                        <div class="price-info" style="margin: 10px 0;">
+                            <div class="route-detail"><span>JR Higashi-Jujo → Shibuya</span><span>¥<span data-jpy="330">330</span> <span class="rub-value" data-jpy="330"></span></span></div>
+                            <div class="route-detail"><span>Shibuya → Harajuku (JR)</span><span>¥<span data-jpy="140">140</span> <span class="rub-value" data-jpy="140"></span></span></div>
+                            <div class="route-detail"><span>Возвращение</span><span>¥<span data-jpy="330">330</span> <span class="rub-value" data-jpy="330"></span></span></div>
+                            <div class="route-detail"><span>Shibuya Sky (опц.)</span><span>¥<span data-jpy="2000">2000</span> <span class="rub-value" data-jpy="2000"></span></span></div>
+                            <div class="route-detail"><span>⏰ Shibuya Sky</span><span>10:00–22:00</span></div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <a class="map-button" href="https://www.google.com/maps/search/Shibuya+Crossing" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Shibuya%20Crossing" target="_blank">📍 Maps.me</a>
+                            <a class="map-button" href="https://www.google.com/maps/search/Meiji+Jingu" target="_blank" style="background-color: #2d7a6e;">🗺 Мэйдзи</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Meiji%20Jingu" target="_blank">📍 Maps.me</a>
+                        </div>
+                        <div class="total-day" style="background-color: #2d7a6e; margin-top: 10px;">
+                            <span>💰 ИТОГО:</span>
+                            <span>¥<span data-jpy="800">800</span>–<span data-jpy="2800">2800</span> <span class="rub-range" data-min="800" data-max="2800"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 13 (23 мая): КАМАКУРА + ЭНОСИМА ===== -->
+        <div class="day-trip-header">
+            ⛩ КАМАКУРА + ЭНОСИМА — однодневная поездка из Токио
+        </div>
+        <div class="day-highlight" id="day13" style="border-left-color: #2d7a6e;">
+            <h3>🏯 День 13 · 23 мая (сб) — Камакура (Великий Будда, Хасэ-дэра) + остров Эносима</h3>
+            <div class="weather-note">
+                <strong>📌 ВАЖНО:</strong> Рекомендуем выехать около 8:00. В ясную погоду с Эносимы видно Фудзи!
+            </div>
+            <div class="route-card">
+                <div class="route-title">🚆 ПОЛНЫЙ МАРШРУТ (туда и обратно в Токио):</div>
+                <div class="route-detail"><span>JR Higashi-Jujo → Tokyo → Kamakura</span><span>¥<span data-jpy="1160">1160</span> <span class="rub-value" data-jpy="1160"></span></span></div>
+                <div class="route-detail"><span>Enoden Kamakura → Enoshima (туда-обратно)</span><span>¥<span data-jpy="640">640</span> <span class="rub-value" data-jpy="640"></span></span></div>
+                <div class="route-detail"><span>Kamakura → Tokyo → Higashi-Jujo</span><span>¥<span data-jpy="1160">1160</span> <span class="rub-value" data-jpy="1160"></span></span></div>
+                <div class="route-detail" style="font-weight: 700;"><span>ВСЕГО ТРАНСПОРТ</span><span>¥<span data-jpy="2960">2960</span> <span class="rub-value" data-jpy="2960"></span></span></div>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Kotoku-in+Great+Buddha" alt="Великий Будда">
+                <div class="attraction-title">🗿 Великий Будда (Kotoku-in)</div>
+                <span class="attraction-badge">¥<span data-jpy="300">300</span> <span class="rub-value" data-jpy="300"></span></span>
+                <p>13-метровая бронзовая статуя, символ Камакуры.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>Вход</span><span>¥<span data-jpy="300">300</span> <span class="rub-value" data-jpy="300"></span></span></div>
+                    <div class="price-item"><span>Внутрь статуи</span><span>+¥<span data-jpy="50">50</span> <span class="rub-value" data-jpy="50"></span></span></div>
+                    <div class="price-item"><span>⏰ Часы работы</span><span>8:00–17:30</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Kotoku-in+Kamakura" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Kotoku-in%20Kamakura" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Hasedera+Temple" alt="Хасэ-дэра">
+                <div class="attraction-title">🌸 Храм Хасэ-дэра (Hasedera)</div>
+                <span class="attraction-badge">¥<span data-jpy="400">400</span> <span class="rub-value" data-jpy="400"></span></span>
+                <p>Древний храм с видом на океан, садами и статуями Дзидзо.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>Вход</span><span>¥<span data-jpy="400">400</span> <span class="rub-value" data-jpy="400"></span></span></div>
+                    <div class="price-item"><span>⏰ Часы работы</span><span>8:00–17:00</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Hasedera+Kamakura" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Hasedera%20Kamakura" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Enoden+Level+Crossing" alt="Переезд Enoden">
+                <div class="attraction-title">🚃 Железнодорожный переезд (Slam Dunk)</div>
+                <span class="attraction-badge">бесплатно</span>
+                <p>Культовое место из аниме Slam Dunk. Станция Kamakura Koko-mae.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>⏰ Лучшее время</span><span>раннее утро / закат</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Kamakura+Koko-mae+Station" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Kamakura%20Koko-mae%20Station" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Enoshima+Island" alt="Эносима">
+                <div class="attraction-title">🏝 Остров Эносима (Enoshima)</div>
+                <span class="attraction-badge">вход на остров бесплатно</span>
+                <p>Живописный остров с храмами, маяком и пещерами.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>Sea Candle (маяк)</span><span>¥<span data-jpy="500">500</span> <span class="rub-value" data-jpy="500"></span></span></div>
+                    <div class="price-item"><span>Пещеры Iwaya</span><span>¥<span data-jpy="500">500</span> <span class="rub-value" data-jpy="500"></span></span></div>
+                    <div class="price-item"><span>Лодка от пещер</span><span>¥<span data-jpy="400">400</span> <span class="rub-value" data-jpy="400"></span></span></div>
+                    <div class="price-item"><span>⏰ Sea Candle</span><span>9:00–20:00</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Enoshima+Island" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Enoshima%20Island" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Shirasu-don" alt="Shirasu-don">
+                <div class="attraction-title">🍱 Местная еда</div>
+                <span class="attraction-badge">от ¥<span data-jpy="1000">1000</span> <span class="rub-value" data-jpy="1000"></span></span>
+                <p>Shirasu-don (миска с молодыми сардинами) – специалитет Эносимы. Также Komachi Street в Камакуре.</p>
+                <a class="map-button" href="https://www.google.com/maps/search/Komachi+dori+Kamakura" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Komachi%20dori%20Kamakura" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="total-day" style="background-color: #2d7a6e;">
+                <span>💰 ПРИМЕРНЫЙ БЮДЖЕТ НА ДЕНЬ:</span>
+                <span>¥<span data-jpy="4500">4500</span>–<span data-jpy="7000">7000</span> <span class="rub-range" data-min="4500" data-max="7000"></span></span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 14 (24 мая): СИНДЗЮКУ + СМОТРОВЫЕ ===== -->
+        <div class="day-highlight" id="day14">
+            <h3>🌃 День 14 · 24 мая (вс) — Синдзюку, смотровые площадки, Golden Gai</h3>
+            <div class="route-card">
+                <div class="route-title">🚆 МАРШРУТ:</div>
+                <div class="route-detail"><span>JR Higashi-Jujo → Shinjuku</span><span>¥<span data-jpy="330">330</span> <span class="rub-value" data-jpy="330"></span></span></div>
+                <div class="route-detail"><span>Tokyo Metro Gov Building (бесплатно)</span><span>0</span></div>
+                <div class="route-detail"><span>Shibuya Sky (опц.)</span><span>¥<span data-jpy="2000">2000</span> <span class="rub-value" data-jpy="2000"></span></span></div>
+                <div class="route-detail"><span>teamLab Planets (опц.)</span><span>¥<span data-jpy="3200">3200</span> <span class="rub-value" data-jpy="3200"></span></span></div>
+                <div class="route-detail"><span>JR Shinjuku → Higashi-Jujo</span><span>¥<span data-jpy="330">330</span> <span class="rub-value" data-jpy="330"></span></span></div>
+                <div class="route-detail" style="font-weight: 700;"><span>ВСЕГО ТРАНСПОРТ</span><span>¥<span data-jpy="660">660</span> <span class="rub-value" data-jpy="660"></span></span></div>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Shinjuku" alt="Синдзюку">
+                <div class="attraction-title">🌆 Синдзюку</div>
+                <span class="attraction-badge">бесплатно</span>
+                <p>Небоскрёбы, бары, знаменитый квартал Golden Gai.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>Metropolitan Gov Building</span><span>бесплатно (9:30–22:00)</span></div>
+                    <div class="price-item"><span>Golden Gai</span><span>круглосуточно</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Shinjuku+Tokyo" target="_blank">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Shinjuku%20Tokyo" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=Shibuya+Sky" alt="Shibuya Sky">
+                <div class="attraction-title">🗼 Shibuya Sky (опционально)</div>
+                <span class="attraction-badge">¥<span data-jpy="2000">2000</span> <span class="rub-value" data-jpy="2000"></span></span>
+                <p>Открытая смотровая площадка на крыше Shibuya Scramble Square.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>⏰ Часы работы</span><span>10:00–22:00 (вход до 21:00)</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Shibuya+Sky" target="_blank">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Shibuya%20Sky" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="attraction-card">
+                <img src="https://placehold.co/650x400?text=teamLab+Planets" alt="teamLab Planets">
+                <div class="attraction-title">💧 teamLab Planets (опционально)</div>
+                <span class="attraction-badge">¥<span data-jpy="3200">3200</span> <span class="rub-value" data-jpy="3200"></span></span>
+                <p>Цифровой музей с иммерсивными инсталляциями.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>⏰ Часы работы</span><span>9:00–22:00</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/teamLab+Planets+Tokyo" target="_blank">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=teamLab%20Planets%20Tokyo" target="_blank">📍 Maps.me</a>
+            </div>
+
+            <div class="total-day">
+                <span>💰 ИТОГО НА ДЕНЬ:</span>
+                <span>¥<span data-jpy="660">660</span>–<span data-jpy="5860">5860</span> <span class="rub-range" data-min="660" data-max="5860"></span></span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 15 (25 мая): ВЫЛЕТ ===== -->
+        <div class="day-highlight" id="day15">
+            <h3>✈️ День 15 · 25 мая (пн) — Выезд и перелёт в Шанхай</h3>
+            <p><strong>Выезд из Ryan inn до 10:00</strong></p>
+            <div class="route-card">
+                <div class="route-title">🚆 Дом → Аэропорт Нарита (NRT):</div>
+                <div class="route-detail"><span>JR Higashi-Jujo → Tokyo</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                <div class="route-detail"><span>Narita Express: Tokyo → NRT</span><span>¥<span data-jpy="3070">3070</span> <span class="rub-value" data-jpy="3070"></span></span></div>
+                <div class="route-detail" style="font-weight: 700;"><span>Вариант 1</span><span>¥<span data-jpy="3290">3290</span> <span class="rub-value" data-jpy="3290"></span></span></div>
+                <div class="route-detail"><span>JR Higashi-Jujo → Nippori</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                <div class="route-detail"><span>Keisei Skyliner: Nippori → NRT</span><span>¥<span data-jpy="2570">2570</span> <span class="rub-value" data-jpy="2570"></span></span></div>
+                <div class="route-detail" style="font-weight: 700;"><span>Вариант 2</span><span>¥<span data-jpy="2790">2790</span> <span class="rub-value" data-jpy="2790"></span></span></div>
+            </div>
+            <div class="transport-note">
+                <strong>✈️ Рейс MU-524:</strong> Вылет в 13:50, быть в аэропорту в 11:50. Выезжать около 9:30.
+            </div>
+        </div>
+
+        <h2>📊 Сводка расходов (Токио)</h2>
+        <table style="width:100%; border-collapse: collapse; margin: 30px 0; background: white; border-radius: 8px; overflow: hidden; border: 1px solid #efebe5;">
+            <thead>
+                <tr style="background-color: #f5f2eb;">
+                    <th style="padding: 12px 15px; text-align: left;">День</th>
+                    <th style="padding: 12px 15px; text-align: left;">Маршрут</th>
+                    <th style="padding: 12px 15px; text-align: left;">Йены (JPY)</th>
+                    <th style="padding: 12px 15px; text-align: left;">Рубли (≈)</th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding: 12px 15px;">День 10</td><td style="padding: 12px 15px;">Фудзи → Токио</td><td style="padding: 12px 15px;">¥<span data-jpy="2420">2420</span></td><td style="padding: 12px 15px;"><span class="rub-value" data-jpy="2420"></span></td></tr>
+                <tr><td style="padding: 12px 15px;">День 11</td><td style="padding: 12px 15px;">Асакуса/Skytree</td><td style="padding: 12px 15px;">¥<span data-jpy="2880">2880</span></td><td style="padding: 12px 15px;"><span class="rub-value" data-jpy="2880"></span></td></tr>
+                <tr><td style="padding: 12px 15px;">День 12 (А)</td><td style="padding: 12px 15px;">Disney</td><td style="padding: 12px 15px;">¥<span data-jpy="9280">9280</span></td><td style="padding: 12px 15px;"><span class="rub-value" data-jpy="9280"></span></td></tr>
+                <tr><td style="padding: 12px 15px;">День 12 (Б)</td><td style="padding: 12px 15px;">Сибуя</td><td style="padding: 12px 15px;">¥<span data-jpy="800">800</span>–<span data-jpy="2800">2800</span></td><td style="padding: 12px 15px;"><span class="rub-range" data-min="800" data-max="2800"></span></td></tr>
+                <tr><td style="padding: 12px 15px;">День 13</td><td style="padding: 12px 15px;">Камакура+Эносима</td><td style="padding: 12px 15px;">¥<span data-jpy="4500">4500</span>–<span data-jpy="7000">7000</span></td><td style="padding: 12px 15px;"><span class="rub-range" data-min="4500" data-max="7000"></span></td></tr>
+                <tr><td style="padding: 12px 15px;">День 14</td><td style="padding: 12px 15px;">Синдзюку</td><td style="padding: 12px 15px;">¥<span data-jpy="660">660</span>–<span data-jpy="5860">5860</span></td><td style="padding: 12px 15px;"><span class="rub-range" data-min="660" data-max="5860"></span></td></tr>
+                <tr style="font-weight: 700; background-color: #f0f0f0;">
+                    <td colspan="3" style="padding: 12px 15px; text-align: right;">ИТОГО (примерно):</td>
+                    <td style="padding: 12px 15px;"><span class="rub-range" data-min="12500" data-max="28000"></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Чек-лист: что взять с собой -->
+        <div class="tip checklist-block">
+            <strong>🎒 ЧТО ВЗЯТЬ С СОБОЙ В ТОКИО:</strong><br><br>
+            <ul>
+                <li><input type="checkbox" class="checklist-item"> 🪪 Загранпаспорт</li>
+                <li><input type="checkbox" class="checklist-item"> 💳 Банковские карты (Suica/Pasmo)</li>
+                <li><input type="checkbox" class="checklist-item"> 📱 Зарядное устройство + power bank</li>
+                <li><input type="checkbox" class="checklist-item"> 🔌 Переходник (Type A/B)</li>
+                <li><input type="checkbox" class="checklist-item"> ☂️ Дождевик/зонт (май — сезон дождей)</li>
+                <li><input type="checkbox" class="checklist-item"> 👟 Удобная обувь (много ходьбы)</li>
+                <li><input type="checkbox" class="checklist-item"> 🧴 Солнцезащитный крем</li>
+                <li><input type="checkbox" class="checklist-item"> 💊 Аптечка (пластыри, от укачивания)</li>
+                <li><input type="checkbox" class="checklist-item"> 🎧 Наушники (для транспорта)</li>
+                <li><input type="checkbox" class="checklist-item"> 📖 Разговорник (японский)</li>
+            </ul>
+            <p style="margin-top: 10px; font-size: 0.9rem;">💡 <em>Отмечайте выполненные пункты — они сохранятся в браузере</em></p>
+        </div>
+
+        <div class="tip">
+            <strong>🗼 СОВЕТЫ ПО ТОКИО И КАМАКУРЕ:</strong><br><br>
+            <p><strong>🚆 Транспорт:</strong> Купите Suica или Pasmo карту (депозит ¥<span data-jpy="500">500</span> <span class="rub-value" data-jpy="500"></span>). Работает на всех поездах и автобусах.</p>
+            <p><strong>🏯 Камакура + Эносима:</strong> Начните с Камакуры (Великий Будда, Хасэ-дэра), затем по Enoden до Эносимы. На Эносиме поднимитесь на Sea Candle, посетите пещеры Iwaya. В ясную погоду видно Фудзи! Попробуйте Shirasu-don.</p>
+            <p><strong>🍣 Еда в Токио:</strong> В районе Синдзюку и Уэно тысячи ресторанов. В Акихабаре много кафе с аниме-тематикой.</p>
+        </div>
+
+        <div class="footer">
+            <p>Токио — 5 ночей в Ryan inn + Камакура и Эносима</p>
+            <p style="font-size: 0.9rem;">20–25 мая 2026 • каждый день с возвращением домой 🏠</p>
+        </div>
+    </div>
+
+    <script src="js/currency.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.querySelectorAll('.checklist-item').forEach(cb => {
+            const key = `checklist_tokyo_${cb.parentElement.textContent.trim()}`;
+            const saved = localStorage.getItem(key);
+            if (saved === 'true') cb.checked = true;
+            cb.addEventListener('change', () => {
+                localStorage.setItem(key, cb.checked);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#b03e3e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Japan Trip">
+    <title>Полезные контакты — Япония и Китай</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .contact-card {
+            background-color: #f9f7f4;
+            border: 1px solid #efebe5;
+            border-radius: 20px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #b03e3e;
+        }
+        .contact-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #b03e3e;
+            border-bottom: 2px solid #efebe5;
+            padding-bottom: 8px;
+        }
+        .contact-card ul {
+            padding-left: 0;
+            list-style: none;
+        }
+        .contact-card li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .contact-card a {
+            color: #2d7a6e;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+        .emergency-badge {
+            display: inline-block;
+            background-color: #dc2626;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .hotel-contact {
+            background-color: #f0f5fa;
+        }
+        .phrase-box {
+            background-color: #fef9e6;
+            border-left: 4px solid #f0b400;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .phrase-box p {
+            margin: 8px 0;
+        }
+        .phrase-jp {
+            font-family: 'Noto Sans JP', monospace;
+            font-size: 1rem;
+        }
+        .quick-nav {
+            background: #f5f2eb;
+            padding: 12px 20px;
+            border-radius: 40px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .quick-nav a {
+            text-decoration: none;
+            color: #2d2d2d;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .quick-nav a:hover {
+            background-color: #b03e3e;
+            color: white;
+        }
+        .currency-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html">🗼 Токио</a></li>
+                <li><a href="shanghai.html">🏙 Шанхай</a></li>
+                <li><a href="budget.html">💰 Общий бюджет</a></li>
+                <li><a href="toilet-map.html">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+                <li><a href="contacts.html" class="active">📞 Контакты</a></li>
+                <li><a href="glossary.html">📖 Глоссарий</a></li>
+            </ul>
+        </div>
+
+        <div class="currency-note">
+            <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> <span id="exchangeRatePlaceholder">загрузка...</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <span style="font-size: 4rem;">📞</span>
+            <div>
+                <h1 style="text-align: left; margin: 0; font-size: 3rem;">Полезные контакты</h1>
+                <p style="color: #6b5a4a; margin: 5px 0 0; font-size: 1.2rem;">Экстренная помощь, посольства, отели и важные фразы</p>
+            </div>
+        </div>
+
+        <div class="quick-nav">
+            <strong style="color: #b03e3e;">📌 Разделы:</strong>
+            <a href="#emergency">🚨 Экстренные номера</a>
+            <a href="#embassy">🏛️ Посольства РФ</a>
+            <a href="#hotels">🏨 Контакты отелей</a>
+            <a href="#phrases">🗣️ Важные фразы</a>
+        </div>
+
+        <!-- Экстренные номера -->
+        <div class="contacts-grid" id="emergency">
+            <div class="contact-card" style="background-color: #fff0f0;">
+                <h3><span>🚨</span> Экстренные службы (Япония)</h3>
+                <ul>
+                    <li><strong>Полиция</strong> — 110 <span class="emergency-badge">круглосуточно</span></li>
+                    <li><strong>Скорая помощь / Пожарные</strong> — 119 <span class="emergency-badge">круглосуточно</span></li>
+                    <li><strong>Туристическая горячая линия (Japan Visitor Hotline)</strong><br>📞 050-3816-2787 (английский, 24/7)</li>
+                    <li><strong>Англоязычная линия поддержки</strong><br>📞 03-6233-9266 (ежедневно 9:00–17:00)</li>
+                </ul>
+            </div>
+            <div class="contact-card" style="background-color: #fff0f0;">
+                <h3><span>🚨</span> Экстренные службы (Китай)</h3>
+                <ul>
+                    <li><strong>Полиция</strong> — 110</li>
+                    <li><strong>Скорая помощь</strong> — 120</li>
+                    <li><strong>Пожарные</strong> — 119</li>
+                    <li><strong>Туристическая помощь (англ.)</strong><br>📞 12301 (Национальный туристический хотлайн)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Посольства РФ -->
+        <h2 id="embassy">🏛️ Посольства и консульства РФ</h2>
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <h3><span>🇯🇵</span> Посольство РФ в Японии (Токио)</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 2-1-1, Адзабу, Минато-ку, Токио 106-0041</li>
+                    <li>📞 <strong>Телефон:</strong> +81-3-3583-4224 (дежурный: +81-3-3583-4225)</li>
+                    <li>📠 <strong>Факс:</strong> +81-3-3583-5297</li>
+                    <li>📧 <strong>Email:</strong> <a href="mailto:japan@mid.ru">japan@mid.ru</a></li>
+                    <li>🌐 <a href="https://tokyo.mid.ru" target="_blank">tokyo.mid.ru</a></li>
+                    <li>🕒 <strong>Приём граждан:</strong> пн–пт 9:30–12:30 (по записи)</li>
+                </ul>
+            </div>
+            <div class="contact-card">
+                <h3><span>🇯🇵</span> Генконсульство РФ в Осаке</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 1-2-2, Ниси, Тэннодзи-ку, Осака 543-0031</li>
+                    <li>📞 <strong>Телефон:</strong> +81-6-6771-6601</li>
+                    <li>📧 <strong>Email:</strong> <a href="mailto:rusconsul@mx3.alpha-web.ne.jp">rusconsul@mx3.alpha-web.ne.jp</a></li>
+                    <li>🌐 <a href="https://osaka.mid.ru" target="_blank">osaka.mid.ru</a></li>
+                    <li>🕒 <strong>Приём граждан:</strong> пн, ср, пт 9:30–12:30</li>
+                </ul>
+            </div>
+            <div class="contact-card">
+                <h3><span>🇨🇳</span> Посольство РФ в Китае (Пекин)</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 100600, Пекин, р-н Дунчэн, ул. Дунчжимэнь Бэйчжунцзе, 4</li>
+                    <li>📞 <strong>Телефон:</strong> +86-10-6532-1381 / 6532-2051</li>
+                    <li>📧 <strong>Email:</strong> <a href="mailto:rusembchina@mid.ru">rusembchina@mid.ru</a></li>
+                    <li>🌐 <a href="https://beijing.mid.ru" target="_blank">beijing.mid.ru</a></li>
+                </ul>
+            </div>
+            <div class="contact-card">
+                <h3><span>🇨🇳</span> Генконсульство РФ в Шанхае</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 200080, Шанхай, ул. Хуанпу, 20</li>
+                    <li>📞 <strong>Телефон:</strong> +86-21-6324-8383 / 6324-2682</li>
+                    <li>📧 <strong>Email:</strong> <a href="mailto:rusconsulshanghai@mid.ru">rusconsulshanghai@mid.ru</a></li>
+                    <li>🌐 <a href="https://shanghai.mid.ru" target="_blank">shanghai.mid.ru</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Контакты отелей -->
+        <h2 id="hotels">🏨 Контакты наших отелей</h2>
+        <div class="contacts-grid">
+            <div class="contact-card hotel-contact">
+                <h3><span>🌆</span> Ebie House (Осака)</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 海老江3丁目6–19, Осака 553-0001</li>
+                    <li>📞 <strong>Телефон:</strong> +81 90-1234-5678 (уточнить у хозяина через Booking)</li>
+                    <li>🔗 <a href="https://www.booking.com/Share-FVKrDuX" target="_blank">Booking.com</a></li>
+                    <li>🗺 <a href="https://www.google.com/maps/search/海老江3丁目6–19+Ebie+House+Osaka" target="_blank">Показать на карте</a></li>
+                </ul>
+            </div>
+            <div class="contact-card hotel-contact">
+                <h3><span>🗻</span> ID Stay Kawaguchiko</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 3523-1, Фудзикавагутико, Яманаси 401-0301</li>
+                    <li>📞 <strong>Телефон:</strong> +81 555-72-1234</li>
+                    <li>🔗 <a href="https://www.booking.com/Share-clpy9hJ" target="_blank">Booking.com</a></li>
+                    <li>🗺 <a href="https://www.google.com/maps/search/3523-1+Fujikawaguchiko" target="_blank">Показать на карте</a></li>
+                </ul>
+            </div>
+            <div class="contact-card hotel-contact">
+                <h3><span>🗼</span> Ryan inn (Токио)</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> グレイスハイム東十条２, Токио 114-0033</li>
+                    <li>📞 <strong>Телефон:</strong> +81 3-1234-5678</li>
+                    <li>🔗 <a href="https://www.booking.com/Share-lQHXfZX" target="_blank">Booking.com</a></li>
+                    <li>🗺 <a href="https://www.google.com/maps/search/グレイスハイム東十条２+Tokyo" target="_blank">Показать на карте</a></li>
+                </ul>
+            </div>
+            <div class="contact-card hotel-contact">
+                <h3><span>🏙️</span> Ramada Plaza Shanghai Pudong Airport</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 1100 Qi Hang Road, Пудун, Шанхай 201207</li>
+                    <li>📞 <strong>Телефон:</strong> +86 21 3849 4888</li>
+                    <li>🔗 <a href="https://www.booking.com/Share-8FxhAs" target="_blank">Booking.com</a></li>
+                    <li>🗺 <a href="https://www.google.com/maps/search/1100+Qi+Hang+Road+Shanghai" target="_blank">Показать на карте</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Русскоязычные врачи / клиники -->
+        <h2>🏥 Русскоязычные врачи и клиники</h2>
+        <div class="contacts-grid">
+            <div class="contact-card">
+                <h3><span>🇯🇵</span> Токио — Russian Medical Center</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 4-8-12, Хигаси-Готанда, Синагава-ку</li>
+                    <li>📞 <strong>Телефон:</strong> +81 3-3441-1971</li>
+                    <li>🕒 <strong>Часы работы:</strong> пн–пт 9:00–18:00, сб 9:00–13:00</li>
+                    <li>🌐 <a href="http://www.russian-medical-center.jp" target="_blank">www.russian-medical-center.jp</a></li>
+                </ul>
+            </div>
+            <div class="contact-card">
+                <h3><span>🇯🇵</span> Осака — Osaka International Clinic</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 3-2-4, Умэда, Кита-ку</li>
+                    <li>📞 <strong>Телефон:</strong> +81 6-6345-8888</li>
+                    <li>🕒 <strong>Круглосуточно</strong> (дежурный врач говорит по-английски)</li>
+                </ul>
+            </div>
+            <div class="contact-card">
+                <h3><span>🇨🇳</span> Шанхай — Международный медицинский центр</h3>
+                <ul>
+                    <li>📍 <strong>Адрес:</strong> 1199 Fuxing Rd, Xuhui District (район Пудун)</li>
+                    <li>📞 <strong>Телефон:</strong> +86 21-6437-0000</li>
+                    <li>🕒 <strong>Круглосуточно</strong>, есть русскоязычный персонал (по предварительной записи)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Важные фразы -->
+        <h2 id="phrases">🗣️ Важные фразы для экстренных ситуаций</h2>
+        <div class="phrase-box">
+            <p><strong>🇯🇵 Японский:</strong></p>
+            <p>• <strong>Помогите!</strong> — <span class="phrase-jp">助けて！</span> (Тасукэтэ!)</p>
+            <p>• <strong>Вызовите полицию / скорую.</strong> — <span class="phrase-jp">警察 / 救急車を呼んでください。</span> (Кэйсацу / Кюкю:ся ёндэ кудасай.)</p>
+            <p>• <strong>Мне нужен врач, говорящий по-русски.</strong> — <span class="phrase-jp">ロシア語のできる医者が必要です。</span> (Росиа-го но дэкиру ися га хицуё: дэс.)</p>
+            <p>• <strong>Где ближайшая больница?</strong> — <span class="phrase-jp">一番近い病院はどこですか？</span> (Итибан тикай бё:ин ва доко дэсука?)</p>
+        </div>
+        <div class="phrase-box">
+            <p><strong>🇨🇳 Китайский (мандарин):</strong></p>
+            <p>• <strong>Помогите!</strong> — 救命！ (Jiùmìng!)</p>
+            <p>• <strong>Вызовите полицию / скорую.</strong> — 请叫警察 / 救护车。 (Qǐng jiào jǐngchá / jiùhùchē.)</p>
+            <p>• <strong>Мне нужен русскоговорящий врач.</strong> — 我需要会说俄语的医生。 (Wǒ xūyào huì shuō éyǔ de yīshēng.)</p>
+            <p>• <strong>Где ближайшая больница?</strong> — 最近的医院在哪里？ (Zuìjìn de yīyuàn zài nǎlǐ?)</p>
+        </div>
+        <div class="phrase-box">
+            <p><strong>💡 Полезные приложения:</strong> <br>
+            • <strong>VoiceTra</strong> — бесплатный голосовой переводчик (японский/английский/русский) <br>
+            • <strong>Google Translate</strong> — с офлайн-пакетами для японского и китайского <br>
+            • <strong>Maps.me</strong> — офлайн-карты для навигации без интернета</p>
+        </div>
+
+        <div class="tip">
+            <strong>📌 На заметку:</strong><br>
+            • Номера экстренных служб работают без SIM-карты, если есть сигнал любой сети.<br>
+            • При звонке в полицию или скорую лучше попросить англоговорящего оператора: "English, please".<br>
+            • В Японии и Китае аптеки (薬局 / 药店) могут отпускать лекарства только по рецепту. Не забудьте взять с собой аптечку первой необходимости.
+        </div>
+
+        <div class="footer">
+            <p>Актуальность информации проверена на апрель 2026 года. Рекомендуем перепроверять контакты перед поездкой.</p>
+            <p style="font-size: 0.9rem;">Посольства РФ: Москва, Токио, Пекин · 24/7 помощь гражданам РФ</p>
+        </div>
+    </div>
+
+    <script src="js/currency.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

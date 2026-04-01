@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#b03e3e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Japan Trip">
+    <title>Фудзикавагутико + Хаконе — у подножия Фудзи</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        /* Дополнительные стили для страницы Фудзи */
+        .day-highlight {
+            background-color: #fff9f5;
+            border: 1px solid #efebe5;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2d7a6e;
+            scroll-margin-top: 80px;
+        }
+        .day-highlight h3 {
+            margin-top: 0;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #efebe5;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .transport-note {
+            background-color: #f5f2eb;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin: 15px 0;
+            color: #4a4a4a;
+        }
+        .route-card {
+            background-color: white;
+            border: 1px solid #efebe5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        .route-title {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .route-detail {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px dotted #efebe5;
+        }
+        .total-day {
+            background-color: #2d7a6e;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        .hotel-info {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2d7a6e;
+        }
+        .attraction-card {
+            background-color: #f9f7f4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #efebe5;
+            transition: transform 0.2s;
+        }
+        .attraction-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .attraction-card img {
+            width: 100%;
+            max-width: 650px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .attraction-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        .attraction-badge {
+            display: inline-block;
+            background-color: #2d7a6e;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        .weather-note {
+            background-color: #e6f2f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2d7a6e;
+        }
+        .bus-schedule {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid #efebe5;
+        }
+        .bus-schedule p {
+            margin: 5px 0;
+        }
+        .city-badge {
+            display: inline-block;
+            background-color: #2d7a6e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .currency-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .evening-plan {
+            background-color: #e6f2f0;
+            border-left: 4px solid #2d7a6e;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .morning-plan {
+            background-color: #fff0e0;
+            border-left: 4px solid #ff8c00;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin: 10px 0;
+            align-items: flex-start;
+        }
+        .timeline-time {
+            min-width: 100px;
+            font-weight: 600;
+            color: #2d7a6e;
+        }
+        .timeline-desc {
+            flex: 1;
+        }
+        .map-container {
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+        }
+        .map-caption {
+            font-size:0.9rem;
+            color:#6b5a4a;
+            margin-top:8px;
+            text-align: center;
+        }
+        .quick-nav {
+            background: #f5f2eb;
+            padding: 12px 20px;
+            border-radius: 40px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .quick-nav a {
+            text-decoration: none;
+            color: #2d2d2d;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .quick-nav a:hover {
+            background-color: #2d7a6e;
+            color: white;
+        }
+        .collapsible-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e6f2e6;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 0;
+        }
+        .collapsible-header h4 {
+            margin: 0;
+            color: #2d7a6e;
+        }
+        .collapsible-header:hover {
+            background-color: #d4e4d4;
+        }
+        .collapsible-content {
+            display: block;
+            padding-top: 15px;
+        }
+        .checklist-block {
+            background-color: #f0f5fa;
+            border-left: 4px solid #2d7a6e;
+        }
+        .checklist-block ul {
+            columns: 2;
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .checklist-block ul {
+                columns: 1;
+            }
+            .timeline-time {
+                min-width: 70px;
+            }
+            .map-container iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html" class="active">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html">🗼 Токио</a></li>
+                <li><a href="shanghai.html">🏙 Шанхай</a></li>
+                <li><a href="budget.html">💰 Общий бюджет</a></li>
+                <li><a href="toilet-map.html">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+                <li><a href="contacts.html">📞 Контакты</a></li>
+                <li><a href="glossary.html">📖 Глоссарий</a></li>
+            </ul>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <span style="font-size: 4rem;">🗻</span>
+            <div>
+                <h1 style="text-align: left; margin: 0; font-size: 3rem;">Фудзи</h1>
+                <p style="color: #6b5a4a; margin: 5px 0 0; font-size: 1.2rem;">Фудзикавагутико • 18–20 мая 2026 (2 ночи)</p>
+            </div>
+        </div>
+
+        <div class="currency-note" id="currencyNote">
+            <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> <span id="exchangeRatePlaceholder">загрузка...</span>
+        </div>
+
+        <div class="quick-nav">
+            <strong style="color: #2d7a6e;">📅 Дни:</strong>
+            <a href="#day8">День 8 (18 мая)</a>
+            <a href="#day9">День 9 (19 мая)</a>
+            <a href="#day10">День 10 (20 мая)</a>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <span class="city-badge">🏠 ID Stay Kawaguchiko</span>
+            <span class="city-badge">⛩ Heiwa-no-Torii (Hakone)</span>
+            <span class="city-badge">🚲 Электровелосипеды</span>
+            <span class="city-badge">♨️ Kasuitei Ooya</span>
+        </div>
+
+        <div class="hotel-info">
+            <h3 style="margin-top: 0; color: #2d7a6e;">🏠 ID STAY KAWAGUCHIKO</h3>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between;">
+                <div>
+                    <p><strong>ID Stay Kawaguchiko 🔑🔑🔑</strong></p>
+                    <p>📍 <strong>Адрес:</strong> 3523-1, Фудзикавагутико, Яманаси, Япония</p>
+                    <p>📅 <strong>Заезд:</strong> 18 мая с 16:00 до 22:00 | <strong>Выезд:</strong> 20 мая до 10:00</p>
+                </div>
+                <div>
+                    <p><strong>🚉 Транспорт:</strong></p>
+                    <p>• От станции Kawaguchiko — пешком</p>
+                    <p>• 19 мая арендуем электровелосипеды</p>
+                </div>
+                <div>
+                    <a class="map-button" href="https://www.google.com/maps/search/3523-1+Fujikawaguchiko" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=3523-1%20Fujikawaguchiko" target="_blank">📍 Maps.me</a>
+                    <a class="map-button" href="https://www.booking.com/Share-clpy9hJ" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 8 (18 мая): ПЕРЕЕЗД ИЗ ОСАКИ + ВЕЧЕРНИЙ ОНСЭН ===== -->
+        <div class="day-highlight" id="day8">
+            <h3>🚆 День 8 · 18 мая (пн) — Переезд Осака → Фудзи + вечерний онсэн в Kasuitei Ooya</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚄 ОСАКА → ФУДЗИКАВАГУТИКО — оптимальный маршрут:</div>
+                
+                <p><strong>Этап 1: От дома до Синкансэна</strong></p>
+                <div class="route-detail"><span>JR Ebie → Shin-Osaka</span><span>¥<span data-jpy="190">190</span> <span class="rub-value" data-jpy="190"></span></span></div>
+                
+                <p><strong>Этап 2: 🚄 Синкансэн (Shin-Osaka → Mishima)</strong></p>
+                <div class="route-detail"><span>Синкансэн Hikari / Kodama</span><span>¥<span data-jpy="11450">11450</span> <span class="rub-value" data-jpy="11450"></span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem; color: #666;"><span>Время в пути: ~2 ч 15 мин</span><span></span></div>
+                
+                <p><strong>Этап 3: 🚌 Скоростной автобус (Mishima → Kawaguchiko)</strong></p>
+                <div class="route-detail"><span>Автобус Fujikyu City Bus "Mishima Kawaguchiko Liner"</span><span>¥<span data-jpy="2260">2260</span> <span class="rub-value" data-jpy="2260"></span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem; color: #666;"><span>Время в пути: ~1 ч 45 мин</span><span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Отправление от южного выхода станции Мисима</span><span></span></div>
+                
+                <div style="border-top: 2px solid #efebe5; margin-top: 15px; padding-top: 15px;">
+                    <div class="route-detail" style="font-weight: 700; font-size: 1.1rem;">
+                        <span>💰 ИТОГО ТРАНСПОРТ (на человека)</span>
+                        <span>¥<span data-jpy="13900">13900</span> <span class="rub-value" data-jpy="13900"></span></span>
+                    </div>
+                    <div class="route-detail" style="color: #666;">
+                        <span>⏱ Общее время в пути</span>
+                        <span>~4 ч 10 мин</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bus-schedule">
+                <p><strong>🚌 Официальное расписание автобусов Mishima → Kawaguchiko (Fujikyu City Bus):</strong></p>
+                <p>• 12:20 → 13:50 (¥<span data-jpy="2260">2260</span> <span class="rub-value" data-jpy="2260"></span>, 1ч 30м)</p>
+                <p>• 13:20 → 14:50 (¥<span data-jpy="2260">2260</span> <span class="rub-value" data-jpy="2260"></span>, 1ч 30м)</p>
+                <p><strong>• 14:20 → 15:50 (¥<span data-jpy="2260">2260</span> <span class="rub-value" data-jpy="2260"></span>, 1ч 30м) — ваш рейс!</strong></p>
+                <p>• 15:20 → 16:50 (¥<span data-jpy="2260">2260</span> <span class="rub-value" data-jpy="2260"></span>, 1ч 30м) — запасной</p>
+                <p>• 16:20 → 17:50 (¥<span data-jpy="2260">2260</span> <span class="rub-value" data-jpy="2260"></span>, 1ч 30м)</p>
+                <p>• 17:20 → 18:50 (¥<span data-jpy="2260">2260</span> <span class="rub-value" data-jpy="2260"></span>, 1ч 30м)</p>
+                <p><em>Отправление от южного выхода станции Мисима, время до автобуса — 4 минуты пешком. Оплата наличными, IC картами (Suica/PASMO) или кредиткой.</em></p>
+            </div>
+            
+            <div class="transport-note">
+                <strong>🏨 Заселение в ID Stay Kawaguchiko:</strong> Прибытие в Кавагутико ~16:30–17:30.
+            </div>
+
+            <div class="evening-plan">
+                <h4 style="margin-top: 0; color: #2d7a6e; font-size: 1.2rem;">♨️ ВЕЧЕРНЯЯ ПРОГРАММА: Kasuitei Ooya — частный онсэн на 1 час</h4>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: center;">
+                    <div style="flex: 2; min-width: 250px;">
+                        <p><strong>После заселения отправляемся в Kasuitei Ooya — один из лучших рёканов на берегу озера Кавагутико.</strong></p>
+                        
+                        <div style="background-color: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                            <p><strong>📍 Адрес:</strong> 4025 Funatsu, Фудзикавагутико, Яманаси </p>
+                            <p><strong>🚲 От нашего дома:</strong> ~15 мин пешком</p>
+                            <p><strong>🕒 Часы работы приватных бань:</strong> 5:00–23:00 </p>
+                            <p><strong>💰 Аренда на 50 минут:</strong> ≈¥<span data-jpy="2000">2000</span>–<span data-jpy="3000">3000</span> <span class="rub-range" data-min="2000" data-max="3000"></span> (на всю группу) </p>
+                            <p><strong>📞 Телефон для брони:</strong> +81-555-72-1212 </p>
+                        </div>
+                        
+                        <p><strong>Почему это идеальный выбор:</strong></p>
+                        <ul>
+                            <li>Можно арендовать <strong>приватную баню на 50 минут</strong> только для нашей группы </li>
+                            <li>Есть купели с видом на озеро и Фудзи </li>
+                            <li>Работает до 23:00 — успеваем после заселения </li>
+                            <li>В рёкане есть ресторан, где можно поужинать после онсэна </li>
+                        </ul>
+                        
+                        <div class="price-summary" style="margin-top: 10px;">
+                            <p><strong>💰 Бюджет на вечер (на человека):</strong></p>
+                            <div class="route-detail"><span>Аренда приватного онсэна (доля с группы)</span><span>≈¥<span data-jpy="333">333</span>–<span data-jpy="500">500</span> <span class="rub-range" data-min="333" data-max="500"></span></span></div>
+                            <div class="route-detail"><span>Ужин в рёкане (опционально)</span><span>от ¥<span data-jpy="3000">3000</span> <span class="rub-value" data-jpy="3000"></span></span></div>
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <img src="https://i.ibb.co/pvWH001y/IMG-20250223-152553.jpg" alt="Kasuitei Ooya" style="width:100%; border-radius:12px;">
+                        <p style="font-size:0.8rem; color:#8b7a6a;">Вид на озеро из Kasuitei Ooya</p>
+                    </div>
+                </div>
+                
+                <div style="background-color: #fff9e6; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <p><strong>📝 Важно про бронирование:</strong></p>
+                    <ul style="margin-bottom: 0;">
+                        <li>Приватные бани бронируются <strong>заранее</strong> (позвонить по телефону +81-555-72-1212) </li>
+                        <li>Сказать, что хотим арендовать "private bath for 50 minutes" для группы из 6 человек</li>
+                        <li>Уточнить, есть ли купель с видом на озеро/Фудзи </li>
+                        <li>Время работы приватных бань: 5:00–23:00 </li>
+                        <li><strong>Важно:</strong> В Kasuitei Ooya есть политика в отношении татуировок — в общественных зонах с ними нельзя, но в приватной бане проблем не будет </li>
+                    </ul>
+                </div>
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                    <a class="map-button" href="https://www.google.com/maps/search/Kasuitei+Ooya" target="_blank" style="background-color: #2d7a6e;">🗺 Kasuitei Ooya на карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Kasuitei%20Ooya" target="_blank">📍 Maps.me</a>
+                </div>
+            </div>
+
+            <div class="route-card" style="margin-top: 20px;">
+                <div class="route-title">🕒 ПЛАН ВЕЧЕРА 18 МАЯ:</div>
+                <div class="timeline-item">
+                    <div class="timeline-time">16:30–17:30</div>
+                    <div class="timeline-desc">Прибытие в Кавагутико, заселение в ID Stay</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">17:30–17:45</div>
+                    <div class="timeline-desc">Пешком до Kasuitei Ooya</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">18:00–19:00</div>
+                    <div class="timeline-desc">♨️ Частный онсэн (сессия на 50 мин)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">19:00–20:30</div>
+                    <div class="timeline-desc">Ужин в Kasuitei Ooya или возвращение в дом</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">20:30–22:00</div>
+                    <div class="timeline-desc">Прогулка у озера или отдых</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 9 (19 мая): ХАКОНЕ + ВЕЛОПРОГУЛКА ВОКРУГ ОЗЕРА ===== -->
+        <div class="day-highlight" id="day9">
+            <h3>🗻 День 9 · 19 мая (вт) — Хаконе (Heiwa-no-Torii) + велопрогулка вокруг озера</h3>
+            
+            <div class="weather-note">
+                <strong>☀️ ВАЖНО ПРО ПОГОДУ:</strong> Май — хороший месяц, но облачность может меняться. Утром проверяем прогноз.
+            </div>
+
+            <div class="morning-plan">
+                <h4 style="margin-top: 0; color: #ff8c00; font-size: 1.2rem;">🌅 УТРЕННЯЯ ПРОГРАММА: Хаконе (Heiwa-no-Torii)</h4>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 2; min-width: 250px;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">5:00</div>
+                            <div class="timeline-desc"><strong>Подъём</strong></div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">5:30</div>
+                            <div class="timeline-desc">Быстрый завтрак (можно взять с собой)</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">6:00</div>
+                            <div class="timeline-desc"><strong>Выезд на частном минивэне с водителем</strong> в Хаконе</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">7:00–9:00</div>
+                            <div class="timeline-desc">
+                                <strong>⛩ Heiwa-no-Torii (Hakone Shrine) 平和の鳥居</strong><br>
+                                Знаменитые красные ворота на берегу озера Аси. Утром здесь меньше всего туристов — идеально для фото.
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">9:00–10:00</div>
+                            <div class="timeline-desc">Возвращение в Фудзикавагутико (сразу к аренде электровелосипедов)</div>
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <img src="https://i.ibb.co/N2mX5K6d/i-4.jpg" alt="Heiwa-no-Torii" style="width:100%; border-radius:12px;">
+                        <p style="font-size:0.8rem; color:#8b7a6a;">Heiwa-no-Torii, Хаконе</p>
+                    </div>
+                </div>
+                
+                <div style="background-color: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>💰 Трансфер в Хаконе (на человека):</strong></p>
+                    <div class="route-detail"><span>Частный минивэн с водителем (на группу)</span><span>¥<span data-jpy="40000">40000</span>–<span data-jpy="50000">50000</span> <span class="rub-range" data-min="40000" data-max="50000"></span></span></div>
+                    <div class="route-detail"><span>На человека (6 чел)</span><span>≈¥<span data-jpy="6667">6667</span>–<span data-jpy="8333">8333</span> <span class="rub-range" data-min="6667" data-max="8333"></span></span></div>
+                </div>
+                
+                <div style="background-color: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>📍 Heiwa-no-Torii (Hakone Shrine):</strong></p>
+                    <div class="route-detail"><span>⏰ Лучшее время</span><span>раннее утро (до 8:00)</span></div>
+                    <div class="route-detail"><span>💰 Вход</span><span>бесплатно</span></div>
+                    <div class="route-detail"><span>🚗 Время в пути от Кавагутико</span><span>~60 мин</span></div>
+                </div>
+            </div>
+
+            <div class="attraction-card" style="background-color: #e6f2e6; margin-top: 20px;">
+                <h4 style="margin-top: 0; color: #2d7a6e;">🚲 АРЕНДА ЭЛЕКТРОВЕЛОСИПЕДОВ В JAYS rental cycle</h4>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">10:00–10:30</div>
+                    <div class="timeline-desc"><strong>Прибытие в JAYS rental cycle & souvenir shop</strong></div>
+                </div>
+                
+                <div style="background-color: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>JAYS rental cycle & souvenir shop</strong></p>
+                    <div class="route-detail"><span>📍 Адрес:</span><span>4779-7 Funatsu, Фудзикавагутико</span></div>
+                    <div class="route-detail"><span>⏰ Часы работы:</span><span>9:00–19:00</span></div>
+                    <div class="route-detail"><span>💴 Электровелосипед (1 день):</span><span>¥<span data-jpy="2500">2500</span> <span class="rub-value" data-jpy="2500"></span></span></div>
+                    <div class="route-detail"><span>🕒 Возврат до</span><span>19:00 (мы вернём в 18:00–18:30)</span></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">10:30–11:00</div>
+                    <div class="timeline-desc"><strong>Заезжаем домой (ID Stay),</strong> оставляем вещи, готовимся к велопоездке</div>
+                </div>
+            </div>
+
+            <!-- Сворачиваемый блок веломаршрута -->
+            <div class="attraction-card" style="margin-top: 20px;">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                    <h4 style="margin: 0; color: #2d7a6e;">🚲 ДЕТАЛЬНЫЙ МАРШРУТ ВЕЛОПРОГУЛКИ (11:00 – 18:30)</h4>
+                    <span style="font-size: 1.2rem;">▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <div style="background-color: #fff9e6; padding: 10px; border-radius: 8px; margin-bottom: 15px; margin-top: 15px;">
+                        <p><strong>📊 Общая информация:</strong></p>
+                        <div class="route-detail"><span>⏱ Общее время</span><span>~7-7,5 часов</span></div>
+                        <div class="route-detail"><span>🚴 Протяжённость</span><span>~25-30 км</span></div>
+                        <div class="route-detail"><span>⚡ Заряд аккумулятора</span><span>хватит с запасом</span></div>
+                    </div>
+
+                    <!-- Карта (iframe) -->
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/d/embed?mid=1qze9ExfScj-2W-kAt_tf0QNEYzspedU&ehbc=2E312F&noprof=1" loading="lazy"></iframe>
+                    </div>
+                    <div class="map-caption">* Нажмите на метки, чтобы увидеть названия мест. Можно приближать и перемещать карту.</div>
+
+                    <div style="margin: 20px 0; padding: 10px; background-color: #f0f0f0; border-radius: 8px;">
+                        <p><strong>🛫 СТАРТ: ID Stay Kawaguchiko → JAYS (уже там) → сразу в путь</strong></p>
+                    </div>
+
+                    <!-- Точка 1 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">11:00</div>
+                            <div class="timeline-desc"><strong>Выезд из дома</strong></div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">11:15</div>
+                            <div class="timeline-desc">
+                                <strong>1. 🚠 Mt. Fuji Panoramic Ropeway</strong><br>
+                                Канатная дорога на гору Тэнодзан. Вид на озеро и Фудзи.
+                                <img src="https://i.ibb.co/ds3cMdXg/IMG-20250223-152553.jpg" alt="Mt. Fuji Panoramic Ropeway" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>45–60 мин</span></div>
+                                    <div class="route-detail"><span>💰 Канатка</span><span>¥<span data-jpy="900">900</span> <span class="rub-value" data-jpy="900"></span></span></div>
+                                    <div class="route-detail"><span>⏰ Часы работы</span><span>9:00–17:00 (май)</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Mt.+Fuji+Panoramic+Ropeway" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Mt.%20Fuji%20Panoramic%20Ropeway" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 2 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">12:15</div>
+                            <div class="timeline-desc">
+                                <strong>2. 💧 Haha-no-Shirataki Waterfall 母の白滝</strong><br>
+                                Живописный водопад, спрятанный в лесу. Очень атмосферное место.
+                                <img src="https://i.ibb.co/0yDJxB6v/IMG-20250223-152553.jpg" alt="Haha-no-Shirataki Waterfall" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>30–45 мин</span></div>
+                                    <div class="route-detail"><span>💰 Вход</span><span>бесплатно</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Haha-no-Shirataki+Waterfall+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Haha-no-Shirataki%20Waterfall%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 3 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">13:00</div>
+                            <div class="timeline-desc">
+                                <strong>3. 📸 河口湖拍富士山倒影較無人景點 (Lake Kawaguchiko reflection spot)</strong><br>
+                                Секретное место для фото с отражением Фудзи в озере. Мало туристов.
+                                <img src="https://i.ibb.co/Zzbh3yFk/Screenshot-20260306-010254-Maps.jpg" alt="Lake Kawaguchiko reflection spot" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>20 мин</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 4 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">13:20</div>
+                            <div class="timeline-desc">
+                                <strong>4. 🖼️ Kubota Itchiku Art Museum 久保田一竹美術館</strong><br>
+                                Музей знаменитого художника по текстилю Куботы Иттику. Уникальные кимоно и сад.
+                                <img src="https://i.ibb.co/xr1y6zn/accesso-al-botteghino.jpg" alt="Kubota Itchiku Art Museum" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>1 час</span></div>
+                                    <div class="route-detail"><span>💰 Вход</span><span>¥<span data-jpy="1300">1300</span> <span class="rub-value" data-jpy="1300"></span></span></div>
+                                    <div class="route-detail"><span>⏰ Часы</span><span>9:30–17:30</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Kubota+Itchiku+Art+Museum+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Kubota%20Itchiku%20Art%20Museum%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 5 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">14:20</div>
+                            <div class="timeline-desc">
+                                <strong>5. 🌳 Nagasaki Park 長崎公園</strong><br>
+                                Парк на берегу озера с видом на Фудзи. Хорошее место для фоток.
+                                <img src="https://i.ibb.co/yFBcXxJQ/IMG-20250223-152553.jpg" alt="Nagasaki Park" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>25 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Nagasaki+Park+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Nagasaki%20Park%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 6 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">14:45</div>
+                            <div class="timeline-desc">
+                                <strong>6. 🌸 Oishi Park 大石公園</strong><br>
+                                Знаменитый парк с цветами и идеальным видом на Фудзи.
+                                <img src="https://i.ibb.co/LzwRb19g/IMG-20250223-152553.jpg" alt="Oishi Park" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>40 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Oishi+Park+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Oishi%20Park%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 7 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">15:25</div>
+                            <div class="timeline-desc">
+                                <strong>7. Rusugaiwa (Rusu Rock) 留守ヶ岩</strong><br>
+                                Скала с панорамным видом на озеро и гору.
+                                <img src="https://i.ibb.co/3yLpx4ZN/IMG-20250223-152553.jpg" alt="Rusugaiwa" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>15 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Rusugaiwa+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Rusugaiwa%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 8 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">15:40</div>
+                            <div class="timeline-desc">
+                                <strong>8. Ogizaki 扇崎</strong><br>
+                                Мыс с видом на северную часть озера.
+                                <img src="https://i.ibb.co/JWH924Zh/IMG-20250223-152553.jpg" alt="Ogizaki" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>15 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Ogizaki+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Ogizaki%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 9 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">15:55</div>
+                            <div class="timeline-desc">
+                                <strong>9. ☕ Cafe & Dining Sakura</strong><br>
+                                Уютное кафе с видом на озеро. Можно выпить кофе и перекусить.
+                                <img src="https://i.ibb.co/RpH0SPZ5/Screenshot-20260305-221853.jpg" alt="Cafe & Dining Sakura" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>40-60 мин (перекус и отдых)</span></div>
+                                    <div class="route-detail"><span>💰 Средний чек</span><span>¥<span data-jpy="1000">1000</span>–<span data-jpy="1500">1500</span> <span class="rub-range" data-min="1000" data-max="1500"></span></span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Cafe+and+Dining+Sakura+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Cafe%20and%20Dining%20Sakura%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 10 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">16:55</div>
+                            <div class="timeline-desc">
+                                <strong>10. Koumi Park 小海公園</strong><br>
+                                Небольшой парк на восточном берегу.
+                                <img src="https://i.ibb.co/s9649mDv/Screenshot-20260305-222135.jpg" alt="Koumi Park" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>15 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Koumi+Park+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Koumi%20Park%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 11 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">17:10</div>
+                            <div class="timeline-desc">
+                                <strong>11. 🔔 Sakuya Bell of Love さくや愛の鐘</strong><br>
+                                Романтичный колокол с видом на Фудзи.
+                                <img src="https://i.ibb.co/8nwNS4RF/IMG-20250223-152553.jpg" alt="Sakuya Bell of Love" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>15 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Sakuya+Bell+of+Love+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Sakuya%20Bell%20of%20Love%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 12 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">17:25</div>
+                            <div class="timeline-desc">
+                                <strong>12. ⛩️ Kawaguchiko Shojinjo 河口湖精進場</strong><br>
+                                Историческое место, связанное с религиозными практиками.
+                                <img src="https://i.ibb.co/9mFrQ012/IMG-20250223-152553.jpg" alt="Kawaguchiko Shojinjo" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>20 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Kawaguchiko+Shojinjo" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Kawaguchiko%20Shojinjo" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Точка 13 -->
+                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px dashed #efebe5;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">17:45</div>
+                            <div class="timeline-desc">
+                                <strong>13. Ubuyagasaki</strong><br>
+                                Мыс на восточной стороне озера.
+                                <img src="https://i.ibb.co/67sNMCmt/IMG-20250223-152553.jpg" alt="Ubuyagasaki" style="width:100%; max-width:650px; border-radius:12px; margin:10px 0;">
+                                <div class="price-info" style="margin:5px 0 0 0; padding:5px;">
+                                    <div class="route-detail"><span>⏰ Время</span><span>20 мин</span></div>
+                                </div>
+                                <a class="map-button" href="https://www.google.com/maps/search/Ubuyagasaki+Kawaguchiko" target="_blank" style="padding:5px 10px; font-size:0.8rem;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=Ubuyagasaki%20Kawaguchiko" target="_blank">📍 Maps.me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Финиш -->
+                    <div style="margin: 20px 0; padding: 15px; background-color: #e6f2e6; border-radius: 8px;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">18:05–18:30</div>
+                            <div class="timeline-desc">
+                                <strong>🏁 ФИНИШ: JAYS rental cycle & souvenir shop</strong><br>
+                                Возвращаем электровелосипеды (до закрытия в 19:00)
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">18:30</div>
+                            <div class="timeline-desc">
+                                Пешком возвращаемся в ID Stay (10–15 мин)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-summary" style="margin-top: 15px;">
+                        <p><strong>💰 Бюджет на велопрогулку:</strong></p>
+                        <div class="route-detail"><span>Канатная дорога</span><span>¥<span data-jpy="900">900</span> <span class="rub-value" data-jpy="900"></span></span></div>
+                        <div class="route-detail"><span>Музей Куботы</span><span>¥<span data-jpy="1300">1300</span> <span class="rub-value" data-jpy="1300"></span></span></div>
+                        <div class="route-detail"><span>Перекус в кафе</span><span>¥<span data-jpy="1000">1000</span>–<span data-jpy="1500">1500</span> <span class="rub-range" data-min="1000" data-max="1500"></span></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="evening-plan">
+                <h4 style="margin-top: 0; color: #2d7a6e; font-size: 1.2rem;">♨️ ВЕЧЕРНЯЯ ПРОГРАММА: Онсэн + ужин</h4>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 2; min-width: 250px;">
+                        <div class="timeline-item">
+                            <div class="timeline-time">18:45</div>
+                            <div class="timeline-desc">Возвращение в дом, отдыхаем и в 19:40 выходим в сторону онсэна</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">20:00–21:00</div>
+                            <div class="timeline-desc"><strong>♨️ Kasuitei Ooya — частный онсэн на 1 час</strong></div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">21:00–22:00</div>
+                            <div class="timeline-desc"><strong>🍽️ Ужин в Kasuitei Ooya</strong></div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">22:00</div>
+                            <div class="timeline-desc">Возвращение в отель, отдых</div>
+                        </div>
+                        
+                        <div style="background-color: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                            <p><strong>Kasuitei Ooya (на человека)</strong></p>
+                            <div class="route-detail"><span>📍 Адрес</span><span>4025 Funatsu, Фудзикавагутико</span></div>
+                            <div class="route-detail"><span>⏰ Часы приватных бань</span><span>5:00–23:00</span></div>
+                            <div class="route-detail"><span>💰 Аренда на 50 мин (доля с группы)</span><span>¥<span data-jpy="333">333</span>–<span data-jpy="500">500</span> <span class="rub-range" data-min="333" data-max="500"></span></span></div>
+                            <div class="route-detail"><span>📞 Телефон</span><span>+81-555-72-1212</span></div>
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <img src="https://i.ibb.co/pvWH001y/IMG-20250223-152553.jpg" alt="Kasuitei Ooya" style="width:100%; border-radius:12px;">
+                        <p style="font-size:0.8rem; color:#8b7a6a;">Вид на озеро из Kasuitei Ooya</p>
+                    </div>
+                </div>
+                
+                <div style="background-color: #fff9e6; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <p><strong>📝 Важно про бронирование на вечер:</strong></p>
+                    <ul style="margin-bottom: 0;">
+                        <li>Забронировать приватный онсэн на 20:00–21:00</li>
+                        <li>Заказать столик на ужин после онсэна (ресторан в рёкане)</li>
+                        <li>Телефон для брони: +81-555-72-1212</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="total-day" style="margin-top: 25px;">
+                <span>💰 БЮДЖЕТ НА 19 МАЯ (на человека):</span>
+                <span>¥<span data-jpy="9500">9500</span>–<span data-jpy="11300">11300</span> <span class="rub-range" data-min="9500" data-max="11300"></span></span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 10 (20 мая): ВЫЕЗД В ТОКИО ===== -->
+        <div class="day-highlight" id="day10">
+            <h3>🚆 День 10 · 20 мая (ср) — Переезд в Токио</h3>
+            
+            <p><strong>Выезд из отеля до 10:00</strong></p>
+            
+            <div class="route-card">
+                <div class="route-title">🚆 ФУДЗИКАВАГУТИКО → ТОКИО — два варианта:</div>
+                
+                <p><strong>🚌 Вариант 1: Прямой автобус (быстро и дёшево)</strong></p>
+                <div class="route-detail"><span>Kawaguchiko Station → Shinjuku Expressway Bus Terminal</span><span>¥<span data-jpy="2200">2200</span> <span class="rub-value" data-jpy="2200"></span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Время в пути: ~1 ч 45 мин – 2 ч 10 мин</span><span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Отправления: каждый час (с 6:31 до 19:20)</span><span></span></div>
+                
+                <p style="margin-top: 15px;"><strong>🚆 Вариант 2: Поезд Limited Express Fuji Excursion (комфорт, розетки)</strong></p>
+                <div class="route-detail"><span>Kawaguchiko Station → Shinjuku Station</span><span>¥<span data-jpy="4130">4130</span> <span class="rub-value" data-jpy="4130"></span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Время в пути: ~1 ч 55 мин</span><span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Отправления: утром ~7:30, днём ~14:30</span><span></span></div>
+            </div>
+            
+            <div class="route-card">
+                <div class="route-title">🏠 От Синдзюку до нашего дома в Токио:</div>
+                <div class="route-detail"><span>JR Shinjuku → JR Higashi-Jujo (Keihin-Tohoku Line)</span><span>¥<span data-jpy="220">220</span> <span class="rub-value" data-jpy="220"></span></span></div>
+                <div class="route-detail"><span>Пешком от станции до дома</span><span>3 мин</span></div>
+            </div>
+            
+            <div class="transport-note" style="background-color: #e6f2e6;">
+                <strong>🏨 Далее:</strong> Заселение в Ryan inn, Токио (с 15:00 до 22:00). Багаж можно оставить на станции.
+            </div>
+        </div>
+
+        <h2>📊 Сводка расходов (Фудзи)</h2>
+        
+        <table style="width:100%; border-collapse: collapse; margin: 30px 0; background: white; border-radius: 8px; overflow: hidden; border: 1px solid #efebe5;">
+            <thead>
+                <tr style="background-color: #f5f2eb;">
+                    <th style="padding: 12px 15px; text-align: left;">Дата</th>
+                    <th style="padding: 12px 15px; text-align: left;">Маршрут/Действие</th>
+                    <th style="padding: 12px 15px; text-align: left;">Йены (JPY)</th>
+                    <th style="padding: 12px 15px; text-align: left;">Рубли (≈)</th>
+                   </tr>
+            </thead>
+            <tbody>
+                 <tr><td style="padding: 12px 15px;">18 мая</td><td style="padding: 12px 15px;">Переезд Осака → Фудзи</td><td style="padding: 12px 15px;">¥<span data-jpy="13900">13900</span></td><td style="padding: 12px 15px;"><span class="rub-value" data-jpy="13900"></span></td></tr>
+                 <tr><td style="padding: 12px 15px;">18 мая</td><td style="padding: 12px 15px;">Kasuitei Ooya (1 час, доля с группы)</td><td style="padding: 12px 15px;">¥<span data-jpy="333">333</span>–<span data-jpy="500">500</span></td><td style="padding: 12px 15px;"><span class="rub-range" data-min="333" data-max="500"></span></td></tr>
+                 <tr><td style="padding: 12px 15px;">19 мая</td><td style="padding: 12px 15px;">Трансфер Хаконе (доля с группы)</td><td style="padding: 12px 15px;">¥<span data-jpy="6667">6667</span>–<span data-jpy="8333">8333</span></td><td style="padding: 12px 15px;"><span class="rub-range" data-min="6667" data-max="8333"></span></td></tr>
+                 <tr><td style="padding: 12px 15px;">19 мая</td><td style="padding: 12px 15px;">Аренда электровелосипеда</td><td style="padding: 12px 15px;">¥<span data-jpy="2500">2500</span></td><td style="padding: 12px 15px;"><span class="rub-value" data-jpy="2500"></span></td></tr>
+                 <tr><td style="padding: 12px 15px;">19 мая</td><td style="padding: 12px 15px;">Канатная дорога</td><td style="padding: 12px 15px;">¥<span data-jpy="900">900</span></td><td style="padding: 12px 15px;"><span class="rub-value" data-jpy="900"></span></td></tr>
+                 <tr><td style="padding: 12px 15px;">19 мая</td><td style="padding: 12px 15px;">Музей Куботы</td><td style="padding: 12px 15px;">¥<span data-jpy="1300">1300</span></td><td style="padding: 12px 15px;"><span class="rub-value" data-jpy="1300"></span></td></tr>
+                 <tr><td style="padding: 12px 15px;">19 мая</td><td style="padding: 12px 15px;">Kasuitei Ooya вечером (доля с группы)</td><td style="padding: 12px 15px;">¥<span data-jpy="333">333</span>–<span data-jpy="500">500</span></td><td style="padding: 12px 15px;"><span class="rub-range" data-min="333" data-max="500"></span></td></tr>
+                 <tr><td style="padding: 12px 15px;">20 мая</td><td style="padding: 12px 15px;">Переезд в Токио</td><td style="padding: 12px 15px;">¥<span data-jpy="2200">2200</span>–<span data-jpy="4130">4130</span></td><td style="padding: 12px 15px;"><span class="rub-range" data-min="2200" data-max="4130"></span></td></tr>
+                <tr style="font-weight: 700; background-color: #f0f0f0;">
+                    <td colspan="3" style="padding: 12px 15px; text-align: right;">ИТОГО (минимум):</td>
+                    <td style="padding: 12px 15px;"><span class="rub-range" data-min="25900" data-max="32000"></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Чек-лист: что взять с собой -->
+        <div class="tip checklist-block">
+            <strong>🎒 ЧТО ВЗЯТЬ С СОБОЙ В ФУДЗИ:</strong><br><br>
+            <ul>
+                <li><input type="checkbox" class="checklist-item"> 🪪 Загранпаспорт</li>
+                <li><input type="checkbox" class="checklist-item"> 💳 Банковские карты (Suica/Pasmo)</li>
+                <li><input type="checkbox" class="checklist-item"> 📱 Зарядное устройство + power bank</li>
+                <li><input type="checkbox" class="checklist-item"> 👟 Удобная обувь для велопрогулки</li>
+                <li><input type="checkbox" class="checklist-item"> 🩴 Купальник/плавки (для онсэна)</li>
+                <li><input type="checkbox" class="checklist-item"> 🧴 Солнцезащитный крем</li>
+                <li><input type="checkbox" class="checklist-item"> 🧥 Ветровка (на озере может быть ветрено)</li>
+                <li><input type="checkbox" class="checklist-item"> 📷 Камера/телефон для фото</li>
+                <li><input type="checkbox" class="checklist-item"> 💊 Аптечка (пластыри, от укачивания)</li>
+                <li><input type="checkbox" class="checklist-item"> 🧦 Тёплые носки (вечером прохладно)</li>
+            </ul>
+            <p style="margin-top: 10px; font-size: 0.9rem;">💡 <em>Отмечайте выполненные пункты — они сохранятся в браузере</em></p>
+        </div>
+
+        <div class="tip">
+            <strong>🗻 СОВЕТЫ ПО ФУДЗИ:</strong><br><br>
+            <p><strong>⛩ Heiwa-no-Torii (Hakone):</strong> Лучше всего приезжать рано утром (до 8:00), чтобы избежать толп.</p>
+            <p><strong>🚲 Аренда велосипедов:</strong> В JAYS rental cycle персонал говорит по-английски. Вернуть нужно до 19:00.</p>
+            <p><strong>♨️ Kasuitei Ooya:</strong> Забронировать приватный онсэн заранее по телефону +81-555-72-1212.</p>
+            <p><strong>🚌 Автобус Mishima → Kawaguchiko:</strong> Билеты можно купить в автомате на станции Мисима.</p>
+            <p><strong>☀️ Прогноз погоды:</strong> Использовать сайт Tenki.jp или Fuji Mountain Forecast.</p>
+        </div>
+
+        <div class="footer">
+            <p>Фудзикавагутико — 2 ночи у подножия священной горы</p>
+            <p style="font-size: 0.9rem;">18–20 мая 2026 • вечерний онсэн + Хаконе + велопрогулка 🚲</p>
+        </div>
+    </div>
+
+    <script src="js/currency.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        function toggleCollapsible(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('span:last-child');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = '▶';
+            }
+        }
+        document.querySelectorAll('.checklist-item').forEach(cb => {
+            const key = `checklist_fuji_${cb.parentElement.textContent.trim()}`;
+            const saved = localStorage.getItem(key);
+            if (saved === 'true') cb.checked = true;
+            cb.addEventListener('change', () => {
+                localStorage.setItem(key, cb.checked);
+            });
+        });
+        const collapsibleContent = document.querySelector('.collapsible-content');
+        if (collapsibleContent) collapsibleContent.style.display = 'block';
+    </script>
+</body>
+</html>

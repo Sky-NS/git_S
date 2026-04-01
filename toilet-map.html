@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#b03e3e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Japan Trip">
+    <title>Карта туалетов в Японии</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        /* Специфичные стили для страницы туалетов */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .big-action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #2d2d2d;
+            color: white;
+            padding: 18px 35px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 250px;
+        }
+
+        .big-action-button.google {
+            background: #4285F4;
+        }
+        .big-action-button.google:hover {
+            background: #2a56c6;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+        }
+
+        .big-action-button.yahoo {
+            background: #6001D1;
+        }
+        .big-action-button.yahoo:hover {
+            background: #400090;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(96, 1, 209, 0.4);
+        }
+
+        .geolocation-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            font-size: 0.95rem;
+            color: #4a4a4a;
+        }
+
+        .info-box {
+            background-color: #f9f7f4;
+            border: 1px solid #efebe5;
+            border-radius: 24px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .app-card {
+            background-color: #f9f7f4;
+            border: 1px solid #efebe5;
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            border-color: #b03e3e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .app-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .app-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .app-description {
+            color: #4a4a4a;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .store-button {
+            display: inline-block;
+            background: transparent;
+            color: #2d2d2d;
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid #efebe5;
+            transition: all 0.2s;
+        }
+
+        .store-button:hover {
+            background: #b03e3e;
+            color: white;
+            border-color: #b03e3e;
+        }
+
+        .coverage-note {
+            background: rgba(0, 196, 140, 0.05);
+            border: 1px solid rgba(0, 196, 140, 0.2);
+            border-radius: 16px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .city-badge {
+            display: inline-block;
+            background: rgba(43, 127, 255, 0.1);
+            border: 1px solid rgba(43, 127, 255, 0.3);
+            color: #2b7fff;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .city-badge.yahoo {
+            background: rgba(96, 1, 209, 0.1);
+            border-color: #6001D1;
+            color: #6001D1;
+        }
+        
+        .quick-nav {
+            background: #f5f2eb;
+            padding: 12px 20px;
+            border-radius: 40px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .quick-nav a {
+            text-decoration: none;
+            color: #2d2d2d;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .quick-nav a:hover {
+            background-color: #b03e3e;
+            color: white;
+        }
+        
+        .checklist-block {
+            background-color: #f0f5fa;
+            border-left: 4px solid #2d7a6e;
+        }
+        .checklist-block ul {
+            columns: 2;
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .checklist-block ul {
+                columns: 1;
+            }
+            .big-action-button {
+                width: 100%;
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+        }
+        
+        .currency-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html">🗼 Токио</a></li>
+                <li><a href="shanghai.html">🏙 Шанхай</a></li>
+                <li><a href="budget.html">💰 Общий бюджет</a></li>
+                <li><a href="toilet-map.html" class="active">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+                <li><a href="contacts.html">📞 Контакты</a></li>
+                <li><a href="glossary.html">📖 Глоссарий</a></li>
+            </ul>
+        </div>
+
+        <div class="currency-note" id="currencyNote">
+            <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> <span id="exchangeRatePlaceholder">загрузка...</span>
+        </div>
+
+        <h1>🚽 Карта туалетов в Японии</h1>
+        <p style="color: #4a4a4a; margin-bottom: 30px;">
+            Найдите ближайшие общественные туалеты через Google Карты или Yahoo! Карты. Также доступны мобильные приложения.
+        </p>
+
+        <!-- Быстрая навигация -->
+        <div class="quick-nav">
+            <strong style="color: #b03e3e;">📌 Быстрый переход:</strong>
+            <a href="#maps">Карты</a>
+            <a href="#apps">Приложения</a>
+            <a href="#guide">Гайд</a>
+        </div>
+
+        <div class="geolocation-note" id="maps">
+            <strong>📍 Разрешите геолокацию:</strong> при нажатии на кнопку браузер запросит доступ к вашему местоположению. После подтверждения карта покажет туалеты рядом.
+        </div>
+
+        <div class="button-group">
+            <a href="https://www.google.com/maps/search/public+toilet/@/near/current+location" 
+               target="_blank" 
+               class="big-action-button google">
+                <span>🗺️</span> Google Карты
+            </a>
+            <a href="https://map.yahoo.co.jp/search?q=トイレ&fa=pa&ls=トイレ" 
+               target="_blank" 
+               class="big-action-button yahoo">
+                <span>🗾</span> Yahoo! Карты
+            </a>
+        </div>
+
+        <div class="coverage-note">
+            <strong>📍 Города вашего маршрута:</strong>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                <span class="city-badge">✅ Осака</span>
+                <span class="city-badge">✅ Киото</span>
+                <span class="city-badge">✅ Токио</span>
+                <span class="city-badge">✅ Нара</span>
+                <span class="city-badge">✅ Камакура</span>
+                <span class="city-badge">✅ Фудзи</span>
+                <span class="city-badge yahoo">✅ Yahoo! Карты</span>
+            </div>
+        </div>
+
+        <h2 id="apps" style="margin-top: 40px;">📱 Мобильные приложения</h2>
+        
+        <div class="app-grid">
+            <div class="app-card">
+                <div class="app-icon">🚻</div>
+                <div class="app-name">Toilet Journey</div>
+                <div class="app-description">
+                    Официальные данные от префектур. Работает в Токио, Осаке, Киото. Есть офлайн-режим и фильтры.
+                </div>
+                <div class="app-buttons">
+                    <a href="https://apps.apple.com/kr/app/toilet-journey/id6504466604" target="_blank" class="store-button">🍎 App Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=jp.co.netast.tokyotoiletjourney" target="_blank" class="store-button">📱 Google Play</a>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="app-icon">🔍</div>
+                <div class="app-name">TOILET SEARCH</div>
+                <div class="app-description">
+                    50,000+ бесплатных туалетов по всей Японии. Отзывы о чистоте, фото, фильтры по наличию пеленальных столиков.
+                </div>
+                <div class="app-buttons">
+                    <a href="https://www.toiletsearch.jp/" target="_blank" class="store-button">🌐 Веб-версия</a>
+                    <a href="https://play.google.com/store/apps/details?id=jp.toilet.search" target="_blank" class="store-button">📱 Google Play</a>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="app-icon">🗾</div>
+                <div class="app-name">Japan Toilet Map</div>
+                <div class="app-description">
+                    Карта + гид по использованию японских унитазов. Полезно для первого знакомства с «умными» туалетами.
+                </div>
+                <div class="app-buttons">
+                    <a href="https://play.google.com/store/apps/details?id=jp.toilet.map" target="_blank" class="store-button">📱 Google Play</a>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="app-icon">⚡</div>
+                <div class="app-name">Emergency Restroom</div>
+                <div class="app-description">
+                    Для экстренных случаев — строит маршрут до ближайшего туалета максимально быстро. Есть по всей стране.
+                </div>
+                <div class="app-buttons">
+                    <a href="https://play.google.com/store/apps/details?id=jp.co.mapmaster.toilet" target="_blank" class="store-button">📱 Google Play</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" id="guide">
+            <h3>ℹ️ Как пользоваться туалетами в Японии</h3>
+            
+            <h4 style="margin-top: 20px;">🚽 Японские унитазы (Washlet):</h4>
+            <ul style="color: #4a4a4a;">
+                <li>Панель управления обычно сбоку или на стене</li>
+                <li>Кнопка с изображением «сидячего человека» — поднимает/опускает сиденье</li>
+                <li><strong>「おしり」</strong> (Oshiri) — для гигиены</li>
+                <li><strong>「ビデ」</strong> (Bide) — биде</li>
+                <li><strong>「止」</strong> (Tome) — остановить</li>
+                <li><strong>「流す」</strong> (Nagasu) — смыть</li>
+                <li>В некоторых местах бумагу нельзя смывать — выбрасывайте в урну рядом</li>
+            </ul>
+            
+            <h4 style="margin-top: 20px;">📍 Где искать туалеты:</h4>
+            <ul style="color: #4a4a4a;">
+                <li>Крупные универмаги (всегда чистые и бесплатные)</li>
+                <li>Станции метро и JR (есть почти на всех)</li>
+                <li>Парки (обычно есть, но могут быть закрыты вечером)</li>
+                <li><strong>Konbini</strong> (круглосуточные магазины) — обычно только для персонала, но вежливо попросите</li>
+                <li>Храмы и святилища — обычно есть бесплатные туалеты</li>
+                <li>Макдональдс и другие фастфуды (часто есть, но могут требовать заказ)</li>
+            </ul>
+        </div>
+
+        <!-- Чек-лист для туалетного набора -->
+        <div class="tip checklist-block">
+            <strong>🎒 ЧТО ВЗЯТЬ С СОБОЙ ДЛЯ КОМФОРТА:</strong><br><br>
+            <ul>
+                <li><input type="checkbox" class="checklist-item"> 🧻 Влажные салфетки (не везде есть бумага)</li>
+                <li><input type="checkbox" class="checklist-item"> 🧴 Антибактериальный гель для рук</li>
+                <li><input type="checkbox" class="checklist-item"> 💧 Карманная бутылочка воды (для некоторых типов унитазов)</li>
+                <li><input type="checkbox" class="checklist-item"> 📱 Заряженный телефон (для карт и переводчика)</li>
+                <li><input type="checkbox" class="checklist-item"> 🩴 Сменная обувь/тапочки (в некоторых местах)</li>
+                <li><input type="checkbox" class="checklist-item"> 💊 Лекарства от расстройства желудка (на всякий случай)</li>
+            </ul>
+            <p style="margin-top: 10px; font-size: 0.9rem;">💡 <em>Отмечайте выполненные пункты — они сохранятся в браузере</em></p>
+        </div>
+
+        <div class="nav-buttons" style="margin-top: 40px; justify-content: center;">
+            <a href="index.html" class="nav-button">🏠 На главную</a>
+        </div>
+
+        <div class="footer">
+            <p>Карта туалетов для путешественников в Японии</p>
+            <p style="font-size: 0.9rem;">Google Карты · Yahoo! Карты · мобильные приложения</p>
+        </div>
+    </div>
+    <script src="js/currency.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.querySelectorAll('.checklist-item').forEach(cb => {
+            const key = `checklist_toilet_${cb.parentElement.textContent.trim()}`;
+            const saved = localStorage.getItem(key);
+            if (saved === 'true') cb.checked = true;
+            cb.addEventListener('change', () => {
+                localStorage.setItem(key, cb.checked);
+            });
+        });
+    </script>
+</body>
+</html>

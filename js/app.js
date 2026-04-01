@@ -6,7 +6,7 @@
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', async () => {
         try {
-            const reg = await navigator.serviceWorker.register('/sw.js');
+            const reg = await navigator.serviceWorker.register('./sw.js');
             console.log('[App] Service Worker зарегистрирован');
 
             // Слушаем обновления от SW

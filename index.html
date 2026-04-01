@@ -1,107 +1,389 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Путешествие в Японию</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пердящее путешествие: Япония + Шанхай</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#b03e3e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Japan Trip">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Пердящее путешествие: Япония + Шанхай">
+    <meta property="og:description" content="Полный маршрут на 16 дней для группы из 6 человек">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://placehold.co/1200x630?text=Japan+Trip">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Пердящее путешествие">
+    <meta name="twitter:description" content="Маршрут по Японии и Шанхаю">
+    
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗾</text></svg>">
+    
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        /* Стили главной страницы */
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .city-card {
+            background-color: white;
+            border: 1px solid #efebe5;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .city-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: #b03e3e;
+        }
+        
+        .city-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .city-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        
+        .city-dates {
+            color: #b03e3e;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .city-tagline {
+            color: #2d7a6e;
+            font-size: 0.95rem;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        
+        .flight-badge {
+            background-color: #f5f2eb;
+            border-radius: 30px;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .flight-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 8px 0;
+            border-bottom: 1px dashed #d4c9bc;
+        }
+        
+        .flight-row:last-child {
+            border-bottom: none;
+        }
+        
+        .hotel-card {
+            background-color: #f9f7f4;
+            border: 1px solid #efebe5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .hotel-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .hotel-dates {
+            color: #b03e3e;
+            font-weight: 500;
+            margin: 5px 0;
+        }
+        
+        .hotel-address {
+            color: #6b5a4a;
+            font-size: 0.95rem;
+            margin: 5px 0;
+        }
+        
+        .day-trip-note {
+            background-color: #fff9f5;
+            border-left: 4px solid #2d7a6e;
+            padding: 12px 18px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f7f4;
+            border-radius: 12px;
+        }
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .progress-bar-bg {
+            background: #efebe5;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            width: 0%;
+            background: #b03e3e;
+            height: 100%;
+            transition: width 0.3s;
+        }
+        .progress-text {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #6b5a4a;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="trip-card">
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html" class="active">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html">🗼 Токио</a></li>
+                <li><a href="shanghai.html">🏙 Шанхай</a></li>
+                <li><a href="budget.html">💰 Общий бюджет</a></li>
+                <li><a href="toilet-map.html">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+                <li><a href="contacts.html">📞 Контакты</a></li>
+                <li><a href="glossary.html">📖 Глоссарий</a></li>
+            </ul>
+        </div>
 
-<div class="container">
+        <nav class="site-nav" aria-label="Основная навигация">
+                    <a href="index.html" class="active">🏠 Главная</a>
+                    <a href="osaka.html">🌆 Осака</a>
+                    <a href="fuji.html">🗻 Фудзи</a>
+                    <a href="tokyo.html">🗼 Токио</a>
+                    <a href="shanghai.html">🏙 Шанхай</a>
+                    <a href="budget.html">💰 Общий бюджет</a>
+                    <a href="toilet-map.html">🚽 Карта туалетов</a>
+                    <a href="visa.html">🛂 Всё для визы</a>
+                    <a href="contacts.html">📞 Контакты</a>
+                    <a href="glossary.html">📖 Глоссарий</a>
+                </nav>
 
-  <!-- HEADER -->
-  <header class="card header">
-    <h1>🗾 Пердящее путешествие</h1>
-    <p class="subtitle">Японский трип • 11–26 мая 2026</p>
-  </header>
 
-  <!-- ROUTE -->
-  <div class="card route">
-    <div class="route-line">
-      ✈️ Москва → 🏙 Осака → 🗻 Фудзи → 🗼 Токио → 🌆 Шанхай → ✈️ Москва
+        <h1>🗾 Пердящее путешествие</h1>
+        <div style="text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: #4a4a4a;">
+            Японский трип • 11–26 мая 2026
+        </div>
+
+        <!-- Прогресс-бар путешествия -->
+        <div class="progress-container">
+            <div class="progress-labels">
+                <span>🗾 11 мая</span>
+                <span>🌆 Осака</span>
+                <span>🗻 Фудзи</span>
+                <span>🗼 Токио</span>
+                <span>🏙 Шанхай</span>
+                <span>✈️ 26 мая</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="trip-progress"></div>
+            </div>
+            <div class="progress-text" id="progress-text"></div>
+        </div>
+
+        <h2>✈️ Перелёты</h2>
+        <div class="flight-badge">
+            <div class="flight-row">
+                <span>📅 10 мая 19:05</span>
+                <span><strong>Москва(SVO)</strong> → Шанхай (PVG)</span>
+                <span>MU-592</span>
+            </div>
+            <div class="flight-row">
+                <span>📅 11 мая 14:45</span>
+                <span><strong>Шанхай (PVG)</strong> → Осака (KIX)</span>
+                <span>MU-8649</span>
+            </div>
+            <div class="flight-row">
+                <span>📅 25 мая 13:50</span>
+                <span><strong>Токио (NRT)</strong> → Шанхай (PVG)</span>
+                <span>MU-524</span>
+            </div>
+            <div class="flight-row">
+                <span>📅 26 мая 9:25</span>
+                <span><strong>Шанхай (PVG)</strong> → Москва (SVO)</span>
+                <span>MU-247</span>
+            </div>
+        </div>
+
+        <h2>🏙 Наши города-базы</h2>
+        <p style="color: #6b5a4a; margin-bottom: 20px;">Нажми на город, чтобы увидеть детальный план по дням</p>
+        
+        <div class="city-grid">
+            <a href="osaka.html" class="city-card">
+                <div class="city-icon">🌆</div>
+                <div class="city-name">Осака</div>
+                <div class="city-dates">11–18 мая · 7 ночей</div>
+                <div class="city-tagline">Осака + Киото + Нара</div>
+            </a>
+            
+            <a href="fuji.html" class="city-card">
+                <div class="city-icon">🗻</div>
+                <div class="city-name">Фудзи</div>
+                <div class="city-dates">18–20 мая · 2 ночи</div>
+                <div class="city-tagline">Фудзикавагутико + Хаконе</div>
+            </a>
+            
+            <a href="tokyo.html" class="city-card">
+                <div class="city-icon">🗼</div>
+                <div class="city-name">Токио</div>
+                <div class="city-dates">20–25 мая · 5 ночей</div>
+                <div class="city-tagline">Токио + Камакура + Эносима</div>
+            </a>
+            
+            <a href="shanghai.html" class="city-card">
+                <div class="city-icon">🏙</div>
+                <div class="city-name">Шанхай</div>
+                <div class="city-dates">25–26 мая · 1 ночь</div>
+                <div class="city-tagline">транзит</div>
+            </a>
+        </div>
+
+        <div class="day-trip-note">
+            <strong>🚆 Однодневные поездки (day trips):</strong><br>
+            • Из <strong>Осаки</strong> (с возвращением в наш дом): Киото (2 дня), Нара (1 день)<br>
+            • Из <strong>Токио</strong> (с возвращением): Камакура + Эносима (один из дней 22–23 мая, по погоде смотрим)<br>
+            • Все детали — на страницах соответствующих городов
+        </div>
+
+        <h2>🏨 Все проживания</h2>
+
+        <div class="hotel-card">
+            <div class="hotel-name">🌆 Osaka Station 3min Direct Namba — 4BR House</div>
+            <div class="hotel-dates">📅 11 мая (заезд 21:00) – 18 мая (выезд 12:00) · 7 ночей</div>
+            <div class="hotel-address">📍 海老江3丁目6–19 Ebie House, Осака</div>
+            <div style="margin-top: 10px;">
+                <span class="booking-ref">JR Ebie · 6 мин пешком</span>
+                <span class="booking-ref" style="margin-left: 10px;">до Осаки 3 мин</span>
+                <span class="booking-ref" style="margin-left: 10px;">4 спальни</span>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                <a class="map-button" href="https://www.google.com/maps/search/海老江3丁目6–19+Ebie+House+Osaka" target="_blank" style="background-color: #2d2d2d;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=%E6%B5%B7%E8%80%81%E6%B1%9F3%E4%B8%81%E7%9B%AE6%E2%80%9319%20Ebie%20House%20Osaka" target="_blank">📍 Maps.me</a>
+                <a class="map-button" href="https://www.booking.com/Share-FVKrDuX" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+            </div>
+        </div>
+
+        <div class="hotel-card">
+            <div class="hotel-name">🗻 ID Stay Kawaguchiko 🔑🔑🔑</div>
+            <div class="hotel-dates">📅 18 мая (заезд 16:00–22:00) – 20 мая (выезд 10:00) · 2 ночи</div>
+            <div class="hotel-address">📍 3523-1, Фудзикавагутико, Яманаси</div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                <a class="map-button" href="https://www.google.com/maps/search/3523-1+Fujikawaguchiko" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=3523-1%20Fujikawaguchiko" target="_blank">📍 Maps.me</a>
+                <a class="map-button" href="https://www.booking.com/Share-clpy9hJ" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+            </div>
+        </div>
+
+        <div class="hotel-card">
+            <div class="hotel-name">🗼 Ryan inn 99平米 戸建貸切 JR東十条駅徒歩3分</div>
+            <div class="hotel-dates">📅 20 мая (заезд 15:00–22:00) – 25 мая (выезд 10:00) · 5 ночей</div>
+            <div class="hotel-address">📍 グレイスハイム東十条２, Токио</div>
+            <div style="margin-top: 10px;">
+                <span class="booking-ref">JR Higashi-Jujo · 3 мин пешком</span>
+                <span class="booking-ref" style="margin-left: 10px;">99 м² · весь дом</span>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                <a class="map-button" href="https://www.google.com/maps/search/グレイスハイム東十条２+Tokyo" target="_blank" style="background-color: #b03e3e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=%E3%82%B0%E3%83%AC%E3%82%A4%E3%82%B9%E3%83%8F%E3%82%A4%E3%83%A0%E6%9D%B1%E5%8D%81%E6%9D%A1%EF%BC%92%20Tokyo" target="_blank">📍 Maps.me</a>
+                <a class="map-button" href="https://www.booking.com/Share-lQHXfZX" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+            </div>
+        </div>
+
+        <div class="hotel-card">
+            <div class="hotel-name">🏙 Ramada Plaza Shanghai Pudong Airport ⭐⭐⭐⭐</div>
+            <div class="hotel-dates">📅 25 мая (заезд после 16:15) – 26 мая (выезд 7:30) · 1 ночь</div>
+            <div class="hotel-address">📍 1100 Qi Hang Road, Pudong Airport, Шанхай</div>
+            <div style="margin-top: 10px;">
+                <span class="booking-ref">рядом с аэропортом PVG</span>
+                <span class="booking-ref" style="margin-left: 10px;">4 звезды</span>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                <a class="map-button" href="https://www.google.com/maps/search/1100+Qi+Hang+Road+Shanghai" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                <a class="map-button maps-me-btn" href="https://maps.me/?q=1100%20Qi%20Hang%20Road%20Shanghai" target="_blank">📍 Maps.me</a>
+                <a class="map-button" href="https://www.booking.com/Share-8FxhAs" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+            </div>
+        </div>
+
+        <div class="tip">
+            <strong>📌 ВАЖНО:</strong><br>
+            • PNR код для всех рейсов: <strong>PBCRWX</strong> (China Eastern Airlines)<br>
+            • Заезд в Осаку: <strong>21:00 11 мая</strong> (согласовано с хозяином)<br>
+        </div>
+
+        <div class="footer">
+            <p>Москва → Шанхай → Осака + Киото + Нара → Мисима (проездом) + Фудзикавагутико + Хаконе → Токио + Камакура + Эносима → Шанхай → Москва</p>
+            <p style="font-size: 0.9rem; color: #8b7a6a;">11–26 мая 2026 · 6 гайдзинов · 10 городов</p>
+        </div>
     </div>
-  </div>
 
-  <!-- FLIGHTS -->
-  <h2 class="section-title">✈️ Перелёты</h2>
-
-  <div class="card">
-    <p>📅 10 мая — Москва → Шанхай</p>
-    <p>📅 11 мая — Шанхай → Осака</p>
-    <p>📅 25 мая — Токио → Шанхай</p>
-    <p>📅 26 мая — Шанхай → Москва</p>
-  </div>
-
-  <!-- CITIES -->
-  <h2 class="section-title">🏙 Города</h2>
-
-  <div class="city-grid">
-
-    <a href="osaka.html" class="city-card">
-      <h3>Осака</h3>
-      <p>7 ночей</p>
-    </a>
-
-    <a href="fuji.html" class="city-card">
-      <h3>Фудзи</h3>
-      <p>2 ночи</p>
-    </a>
-
-    <a href="tokyo.html" class="city-card">
-      <h3>Токио</h3>
-      <p>5 ночей</p>
-    </a>
-
-    <a href="shanghai.html" class="city-card">
-      <h3>Шанхай</h3>
-      <p>1 ночь</p>
-    </a>
-
-  </div>
-
-  <!-- DAY TRIPS -->
-  <div class="card highlight">
-    <b>Однодневные поездки:</b>
-    <ul>
-      <li>Киото (2 дня)</li>
-      <li>Нара (1 день)</li>
-      <li>Камакура + Эносима</li>
-    </ul>
-  </div>
-
-  <!-- STAY -->
-  <h2 class="section-title">🏨 Проживание</h2>
-
-  <div class="card">
-    <b>Osaka House</b>
-    <p class="small">7 ночей</p>
-    <a href="#" class="btn">На карте</a>
-    <a href="#" class="btn secondary">Booking</a>
-  </div>
-
-  <div class="card">
-    <b>Kawaguchiko Hotel</b>
-    <p class="small">2 ночи</p>
-    <a href="#" class="btn">На карте</a>
-    <a href="#" class="btn secondary">Booking</a>
-  </div>
-
-  <div class="card">
-    <b>Tokyo Apartment</b>
-    <p class="small">5 ночей</p>
-    <a href="#" class="btn">На карте</a>
-    <a href="#" class="btn secondary">Booking</a>
-  </div>
-
-  <!-- IMPORTANT -->
-  <div class="important card">
-    <b>ВАЖНО:</b>
-    <p>PNR код: PBCRWX</p>
-  </div>
-
-</div>
-
+    <script>
+        // Прогресс-бар путешествия
+        function updateProgress() {
+            const start = new Date(2026, 4, 11);
+            const end = new Date(2026, 4, 26);
+            const today = new Date();
+            
+            if (today < start) {
+                document.getElementById('trip-progress').style.width = '0%';
+                document.getElementById('progress-text').textContent = '⏳ Путешествие начнётся 11 мая 2026';
+            } else if (today > end) {
+                document.getElementById('trip-progress').style.width = '100%';
+                document.getElementById('progress-text').textContent = '✅ Путешествие завершено! 🎉';
+            } else {
+                const total = end - start;
+                const elapsed = today - start;
+                const percent = (elapsed / total) * 100;
+                document.getElementById('trip-progress').style.width = percent + '%';
+                const daysLeft = Math.ceil((end - today) / (1000 * 60 * 60 * 24));
+                document.getElementById('progress-text').textContent = `📅 До конца путешествия осталось ${daysLeft} дней`;
+            }
+        }
+        updateProgress();
+    </script>
+    <script src="js/currency.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

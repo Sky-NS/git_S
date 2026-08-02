@@ -1,8 +1,4 @@
-
-import os
-base = "/mnt/agents/output/anokhin-airways"
-
-style_css = '''/* ============================================
+/* ============================================
    ANOKHIN AIRWAYS — Design System
    ============================================ */
 
@@ -399,9 +395,3 @@ ul, ol { list-style: none; }
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     html { scroll-behavior: auto; }
 }
-'''
-
-with open(f"{base}/css/style.css", "w", encoding="utf-8") as f:
-    f.write(style_css)
-
-print("css/style.css created:", len(style_css), "chars")

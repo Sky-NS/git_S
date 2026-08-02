@@ -1,7 +1,4 @@
-
-base = "/mnt/agents/output/anokhin-airways"
-
-animations_css = '''/* ============================================
+/* ============================================
    ANOKHIN AIRWAYS — Animations
    ============================================ */
 
@@ -255,30 +252,24 @@ section {
     .main-nav, .hero-scroll, .hero-plane-container, .hero-particles, .hero-clouds, .loader {
         display: none !important;
     }
-    
+
     .hero {
         height: auto;
         min-height: auto;
         padding: var(--space-xl) 0;
     }
-    
+
     .boarding-pass {
         box-shadow: none;
         border: 1px solid #ddd;
     }
-    
+
     body {
         background: white;
         color: black;
     }
-    
+
     section {
         page-break-inside: avoid;
     }
 }
-'''
-
-with open(f"{base}/css/animations.css", "w", encoding="utf-8") as f:
-    f.write(animations_css)
-
-print("css/animations.css created:", len(animations_css), "chars")

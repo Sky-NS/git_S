@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline — ANOKHIN AIRWAYS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #07111F;
+            color: #F8F7F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        .container { max-width: 400px; }
+        svg { width: 64px; height: 64px; margin-bottom: 2rem; }
+        h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: #D7B26D;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 0.875rem;
+            color: rgba(248, 247, 245, 0.6);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        a {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border: 1px solid rgba(215, 178, 109, 0.4);
+            color: #D7B26D;
+            text-decoration: none;
+            font-size: 0.6875rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: border-color 0.4s ease;
+        }
+        a:hover { border-color: #D7B26D; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg viewBox="0 0 64 64" fill="none">
+            <path d="M32 8L36 24H52L40 32L44 48L32 40L20 48L24 32L12 24H28L32 8Z" fill="#D7B26D"/>
+            <circle cx="32" cy="32" r="4" fill="#07111F"/>
+        </svg>
+        <h1>Нет связи</h1>
+        <p>Похоже, вы находитесь в зоне турбулентности. Проверьте подключение к интернету и попробуйте снова.</p>
+        <a href="/">Обновить страницу</a>
+    </div>
+</body>
+</html>

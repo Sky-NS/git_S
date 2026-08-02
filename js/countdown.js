@@ -1,7 +1,4 @@
-
-base = "/mnt/agents/output/anokhin-airways"
-
-countdown_js = '''/**
+/**
  * ANOKHIN AIRWAYS — Countdown Timer
  * Luxury flip countdown to wedding date
  */
@@ -85,9 +82,3 @@ countdown_js = '''/**
         observer.observe(countdownSection);
     }
 })();
-'''
-
-with open(f"{base}/js/countdown.js", "w", encoding="utf-8") as f:
-    f.write(countdown_js)
-
-print("js/countdown.js created:", len(countdown_js), "chars")

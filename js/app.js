@@ -1,7 +1,4 @@
-
-base = "/mnt/agents/output/anokhin-airways"
-
-app_js = '''/**
+/**
  * ANOKHIN AIRWAYS — Main Application
  * Loader, particles, navigation, smooth scroll
  */
@@ -13,7 +10,7 @@ app_js = '''/**
     // LOADER
     // ============================================
     const loader = document.getElementById('loader');
-    
+
     function hideLoader() {
         if (loader) {
             setTimeout(() => {
@@ -116,15 +113,15 @@ app_js = '''/**
     // ACTIVE NAV LINK ON SCROLL
     // ============================================
     const sections = document.querySelectorAll('section[id]');
-    
+
     function updateActiveNav() {
         const scrollPos = window.pageYOffset + 150;
-        
+
         sections.forEach(section => {
             const top = section.offsetTop;
             const height = section.offsetHeight;
             const id = section.getAttribute('id');
-            
+
             if (scrollPos >= top && scrollPos < top + height) {
                 navLinks.forEach(link => {
                     link.classList.remove('active');
@@ -175,7 +172,7 @@ app_js = '''/**
             const centerY = rect.height / 2;
             const rotateX = (y - centerY) / 30;
             const rotateY = (centerX - x) / 30;
-            
+
             this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             this.style.transition = 'transform 0.1s ease';
         });
@@ -253,9 +250,3 @@ app_js = '''/**
         'color: #8B8B8B; font-size: 11px; font-style: italic;'
     );
 })();
-'''
-
-with open(f"{base}/js/app.js", "w", encoding="utf-8") as f:
-    f.write(app_js)
-
-print("js/app.js created:", len(app_js), "chars")

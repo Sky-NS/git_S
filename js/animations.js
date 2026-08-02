@@ -1,7 +1,4 @@
-
-base = "/mnt/agents/output/anokhin-airways"
-
-animations_js = '''/**
+/**
  * ANOKHIN AIRWAYS — Animations Engine
  * GSAP + ScrollTrigger + Intersection Observer
  */
@@ -136,7 +133,7 @@ animations_js = '''/**
 
         if (flightPath && routePlane) {
             const pathLength = flightPath.getTotalLength();
-            
+
             // Set initial state
             gsap.set(routePlane, {
                 motionPath: {
@@ -370,9 +367,3 @@ animations_js = '''/**
         initAnimations();
     }
 })();
-'''
-
-with open(f"{base}/js/animations.js", "w", encoding="utf-8") as f:
-    f.write(animations_js)
-
-print("js/animations.js created:", len(animations_js), "chars")

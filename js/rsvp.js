@@ -1,7 +1,4 @@
-
-base = "/mnt/agents/output/anokhin-airways"
-
-rsvp_js = '''/**
+/**
  * ANOKHIN AIRWAYS — RSVP Form
  * Passenger registration and boarding pass generation
  * 
@@ -34,7 +31,7 @@ rsvp_js = '''/**
     const phoneInput = document.getElementById('rsvpPhone');
     if (phoneInput) {
         phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\\D/g, '');
+            let value = e.target.value.replace(/\D/g, '');
             if (value.startsWith('7')) value = value.substring(1);
             if (value.startsWith('8')) value = value.substring(1);
             let formatted = '+7';
@@ -62,7 +59,7 @@ rsvp_js = '''/**
             name.style.borderColor = '';
         }
 
-        if (!phone || !phone.value.trim() || phone.value.replace(/\\D/g, '').length < 11) {
+        if (!phone || !phone.value.trim() || phone.value.replace(/\D/g, '').length < 11) {
             isValid = false;
             errors.push('Укажите корректный номер телефона');
             phone.style.borderColor = '#C47474';
@@ -82,7 +79,7 @@ rsvp_js = '''/**
         const passengerName = data.name.toUpperCase();
         const now = new Date();
         const dateStr = now.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit' });
-        
+
         return `
             <div class="boarding-pass" style="margin-top:2rem;transform:scale(0.9);">
                 <div class="bp-left" style="padding:1.5rem;">
@@ -144,17 +141,17 @@ rsvp_js = '''/**
     /*
     async function sendTelegramMessage(data) {
         if (!TELEGRAM_CONFIG) return;
-        
+
         const text = `
             <b>Новая регистрация на рейс AA-0808</b>
-            
+
             <b>Пассажир:</b> ${data.name}
             <b>Телефон:</b> ${data.phone}
             <b>Питание:</b> ${data.meal}
             <b>Бар:</b> ${data.bar.join(', ') || 'Не указано'}
             <b>Комментарий:</b> ${data.comments || 'Нет'}
         `;
-        
+
         try {
             await fetch(`${TELEGRAM_CONFIG.apiUrl}${TELEGRAM_CONFIG.botToken}/sendMessage`, {
                 method: 'POST',
@@ -173,7 +170,7 @@ rsvp_js = '''/**
 
     function handleSubmit(e) {
         e.preventDefault();
-        
+
         const validation = validateForm();
         if (!validation.isValid) {
             // Show first error
@@ -207,7 +204,7 @@ rsvp_js = '''/**
             // Hide form, show success
             form.style.display = 'none';
             success.style.display = 'block';
-            
+
             // Generate personalized boarding pass
             if (successPass) {
                 successPass.innerHTML = generateBoardingPass(data);
@@ -230,9 +227,3 @@ rsvp_js = '''/**
         });
     });
 })();
-'''
-
-with open(f"{base}/js/rsvp.js", "w", encoding="utf-8") as f:
-    f.write(rsvp_js)
-
-print("js/rsvp.js created:", len(rsvp_js), "chars")

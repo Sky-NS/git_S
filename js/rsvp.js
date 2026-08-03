@@ -12,8 +12,8 @@
        НЕ выкладывайте этот файл в открытый доступ с реальным токеном!
     ============================================================ */
     const TELEGRAM_CONFIG = {
-        botToken: 'ВАШ_ТОКЕН_ЗДЕСЬ',
-        chatId: 'ВАШ_CHAT_ID_ЗДЕСЬ',
+        botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',
+        chatId: '439194326',
         proxyUrl: 'https://rough-mouse-57e1.skynik100usa.workers.dev'
         // ВАЖНО: без слеша в конце!
     };

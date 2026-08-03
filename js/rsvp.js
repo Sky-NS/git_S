@@ -32,7 +32,7 @@
               proxyUrl: 'https://yourdomain.com/api/telegram.php'
               (см. файл api/telegram.php)
         */
-        proxyUrl: 'https://rough-mouse-57e1.skynik100usa.workers.dev/'
+        proxyUrl: 'https://rough-mouse-57e1.skynik100usa.workers.dev'
     };
 
     const form = document.getElementById('rsvpForm');

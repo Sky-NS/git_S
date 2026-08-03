@@ -1,24 +1,32 @@
 /**
  * ANOKHIN AIRWAYS — RSVP Form
- * Passenger registration and boarding pass generation
- * 
- * Telegram Bot Integration (commented, ready for activation):
- * =============================================================
- * To enable Telegram notifications:
- * 1. Create a bot via @BotFather
- * 2. Set BOT_TOKEN and CHAT_ID below
- * 3. Uncomment the sendTelegramMessage function call in handleSubmit
+ * Passenger registration with Telegram Bot integration
  */
 
 (function() {
     'use strict';
 
-    // Telegram Bot Configuration — uncomment and fill to activate
-     const TELEGRAM_CONFIG = {
-         botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',
-         chatId: '439194326',
-         apiUrl: 'https://api.telegram.org/bot'
-     };
+    /* ============================================================
+       КОНФИГУРАЦИЯ
+       Заполните ВСЕ три поля перед деплоем:
+    ============================================================ */
+    const TELEGRAM_CONFIG = {
+        botToken: 'ВАШ_ТОКЕН_ЗДЕСЬ',      // <-- Токен от @BotFather
+        chatId: 'ВАШ_CHAT_ID_ЗДЕСЬ',       // <-- Ваш chat_id
+
+        // URL прокси-сервера. Выберите ОДИН вариант:
+
+        // Вариант 1 — Netlify (рекомендую):
+        // proxyUrl: '/.netlify/functions/telegram'
+
+        // Вариант 2 — Обычный хостинг с PHP:
+        // proxyUrl: 'https://yourdomain.com/api/telegram.php'
+
+        // Вариант 3 — Vercel:
+        // proxyUrl: '/api/telegram'
+
+        proxyUrl: '/.netlify/functions/telegram'  // <-- Выберите свой вариант
+    };
 
     const form = document.getElementById('rsvpForm');
     const success = document.getElementById('rsvpSuccess');
@@ -77,8 +85,6 @@
 
     function generateBoardingPass(data) {
         const passengerName = data.name.toUpperCase();
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit' });
 
         return `
             <div class="boarding-pass" style="margin-top:2rem;transform:scale(0.9);">
@@ -118,7 +124,7 @@
                         </div>
                         <div class="bp-detail">
                             <span class="bp-detail-label">Питание</span>
-                            <span class="bp-detail-value" style="font-size:0.75rem;">${data.meal}</span>
+                            <span class="bp-detail-value" style="font-size:0.75rem;">${data.mealLabel}</span>
                         </div>
                         <div class="bp-detail">
                             <span class="bp-detail-label">Выход</span>
@@ -138,44 +144,133 @@
         `;
     }
 
-    
     async function sendTelegramMessage(data) {
-        if (!TELEGRAM_CONFIG) return;
+        // Проверка конфигурации
+        if (!TELEGRAM_CONFIG.botToken || TELEGRAM_CONFIG.botToken.includes('ВАШ_')) {
+            console.warn('Telegram: токен не настроен');
+            return false;
+        }
+        if (!TELEGRAM_CONFIG.chatId || TELEGRAM_CONFIG.chatId.includes('ВАШ_')) {
+            console.warn('Telegram: chat_id не настроен');
+            return false;
+        }
+        if (!TELEGRAM_CONFIG.proxyUrl || TELEGRAM_CONFIG.proxyUrl.includes('yourdomain')) {
+            console.warn('Telegram: proxyUrl не настроен');
+            return false;
+        }
+
+        const mealLabels = {
+            meat: 'Мясо',
+            fish: 'Рыба',
+            poultry: 'Птица',
+            vegetarian: 'Вегетарианское'
+        };
+
+        const barLabels = {
+            wine: 'Вино',
+            champagne: 'Шампанское',
+            cocktails: 'Коктейли',
+            whiskey: 'Виски',
+            noalcohol: 'Без алкоголя'
+        };
+
+        const barText = data.bar.length > 0 
+            ? data.bar.map(b => barLabels[b] || b).join(', ') 
+            : 'Не указано';
 
         const text = `
-            <b>Новая регистрация на рейс AA-0808</b>
+<b>✈️ Новая регистрация на рейс AA-0808</b>
 
-            <b>Пассажир:</b> ${data.name}
-            <b>Телефон:</b> ${data.phone}
-            <b>Питание:</b> ${data.meal}
-            <b>Бар:</b> ${data.bar.join(', ') || 'Не указано'}
-            <b>Комментарий:</b> ${data.comments || 'Нет'}
-        `;
+<b>Пассажир:</b> ${data.name}
+<b>Телефон:</b> ${data.phone}
+<b>Питание:</b> ${mealLabels[data.meal] || data.meal}
+<b>Бар:</b> ${barText}
+<b>Комментарий:</b> ${data.comments || 'Нет'}
+
+<i>Дата регистрации:</i> ${new Date().toLocaleString('ru-RU')}
+        `.trim();
 
         try {
-            await fetch(`${TELEGRAM_CONFIG.apiUrl}${TELEGRAM_CONFIG.botToken}/sendMessage`, {
+            const response = await fetch(TELEGRAM_CONFIG.proxyUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    chat_id: TELEGRAM_CONFIG.chatId,
-                    text: text,
-                    parse_mode: 'HTML'
+                    botToken: TELEGRAM_CONFIG.botToken,
+                    chatId: TELEGRAM_CONFIG.chatId,
+                    text: text
                 })
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const result = await response.json();
+            return result.ok;
+
         } catch (err) {
-            console.error('Telegram notification failed:', err);
+            console.error('Telegram proxy error:', err);
+            return false;
         }
     }
-    
+
+    function showFallbackNotification(data) {
+        const mealLabels = {
+            meat: 'Мясо', fish: 'Рыба', poultry: 'Птица', vegetarian: 'Вегетарианское'
+        };
+        const barLabels = {
+            wine: 'Вино', champagne: 'Шампанское', cocktails: 'Коктейли', whiskey: 'Виски', noalcohol: 'Без алкоголя'
+        };
+
+        const message = `
+Новая регистрация на рейс AA-0808:
+
+Пассажир: ${data.name}
+Телефон: ${data.phone}
+Питание: ${mealLabels[data.meal] || data.meal}
+Бар: ${data.bar.length > 0 ? data.bar.map(b => barLabels[b] || b).join(', ') : 'Не указано'}
+Комментарий: ${data.comments || 'Нет'}
+        `.trim();
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(message).catch(() => {});
+        }
+
+        const fallbackEl = document.createElement('div');
+        fallbackEl.style.cssText = `
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #12233E;
+            color: #F8F7F5;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            max-width: 400px;
+            text-align: center;
+            z-index: 10000;
+            border: 1px solid rgba(215,178,109,0.3);
+        `;
+        fallbackEl.innerHTML = `
+            <div style="color:#D7B26D; font-weight:500; margin-bottom:0.5rem;">Telegram недоступен</div>
+            <div style="color:rgba(248,247,245,0.7);">Данные скопированы в буфер обмена. Отправьте их вручную.</div>
+        `;
+        document.body.appendChild(fallbackEl);
+        setTimeout(() => {
+            fallbackEl.style.opacity = '0';
+            fallbackEl.style.transition = 'opacity 0.5s';
+            setTimeout(() => fallbackEl.remove(), 500);
+        }, 5000);
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
 
         const validation = validateForm();
         if (!validation.isValid) {
-            // Show first error
             const firstError = validation.errors[0];
-            // Create temporary error message
             const errorEl = document.createElement('div');
             errorEl.textContent = firstError;
             errorEl.style.cssText = 'color:#C47474;font-size:0.75rem;margin-top:0.5rem;text-align:center;';
@@ -184,43 +279,39 @@
             return;
         }
 
-        // Collect data
         const formData = new FormData(form);
+        const mealLabels = { meat: 'Мясо', fish: 'Рыба', poultry: 'Птица', vegetarian: 'Вегетарианское' };
         const data = {
             name: formData.get('name'),
             phone: formData.get('phone'),
             meal: formData.get('meal'),
+            mealLabel: mealLabels[formData.get('meal')] || formData.get('meal'),
             bar: formData.getAll('bar'),
             comments: formData.get('comments')
         };
 
-        // Show loading state
         const originalText = submitBtn.querySelector('.rsvp-submit-text').textContent;
         submitBtn.querySelector('.rsvp-submit-text').textContent = 'Обработка...';
         submitBtn.disabled = true;
 
-        // Simulate processing
-        setTimeout(() => {
-            // Hide form, show success
+        sendTelegramMessage(data).then((sent) => {
+            if (!sent) {
+                showFallbackNotification(data);
+            }
+
             form.style.display = 'none';
             success.style.display = 'block';
 
-            // Generate personalized boarding pass
             if (successPass) {
                 successPass.innerHTML = generateBoardingPass(data);
             }
 
-            // Uncomment to enable Telegram notifications:
-            // sendTelegramMessage(data);
-
-            // Scroll to success
             success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 1200);
+        });
     }
 
     form.addEventListener('submit', handleSubmit);
 
-    // Reset error states on input
     form.querySelectorAll('.rsvp-input').forEach(input => {
         input.addEventListener('input', function() {
             this.style.borderColor = '';

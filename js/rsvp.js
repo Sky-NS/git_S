@@ -8,31 +8,14 @@
 
     /* ============================================================
        КОНФИГУРАЦИЯ
-       Заполните ВСЕ три поля перед деплоем:
+       ВАЖНО: Замените токен, chatId и proxyUrl на свои значения
+       НЕ выкладывайте этот файл в открытый доступ с реальным токеном!
     ============================================================ */
     const TELEGRAM_CONFIG = {
-        botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',      // <-- Токен от @BotFather
-        chatId: '439194326',       // <-- Ваш chat_id
-
-        /*
-           ВЫБЕРИТЕ ОДИН proxyUrl в зависимости от хостинга:
-
-           1. NETLIFY (просто залейте папку):
-              proxyUrl: '/.netlify/functions/telegram'
-
-           2. GITHUB PAGES + Google Apps Script:
-              proxyUrl: 'https://script.google.com/macros/s/ВАШ_КОД/exec'
-              (см. файл google-apps-script.js)
-
-           3. GITHUB PAGES + Cloudflare Worker:
-              proxyUrl: 'https://your-worker.your-subdomain.workers.dev'
-              (см. файл cloudflare-worker.js)
-
-           4. Обычный хостинг с PHP:
-              proxyUrl: 'https://yourdomain.com/api/telegram.php'
-              (см. файл api/telegram.php)
-        */
+        botToken: 'ВАШ_ТОКЕН_ЗДЕСЬ',
+        chatId: 'ВАШ_CHAT_ID_ЗДЕСЬ',
         proxyUrl: 'https://rough-mouse-57e1.skynik100usa.workers.dev'
+        // ВАЖНО: без слеша в конце!
     };
 
     const form = document.getElementById('rsvpForm');
@@ -152,6 +135,7 @@
     }
 
     async function sendTelegramMessage(data) {
+        // Проверка конфигурации
         if (!TELEGRAM_CONFIG.botToken || TELEGRAM_CONFIG.botToken.includes('ВАШ_')) {
             console.warn('Telegram: токен не настроен');
             return false;
@@ -188,6 +172,8 @@
 <i>Дата регистрации:</i> ${new Date().toLocaleString('ru-RU')}
         `.trim();
 
+        console.log('Отправка запроса на:', TELEGRAM_CONFIG.proxyUrl);
+
         try {
             const response = await fetch(TELEGRAM_CONFIG.proxyUrl, {
                 method: 'POST',
@@ -199,15 +185,20 @@
                 })
             });
 
+            console.log('Статус ответа:', response.status);
+
             if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
+                const errorText = await response.text();
+                console.error('Ошибка ответа:', response.status, errorText);
+                throw new Error(`HTTP ${response.status}: ${errorText}`);
             }
 
             const result = await response.json();
+            console.log('Ответ Worker:', result);
             return result.ok;
 
         } catch (err) {
-            console.error('Telegram proxy error:', err);
+            console.error('Ошибка отправки:', err);
             return false;
         }
     }

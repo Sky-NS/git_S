@@ -15,8 +15,8 @@
 
     // Telegram Bot Configuration — uncomment and fill to activate
     // const TELEGRAM_CONFIG = {
-    //     botToken: 'YOUR_BOT_TOKEN_HERE',
-    //     chatId: 'YOUR_CHAT_ID_HERE',
+    //     botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',
+    //     chatId: '439194326',
     //     apiUrl: 'https://api.telegram.org/bot'
     // };
 

@@ -11,8 +11,8 @@
        Заполните ВСЕ три поля перед деплоем:
     ============================================================ */
     const TELEGRAM_CONFIG = {
-        botToken: 'ВАШ_ТОКЕН_ЗДЕСЬ',      // <-- Токен от @BotFather
-        chatId: 'ВАШ_CHAT_ID_ЗДЕСЬ',       // <-- Ваш chat_id
+        botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',      // <-- Токен от @BotFather
+        chatId: '439194326',       // <-- Ваш chat_id
 
         /*
            ВЫБЕРИТЕ ОДИН proxyUrl в зависимости от хостинга:
@@ -32,7 +32,7 @@
               proxyUrl: 'https://yourdomain.com/api/telegram.php'
               (см. файл api/telegram.php)
         */
-        proxyUrl: 'ВАШ_PROXY_URL_ЗДЕСЬ'
+        proxyUrl: 'https://rough-mouse-57e1.skynik100usa.workers.dev/'
     };
 
     const form = document.getElementById('rsvpForm');

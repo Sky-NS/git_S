@@ -14,11 +14,11 @@
     'use strict';
 
     // Telegram Bot Configuration — uncomment and fill to activate
-    // const TELEGRAM_CONFIG = {
-    //     botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',
-    //     chatId: '439194326',
-    //     apiUrl: 'https://api.telegram.org/bot'
-    // };
+    const TELEGRAM_CONFIG = {
+        botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',
+        chatId: '439194326',
+        apiUrl: 'https://api.telegram.org/bot'
+    };
 
     const form = document.getElementById('rsvpForm');
     const success = document.getElementById('rsvpSuccess');
@@ -138,7 +138,7 @@
         `;
     }
 
-    /*
+    
     async function sendTelegramMessage(data) {
         if (!TELEGRAM_CONFIG) return;
 
@@ -166,7 +166,7 @@
             console.error('Telegram notification failed:', err);
         }
     }
-    */
+    
 
     function handleSubmit(e) {
         e.preventDefault();

@@ -11,21 +11,28 @@
        Заполните ВСЕ три поля перед деплоем:
     ============================================================ */
     const TELEGRAM_CONFIG = {
-        botToken: '8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',      // <-- Токен от @BotFather
-        chatId: '439194326',       // <-- Ваш chat_id
+        botToken: 'ВАШ_ТОКЕН_ЗДЕСЬ',      // <-- Токен от @BotFather
+        chatId: 'ВАШ_CHAT_ID_ЗДЕСЬ',       // <-- Ваш chat_id
 
-        // URL прокси-сервера. Выберите ОДИН вариант:
+        /*
+           ВЫБЕРИТЕ ОДИН proxyUrl в зависимости от хостинга:
 
-        // Вариант 1 — Netlify (рекомендую):
-        // proxyUrl: '/.netlify/functions/telegram'
+           1. NETLIFY (просто залейте папку):
+              proxyUrl: '/.netlify/functions/telegram'
 
-        // Вариант 2 — Обычный хостинг с PHP:
-        // proxyUrl: 'https://yourdomain.com/api/telegram.php'
+           2. GITHUB PAGES + Google Apps Script:
+              proxyUrl: 'https://script.google.com/macros/s/ВАШ_КОД/exec'
+              (см. файл google-apps-script.js)
 
-        // Вариант 3 — Vercel:
-        // proxyUrl: '/api/telegram'
+           3. GITHUB PAGES + Cloudflare Worker:
+              proxyUrl: 'https://your-worker.your-subdomain.workers.dev'
+              (см. файл cloudflare-worker.js)
 
-        proxyUrl: '/.netlify/functions/telegram'  // <-- Выберите свой вариант
+           4. Обычный хостинг с PHP:
+              proxyUrl: 'https://yourdomain.com/api/telegram.php'
+              (см. файл api/telegram.php)
+        */
+        proxyUrl: 'ВАШ_PROXY_URL_ЗДЕСЬ'
     };
 
     const form = document.getElementById('rsvpForm');
@@ -145,7 +152,6 @@
     }
 
     async function sendTelegramMessage(data) {
-        // Проверка конфигурации
         if (!TELEGRAM_CONFIG.botToken || TELEGRAM_CONFIG.botToken.includes('ВАШ_')) {
             console.warn('Telegram: токен не настроен');
             return false;
@@ -154,24 +160,16 @@
             console.warn('Telegram: chat_id не настроен');
             return false;
         }
-        if (!TELEGRAM_CONFIG.proxyUrl || TELEGRAM_CONFIG.proxyUrl.includes('yourdomain')) {
+        if (!TELEGRAM_CONFIG.proxyUrl || TELEGRAM_CONFIG.proxyUrl.includes('ВАШ_')) {
             console.warn('Telegram: proxyUrl не настроен');
             return false;
         }
 
         const mealLabels = {
-            meat: 'Мясо',
-            fish: 'Рыба',
-            poultry: 'Птица',
-            vegetarian: 'Вегетарианское'
+            meat: 'Мясо', fish: 'Рыба', poultry: 'Птица', vegetarian: 'Вегетарианское'
         };
-
         const barLabels = {
-            wine: 'Вино',
-            champagne: 'Шампанское',
-            cocktails: 'Коктейли',
-            whiskey: 'Виски',
-            noalcohol: 'Без алкоголя'
+            wine: 'Вино', champagne: 'Шампанское', cocktails: 'Коктейли', whiskey: 'Виски', noalcohol: 'Без алкоголя'
         };
 
         const barText = data.bar.length > 0 

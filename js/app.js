@@ -1,252 +1,179 @@
-/**
- * ANOKHIN AIRWAYS — Main Application
- * Loader, particles, navigation, smooth scroll
- */
+(function(){
+  'use strict';
 
-(function() {
-    'use strict';
+  // Intro overlay
+  const intro=document.getElementById('introOverlay');
+  const introBtn=document.getElementById('introBtn');
+  const pageWrapper=document.getElementById('pageWrapper');
+  if(pageWrapper) pageWrapper.style.display='none';
 
-    // ============================================
-    // LOADER
-    // ============================================
-    const loader = document.getElementById('loader');
-
-    function hideLoader() {
-        if (loader) {
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 2200);
-        }
-    }
-
-    if (document.readyState === 'complete') {
-        hideLoader();
-    } else {
-        window.addEventListener('load', hideLoader);
-    }
-
-    // Prevent scroll during load
-    document.body.style.overflow = 'hidden';
-
-    // ============================================
-    // HERO STARS GENERATOR
-    // ============================================
-    const starsContainer = document.getElementById('heroStars');
-    if (starsContainer) {
-        const starCount = 80;
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.width = (Math.random() * 2 + 1) + 'px';
-            star.style.height = star.style.width;
-            star.style.animationDelay = Math.random() * 3 + 's';
-            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            starsContainer.appendChild(star);
-        }
-    }
-
-    // ============================================
-    // HERO PARTICLES GENERATOR
-    // ============================================
-    const particlesContainer = document.getElementById('heroParticles');
-    if (particlesContainer) {
-        const particleCount = 30;
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 8 + 's';
-            particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
-            particlesContainer.appendChild(particle);
-        }
-    }
-
-    // ============================================
-    // MOBILE NAVIGATION
-    // ============================================
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            const isOpen = navMenu.classList.toggle('open');
-            navToggle.classList.toggle('active', isOpen);
-            navToggle.setAttribute('aria-expanded', isOpen);
-            document.body.style.overflow = isOpen ? 'hidden' : '';
-        });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('open');
-                navToggle.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
-            });
-        });
-    }
-
-    // ============================================
-    // SMOOTH SCROLL FOR ANCHOR LINKS
-    // ============================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const target = document.querySelector(targetId);
-            if (target) {
-                const navHeight = navToggle ? 80 : 60;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
+  if(intro && introBtn){
+    introBtn.addEventListener('click',()=>{
+      intro.classList.add('hidden');
+      setTimeout(()=>{intro.style.display='none';if(pageWrapper)pageWrapper.style.display='block';},900);
     });
+  }
 
-    // ============================================
-    // ACTIVE NAV LINK ON SCROLL
-    // ============================================
-    const sections = document.querySelectorAll('section[id]');
-
-    function updateActiveNav() {
-        const scrollPos = window.pageYOffset + 150;
-
-        sections.forEach(section => {
-            const top = section.offsetTop;
-            const height = section.offsetHeight;
-            const id = section.getAttribute('id');
-
-            if (scrollPos >= top && scrollPos < top + height) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + id) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }
-
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                updateActiveNav();
-                ticking = false;
-            });
-            ticking = true;
+  // Intro particles
+  const cvs=document.getElementById('introParticles');
+  if(cvs){
+    const ctx=cvs.getContext('2d');
+    const resize=()=>{cvs.width=window.innerWidth;cvs.height=window.innerHeight};
+    resize();
+    window.addEventListener('resize',resize);
+    const particles=Array.from({length:35},()=>({
+      x:Math.random()*cvs.width,
+      y:Math.random()*cvs.height,
+      r:Math.random()*2+1,
+      vy:-(Math.random()*.35+.08),
+      heart:Math.random()<.35,
+      alpha:Math.random()*.5+.3
+    }));
+    function draw(){
+      ctx.clearRect(0,0,cvs.width,cvs.height);
+      particles.forEach(p=>{
+        p.y+=p.vy;
+        if(p.y<-20)p.y=cvs.height+20;
+        ctx.globalAlpha=p.alpha;
+        ctx.fillStyle='#B57E35';
+        if(p.heart){
+          ctx.font='12px serif';
+          ctx.fillText('♡',p.x,p.y);
+        }else{
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fill();
         }
+      });
+      ctx.globalAlpha=1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // Flying planes
+  const fpContainer=document.getElementById('flyingPlanes');
+  if(fpContainer){
+    const planes=['✈','🛩','✈'];
+    planes.forEach((p,i)=>{
+      const el=document.createElement('div');
+      el.className='flying-plane';
+      el.textContent=p;
+      el.style.top=(15+i*25)+'%';
+      el.style.animation=`planeFly${i+1} ${16+i*3}s linear infinite`;
+      el.style.animationDelay=(i*4)+'s';
+      fpContainer.appendChild(el);
     });
+  }
 
-    // ============================================
-    // DRESS CODE COLOR INTERACTION
-    // ============================================
-    const dcColors = document.querySelectorAll('.dc-color');
-    dcColors.forEach(color => {
-        color.addEventListener('click', function() {
-            const colorName = this.getAttribute('data-color');
-            // Copy hex to clipboard
-            const hexEl = this.querySelector('.dc-hex');
-            if (hexEl && navigator.clipboard) {
-                navigator.clipboard.writeText(hexEl.textContent).catch(() => {});
-            }
-        });
+  // Cursor sparks
+  const sparkContainer=document.getElementById('cursorSparks');
+  let lastSpark=0;
+  if(sparkContainer && window.matchMedia('(pointer:fine)').matches){
+    document.addEventListener('mousemove',e=>{
+      const now=Date.now();
+      if(now-lastSpark<90||Math.random()>.35)return;
+      lastSpark=now;
+      const spark=document.createElement('div');
+      spark.className='cursor-spark';
+      const size=Math.random()*5+3;
+      spark.style.width=size+'px';
+      spark.style.height=size+'px';
+      spark.style.left=e.clientX+'px';
+      spark.style.top=e.clientY+'px';
+      spark.style.background=Math.random()>.5?'#B57E35':'#E8D09A';
+      sparkContainer.appendChild(spark);
+      setTimeout(()=>spark.remove(),680);
     });
+  }
 
-    // ============================================
-    // BOARDING PASS 3D TILT EFFECT
-    // ============================================
-    const boardingPass = document.getElementById('boardingPass');
-    if (boardingPass && window.matchMedia('(pointer: fine)').matches) {
-        boardingPass.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 30;
-            const rotateY = (centerX - x) / 30;
+  // Progress bar
+  const pBar=document.getElementById('progressBar');
+  if(pBar){
+    window.addEventListener('scroll',()=>{
+      const s=window.scrollY;
+      const d=document.documentElement.scrollHeight-window.innerHeight;
+      pBar.style.width=(d?((s/d)*100):0)+'%';
+    },{passive:true});
+  }
 
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            this.style.transition = 'transform 0.1s ease';
-        });
-
-        boardingPass.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-            this.style.transition = 'transform 0.5s ease';
-        });
-    }
-
-    // ============================================
-    // SERVICE WORKER REGISTRATION (PWA)
-    // ============================================
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
-                .then(registration => {
-                    console.log('SW registered:', registration.scope);
-                })
-                .catch(error => {
-                    console.log('SW registration failed:', error);
-                });
-        });
-    }
-
-    // ============================================
-    // LAZY LOAD MAP IFRAME
-    // ============================================
-    const mapContainer = document.getElementById('mapContainer');
-    if (mapContainer && 'IntersectionObserver' in window) {
-        const mapObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const iframe = mapContainer.querySelector('iframe');
-                    if (iframe && iframe.dataset.src) {
-                        iframe.src = iframe.dataset.src;
-                        iframe.removeAttribute('data-src');
-                    }
-                    mapObserver.unobserve(mapContainer);
-                }
-            });
-        }, { threshold: 0.1 });
-        mapObserver.observe(mapContainer);
-    }
-
-    // ============================================
-    // KEYBOARD NAVIGATION
-    // ============================================
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('open')) {
-            navMenu.classList.remove('open');
-            navToggle.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
+  // Mobile nav
+  const navToggle=document.getElementById('navToggle');
+  const navMenu=document.getElementById('navMenu');
+  if(navToggle && navMenu){
+    navToggle.addEventListener('click',()=>{
+      const open=navMenu.classList.toggle('open');
+      navToggle.classList.toggle('active',open);
+      document.body.style.overflow=open?'hidden':'';
     });
+    navMenu.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',()=>{
+      navMenu.classList.remove('open');
+      navToggle.classList.remove('active');
+      document.body.style.overflow='';
+    }));
+  }
 
-    // ============================================
-    // REDUCED MOTION CHECK
-    // ============================================
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (prefersReducedMotion.matches) {
-        document.documentElement.classList.add('reduce-motion');
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t)window.scrollTo({top:t.offsetTop-20,behavior:'smooth'});
+    });
+  });
+
+  // Boarding pass 3D tilt
+  const bp=document.getElementById('boardingPass');
+  if(bp && window.matchMedia('(pointer:fine)').matches){
+    bp.addEventListener('mousemove',e=>{
+      const r=bp.getBoundingClientRect();
+      const x=e.clientX-r.left,y=e.clientY-r.top;
+      bp.style.transform=`perspective(1000px) rotateX(${(y-r.height/2)/30}deg) rotateY(${-(x-r.width/2)/30}deg) translateY(-2px)`;
+    });
+    bp.addEventListener('mouseleave',()=>{
+      bp.style.transform='perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  }
+
+  // Heart burst
+  function createBurst(x,y){
+    const items=['♡','✈','💛','⭐'];
+    for(let i=0;i<12;i++){
+      const el=document.createElement('div');
+      el.textContent=items[Math.floor(Math.random()*items.length)];
+      el.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;font-size:'+(Math.random()*10+14)+'px;color:var(--gold);pointer-events:none;z-index:9999;transition:all 1.1s ease;';
+      document.body.appendChild(el);
+      const angle=(Math.PI*2*i)/12;
+      const dist=Math.random()*45+55;
+      requestAnimationFrame(()=>{
+        el.style.transform=`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px) scale(1.3)`;
+        el.style.opacity='0';
+      });
+      setTimeout(()=>el.remove(),1100);
     }
+  }
 
-    // ============================================
-    // CONSOLE BRANDING
-    // ============================================
-    console.log(
-        '%c ANOKHIN AIRWAYS ',
-        'background: #07111F; color: #D7B26D; font-size: 14px; font-weight: bold; padding: 8px 16px; border-radius: 4px;'
-    );
-    console.log(
-        '%c Moscow to Forever — 08.08.2027 ',
-        'color: #8B8B8B; font-size: 11px; font-style: italic;'
-    );
+  const rings=document.getElementById('heroRings');
+  if(rings) rings.addEventListener('click',e=>createBurst(e.clientX,e.clientY));
+
+  // RSVP burst
+  const rsvpForm=document.getElementById('rsvpForm');
+  if(rsvpForm){
+    rsvpForm.addEventListener('submit',e=>{
+      if(rsvpForm.checkValidity()){
+        const btn=document.getElementById('rsvpSubmit');
+        const rect=btn.getBoundingClientRect();
+        createBurst(rect.left+rect.width/2,rect.top+rect.height/2);
+      }
+    });
+  }
+
+  // Service Worker
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    });
+  }
+
+  console.log('%c ANOKHIN AIRWAYS ','background:#1C1208;color:#E8D09A;font-size:14px;font-weight:bold;padding:8px 16px;border-radius:4px');
 })();

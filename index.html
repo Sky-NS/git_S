@@ -3,638 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ANOKHIN AIRWAYS — Moscow to Forever. Exclusive boarding experience for Nikita and Olga Anokhin.">
-    <meta name="theme-color" content="#07111F">
+    <meta name="description" content="ANOKHIN AIRWAYS — Moscow to Forever. Свадебное приглашение Никиты и Ольги.">
+    <meta name="theme-color" content="#1C1208">
     <title>ANOKHIN AIRWAYS — Moscow to Forever</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="manifest" href="manifest.json">
-
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
-    <div id="loader" class="loader">
-        <div class="loader-content">
-            <svg class="loader-plane" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M60 32L44 26L36 4L28 4L24 26L4 32L4 36L24 34L28 56L32 60L36 56L40 34L60 36L60 32Z" fill="#D7B26D"/>
-            </svg>
-            <p class="loader-text">ANOKHIN AIRWAYS</p>
-            <div class="loader-line"><div class="loader-progress"></div></div>
+    <!-- Intro Overlay -->
+    <div class="intro-overlay" id="introOverlay">
+        <canvas class="intro-particles" id="introParticles"></canvas>
+        <div class="intro-content">
+            <div class="intro-plane">✈</div>
+            <h1 class="intro-title">ANOKHIN AIRWAYS</h1>
+            <p class="intro-subtitle">MOSCOSCOW TO FOREVER</pOW TO FOREVER</p>
+            <button class="intro-btn" id="introBtn">Открыть приглашение</button>
         </div>
     </div>
 
-    <nav class="main-nav" id="mainNav" aria-label="Main navigation">
-        <div class="nav-inner">
-            <a href="#hero" class="nav-logo" aria-label="Home">
-                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 2L24 14L36 14L26 22L30 34L20 26L10 34L14 22L4 14L16 14L20 2Z" stroke="#D7B26D" stroke-width="1.5" fill="none"/>
-                    <circle cx="20" cy="20" r="3" fill="#D7B26D"/>
-                </svg>
-                <span class="nav-logo-text">ANOKHIN AIRWAYS</span>
-            </a>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-                <span class="nav-toggle-line"></span>
-                <span class="nav-toggle-line"></span>
-                <span class="nav-toggle-line"></span>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Cursor Sparks -->
+    <div class="cursor-sparks" id="cursorSparks"></div>
+
+    <!-- Flying Planes Background -->
+    <div class="flying-planes" id="flyingPlanes"></div>
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper" id="pageWrapper">
+        
+        <!-- Navigation -->
+        <nav class="main-nav" id="mainNav">
+            <button class="nav-toggle" id="navToggle" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
             </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#story" class="nav-link">О рейсе</a></li>
-                <li><a href="#route" class="nav-link">Маршрут</a></li>
-                <li><a href="#timeline" class="nav-link">Расписание</a></li>
-                <li><a href="#venue" class="nav-link">Аэропорт</a></li>
-                <li><a href="#dresscode" class="nav-link">Дресс-код</a></li>
-                <li><a href="#rsvp" class="nav-link">Регистрация</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="hero" id="hero" aria-label="Hero">
-        <div class="hero-sky">
-            <div class="hero-stars" id="heroStars"></div>
-            <div class="hero-clouds">
-                <div class="cloud cloud-1"></div>
-                <div class="cloud cloud-2"></div>
-                <div class="cloud cloud-3"></div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#hero" class="nav-link">Главная</a>
+                <a href="#boarding" class="nav-link">Билет</a>
+                <a href="#story" class="nav-link">История</a>
+                <a href="#route" class="nav-link">Маршрут</a>
+                <a href="#timeline" class="nav-link">Расписание</a>
+                <a href="#venue" class="nav-link">Место</a>
+                <a href="#dresscode" class="nav-link">Дресс-код</a>
+                <a href="#countdown" class="nav-link">Обратный отсчёт</a>
+                <a href="#rsvp" class="nav-link">Регистрация</a>
             </div>
-            <div class="hero-particles" id="heroParticles"></div>
-        </div>
+        </nav>
 
-        <div class="hero-plane-container">
-            <svg class="hero-plane" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <defs>
-                    <linearGradient id="planeGrad" x1="0" y1="0" x2="200" y2="200">
-                        <stop offset="0%" stop-color="#D7B26D"/>
-                        <stop offset="100%" stop-color="#B8944F"/>
-                    </linearGradient>
-                </defs>
-                <g class="plane-body">
-                    <path d="M100 20C100 20 85 50 85 70L60 80L40 75L35 85L60 95L85 90L90 130L80 150L85 160L100 145L115 160L120 150L110 130L115 90L140 95L165 85L160 75L140 80L115 70C115 50 100 20 100 20Z" fill="url(#planeGrad)" opacity="0.9"/>
-                    <path d="M95 70L100 130" stroke="#07111F" stroke-width="0.5" opacity="0.3"/>
-                    <path d="M105 70L100 130" stroke="#07111F" stroke-width="0.5" opacity="0.3"/>
-                    <circle cx="100" cy="55" r="2" fill="#07111F" opacity="0.2"/>
-                    <circle cx="95" cy="65" r="1.5" fill="#07111F" opacity="0.2"/>
-                    <circle cx="105" cy="65" r="1.5" fill="#07111F" opacity="0.2"/>
-                </g>
-                <g class="plane-trail">
-                    <path d="M100 145 Q 100 170 100 190" stroke="#D7B26D" stroke-width="1" stroke-dasharray="4 6" opacity="0.4" fill="none"/>
-                </g>
-            </svg>
-        </div>
-
-        <div class="hero-content">
-            <p class="hero-airline">ANOKHIN AIRWAYS</p>
-            <p class="hero-class">Business Class</p>
-            <h1 class="hero-title">
-                <span class="hero-city hero-city-from">MOSCOW</span>
-                <span class="hero-arrow">
-                    <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 12H58M58 12L48 2M58 12L48 22" stroke="#D7B26D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M15 12L25 2L25 22L15 12Z" fill="#D7B26D" opacity="0.3"/>
-                    </svg>
-                </span>
-                <span class="hero-city hero-city-to">FOREVER</span>
-            </h1>
-            <p class="hero-date">08 АВГУСТА 2027</p>
-            <p class="hero-names">Nikita & Olga Anokhin</p>
-            <a href="#boarding" class="hero-cta">
-                <span class="hero-cta-text">Получить посадочный талон</span>
-                <span class="hero-cta-line"></span>
-            </a>
-        </div>
-
-        <div class="hero-scroll" aria-hidden="true">
-            <span class="hero-scroll-text">Листайте вниз</span>
-            <div class="hero-scroll-line"></div>
-        </div>
-    </section>
-
-    <section class="boarding" id="boarding" aria-label="Boarding Pass">
-        <div class="section-inner">
-            <div class="boarding-header">
-                <p class="section-label">Ваш персональный билет</p>
-                <h2 class="section-title">Посадочный талон</h2>
+        <!-- Hero -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <p class="hero-eyebrow">Приглашение на свадьбу</p>
+                <div class="hero-names">
+                    <span class="hero-name">Nikita</span>
+                    <span class="hero-amp">&</span>
+                    <span class="hero-name">Olga</span>
+                </div>
+                <p class="hero-surname">АНОХИНЫ</p>
+                <p class="hero-date">08 АВГУСТА 2027</p>
+                <p class="hero-class">Business Class · Рейс AA-0808</p>
+                <a href="#boarding" class="hero-cta"><span>Получить посадочный талон</span></a>
             </div>
-
-            <div class="boarding-pass" id="boardingPass">
-                <div class="bp-left">
-                    <div class="bp-airline">
-                        <svg viewBox="0 0 40 40" fill="none"><path d="M20 2L24 14L36 14L26 22L30 34L20 26L10 34L14 22L4 14L16 14L20 2Z" stroke="#D7B26D" stroke-width="1.5" fill="none"/><circle cx="20" cy="20" r="3" fill="#D7B26D"/></svg>
-                        <span>ANOKHIN AIRWAYS</span>
-                    </div>
-                    <div class="bp-route">
-                        <div class="bp-city">
-                            <span class="bp-city-code">DME</span>
-                            <span class="bp-city-name">Moscow</span>
-                        </div>
-                        <div class="bp-route-line">
-                            <svg viewBox="0 0 100 20" fill="none">
-                                <path d="M5 10H95" stroke="#D7B26D" stroke-width="0.5" stroke-dasharray="3 3"/>
-                                <path d="M85 5L95 10L85 15" stroke="#D7B26D" stroke-width="1" fill="none"/>
-                            </svg>
-                            <span class="bp-flight-num">AA-0808</span>
-                        </div>
-                        <div class="bp-city">
-                            <span class="bp-city-code">4VR</span>
-                            <span class="bp-city-name">Forever</span>
-                        </div>
-                    </div>
-                    <div class="bp-details">
-                        <div class="bp-detail">
-                            <span class="bp-detail-label">Пассажир</span>
-                            <span class="bp-detail-value">GUEST</span>
-                        </div>
-                        <div class="bp-detail">
-                            <span class="bp-detail-label">Класс</span>
-                            <span class="bp-detail-value">Business</span>
-                        </div>
-                        <div class="bp-detail">
-                            <span class="bp-detail-label">Выход</span>
-                            <span class="bp-detail-value">A1</span>
-                        </div>
-                        <div class="bp-detail">
-                            <span class="bp-detail-label">Место</span>
-                            <span class="bp-detail-value">01A</span>
-                        </div>
-                        <div class="bp-detail">
-                            <span class="bp-detail-label">Посадка</span>
-                            <span class="bp-detail-value">13:00</span>
-                        </div>
-                        <div class="bp-detail">
-                            <span class="bp-detail-label">Дата</span>
-                            <span class="bp-detail-value">08.08.27</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bp-perforation">
-                    <div class="bp-perf-dot"></div>
-                    <div class="bp-perf-dot"></div>
-                    <div class="bp-perf-dot"></div>
-                    <div class="bp-perf-dot"></div>
-                    <div class="bp-perf-dot"></div>
-                    <div class="bp-perf-dot"></div>
-                    <div class="bp-perf-dot"></div>
-                    <div class="bp-perf-dot"></div>
-                </div>
-                <div class="bp-right">
-                    <div class="bp-right-airline">AA</div>
-                    <div class="bp-right-route">
-                        <span>DME</span>
-                        <svg viewBox="0 0 30 10" fill="none"><path d="M2 5H28M28 5L24 2M28 5L24 8" stroke="#D7B26D" stroke-width="0.8"/></svg>
-                        <span>4VR</span>
-                    </div>
-                    <div class="bp-right-info">
-                        <div><span class="bp-ri-label">Seat</span><span class="bp-ri-value">01A</span></div>
-                        <div><span class="bp-ri-label">Gate</span><span class="bp-ri-value">A1</span></div>
-                        <div><span class="bp-ri-label">Time</span><span class="bp-ri-value">13:00</span></div>
-                    </div>
-                    <div class="bp-qr">
-                        <svg viewBox="0 0 80 80" fill="none">
-                            <rect x="5" y="5" width="25" height="25" stroke="#111" stroke-width="3" fill="none"/>
-                            <rect x="10" y="10" width="15" height="15" fill="#111"/>
-                            <rect x="50" y="5" width="25" height="25" stroke="#111" stroke-width="3" fill="none"/>
-                            <rect x="55" y="10" width="15" height="15" fill="#111"/>
-                            <rect x="5" y="50" width="25" height="25" stroke="#111" stroke-width="3" fill="none"/>
-                            <rect x="10" y="55" width="15" height="15" fill="#111"/>
-                            <rect x="40" y="40" width="5" height="5" fill="#111"/>
-                            <rect x="50" y="40" width="5" height="5" fill="#111"/>
-                            <rect x="40" y="50" width="5" height="5" fill="#111"/>
-                            <rect x="50" y="50" width="5" height="5" fill="#111"/>
-                            <rect x="60" y="50" width="5" height="5" fill="#111"/>
-                            <rect x="70" y="50" width="5" height="5" fill="#111"/>
-                            <rect x="40" y="60" width="5" height="5" fill="#111"/>
-                            <rect x="50" y="60" width="5" height="5" fill="#111"/>
-                            <rect x="60" y="60" width="5" height="5" fill="#111"/>
-                            <rect x="70" y="60" width="5" height="5" fill="#111"/>
-                            <rect x="40" y="70" width="5" height="5" fill="#111"/>
-                            <rect x="50" y="70" width="5" height="5" fill="#111"/>
-                            <rect x="60" y="70" width="5" height="5" fill="#111"/>
-                            <rect x="70" y="70" width="5" height="5" fill="#111"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="story" id="story" aria-label="Our Story">
-        <div class="section-inner">
-            <div class="story-layout">
-                <div class="story-visual">
-                    <div class="story-image-wrapper">
-                        <div class="story-image-mask">
-                            <svg class="story-deco" viewBox="0 0 200 300" fill="none">
-                                <circle cx="100" cy="150" r="80" stroke="#D7B26D" stroke-width="0.5" fill="none" opacity="0.3"/>
-                                <circle cx="100" cy="150" r="60" stroke="#D7B26D" stroke-width="0.5" fill="none" opacity="0.2"/>
-                                <path d="M100 70L100 230M20 150L180 150" stroke="#D7B26D" stroke-width="0.3" opacity="0.2"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="story-text">
-                    <p class="section-label">История рейса</p>
-                    <h2 class="section-title story-title">Мы с радостью приглашаем<br>вас в путешествие</h2>
-                    <div class="story-body">
-                        <p class="story-paragraph">Каждый рейс начинается с момента, когда два человека решают лететь вместе. Мы выбрали маршрут Moscow — Forever без пересадок и с бесконечным пробегом.</p>
-                        <p class="story-paragraph">Этот полет станет самым важным в нашей жизни. И мы хотим, чтобы вы были на борту.</p>
-                        <p class="story-paragraph story-signature">Nikita & Olga</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="route" id="route" aria-label="Flight Route">
-        <div class="section-inner">
-            <div class="route-header">
-                <p class="section-label">Маршрут полета</p>
-                <h2 class="section-title">Траектория</h2>
-            </div>
-
-            <div class="route-visual">
-                <svg class="route-svg" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-                    <defs>
-                        <linearGradient id="routeGrad" x1="0" y1="0" x2="0" y2="600">
-                            <stop offset="0%" stop-color="#D7B26D" stop-opacity="0.1"/>
-                            <stop offset="50%" stop-color="#D7B26D" stop-opacity="0.6"/>
-                            <stop offset="100%" stop-color="#D7B26D" stop-opacity="0.1"/>
-                        </linearGradient>
-                    </defs>
-                    <path id="flightPath" d="M200 50 C 200 50, 120 150, 200 200 C 280 250, 280 350, 200 400 C 120 450, 120 550, 200 550" 
-                          stroke="url(#routeGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
-                    <g id="routePlane" class="route-plane">
-                        <path d="M0 -8L-3 0L-6 2L-6 4L-3 3L0 12L3 3L6 4L6 2L3 0L0 -8Z" fill="#D7B26D"/>
-                    </g>
-                    <g class="route-waypoint" data-label="Взлет">
-                        <circle cx="200" cy="50" r="6" fill="#07111F" stroke="#D7B26D" stroke-width="2"/>
-                        <text x="230" y="55" fill="#8B8B8B" font-size="12" font-family="Inter, sans-serif">Взлет</text>
-                    </g>
-                    <g class="route-waypoint" data-label="Круиз">
-                        <circle cx="200" cy="200" r="6" fill="#07111F" stroke="#D7B26D" stroke-width="2"/>
-                        <text x="230" y="205" fill="#8B8B8B" font-size="12" font-family="Inter, sans-serif">Круиз</text>
-                    </g>
-                    <g class="route-waypoint" data-label="Турбулентность">
-                        <circle cx="200" cy="400" r="6" fill="#07111F" stroke="#D7B26D" stroke-width="2"/>
-                        <text x="230" y="405" fill="#8B8B8B" font-size="12" font-family="Inter, sans-serif">Турбулентность</text>
-                    </g>
-                    <g class="route-waypoint" data-label="Посадка">
-                        <circle cx="200" cy="550" r="6" fill="#07111F" stroke="#D7B26D" stroke-width="2"/>
-                        <text x="230" y="555" fill="#8B8B8B" font-size="12" font-family="Inter, sans-serif">Посадка</text>
-                    </g>
+            <div class="hero-rings" id="heroRings">
+                <svg viewBox="0 0 200 200" fill="none">
+                    <circle cx="100" cy="100" r="80" stroke="#B57E35" stroke-width="0.5" fill="none" opacity="0.25" class="ring-outer"/>
+                    <circle cx="100" cy="100" r="55" stroke="#CCA05C" stroke-width="0.5" fill="none" opacity="0.35" class="ring-inner"/>
+                    <path d="M100 45C100 45 70 75 70 100C70 125 100 155 100 155C100 155 130 125 130 100C130 75 100 45 100 45Z" fill="#B57E35" opacity="0.08" class="ring-heart"/>
                 </svg>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="timeline" id="timeline" aria-label="Flight Timeline">
-        <div class="section-inner">
-            <div class="timeline-header">
-                <p class="section-label">Расписание рейса</p>
-                <h2 class="section-title">Время в пути</h2>
-            </div>
-
-            <div class="timeline-list">
-                <div class="timeline-item" data-time="12:00">
-                    <div class="timeline-time"><span class="timeline-clock">12:00</span></div>
-                    <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-bar"></div></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Регистрация пассажиров</h3>
-                        <p class="timeline-desc">Встреча гостей, приветственные напитки, распределение по местам</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-time="13:00">
-                    <div class="timeline-time"><span class="timeline-clock">13:00</span></div>
-                    <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-bar"></div></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Церемония взлета</h3>
-                        <p class="timeline-desc">Официальная часть, обмен клятвами, первый совместный полет</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-time="15:00">
-                    <div class="timeline-time"><span class="timeline-clock">15:00</span></div>
-                    <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-bar"></div></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Бортовое питание</h3>
-                        <p class="timeline-desc">Праздничный ужин от шеф-повара, винная карта, десерты</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-time="18:00">
-                    <div class="timeline-time"><span class="timeline-clock">18:00</span></div>
-                    <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-bar"></div></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Развлекательная программа</h3>
-                        <p class="timeline-desc">Танцы, живое выступление, фотозоны, интерактивы</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-time="21:00">
-                    <div class="timeline-time"><span class="timeline-clock">21:00</span></div>
-                    <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-bar"></div></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Сервировка торта</h3>
-                        <p class="timeline-desc">Торжественная подача свадебного торта, поздравления, тосты</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-time="23:00">
-                    <div class="timeline-time"><span class="timeline-clock">23:00</span></div>
-                    <div class="timeline-line"><div class="timeline-dot"></div><div class="timeline-bar"></div></div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Приземление</h3>
-                        <p class="timeline-desc">Финальный аккорд вечера, прощание, трансфер</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="venue" id="venue" aria-label="Venue">
-        <div class="section-inner">
-            <div class="venue-layout">
-                <div class="venue-info">
-                    <p class="section-label">Аэропорт назначения</p>
-                    <h2 class="section-title">Место посадки</h2>
-                    <div class="venue-address">
-                        <p class="venue-addr-line">Московская область</p>
-                        <p class="venue-addr-line venue-addr-accent">Красивое место</p>
-                    </div>
-                    <div class="venue-coords">
-                        <div class="coord"><span class="coord-label">Широта</span><span class="coord-value">55.7558</span></div>
-                        <div class="coord"><span class="coord-label">Долгота</span><span class="coord-value">37.6176</span></div>
-                    </div>
-                    <div class="venue-compass">
-                        <svg viewBox="0 0 120 120" fill="none">
-                            <circle cx="60" cy="60" r="55" stroke="#D7B26D" stroke-width="0.5" fill="none"/>
-                            <circle cx="60" cy="60" r="45" stroke="#D7B26D" stroke-width="0.3" fill="none" opacity="0.5"/>
-                            <path d="M60 15L65 55L60 60L55 55L60 15Z" fill="#D7B26D"/>
-                            <path d="M60 105L55 65L60 60L65 65L60 105Z" fill="#12233E"/>
-                            <text x="60" y="12" text-anchor="middle" fill="#8B8B8B" font-size="8" font-family="Inter">N</text>
-                            <text x="60" y="115" text-anchor="middle" fill="#8B8B8B" font-size="8" font-family="Inter">S</text>
-                            <text x="10" y="63" text-anchor="middle" fill="#8B8B8B" font-size="8" font-family="Inter">W</text>
-                            <text x="110" y="63" text-anchor="middle" fill="#8B8B8B" font-size="8" font-family="Inter">E</text>
-                        </svg>
-                    </div>
-                </div>
-                <div class="venue-map">
-                    <div class="map-container" id="mapContainer">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d577325.3462007358!2d36.82514095!3d55.5815242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54afc73d4b0c9%3A0x3d44d6cc5757cf4c!2z0JzQvtGB0LrQstCwLCDQoNC-0YHRgdC40Y8!5e0!3m2!1sru!2sus!4v1700000000000!5m2!1sru!2sus" 
-                            width="100%" height="100%" style="border:0; filter: grayscale(100%) contrast(1.1) opacity(0.85);" 
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта места проведения"></iframe>
-                        <div class="map-overlay">
-                            <div class="map-pin">
-                                <svg viewBox="0 0 24 24" fill="none">
-                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#D7B26D" opacity="0.9"/>
-                                    <circle cx="12" cy="9" r="2.5" fill="#07111F"/>
-                                </svg>
+        <!-- Boarding Pass -->
+        <section class="boarding" id="boarding">
+            <div class="section-inner">
+                <p class="section-eyebrow">Ваш персональный билет</p>
+                <h2 class="section-title">ПОСАДОЧНЫЙ ТАЛОН</h2>
+                <div class="boarding-pass" id="boardingPass">
+                    <div class="bp-perforation-top"></div>
+                    <div class="bp-body">
+                        <div class="bp-departure-strip">
+                            <span>ОТПРАВЛЕНИЕ</span>
+                            <span>DEPARTURE</span>
+                        </div>
+                        <div class="bp-main">
+                            <div class="bp-header">
+                                <div class="bp-airline">
+                                    <svg viewBox="0 0 40 40" fill="none">
+                                        <path d="M20 2L24 14L36 14L26 22L30 34L20 26L10 34L14 22L4 14L16 14L20 2Z" stroke="#B57E35" stroke-width="1.5" fill="none"/>
+                                        <circle cx="20" cy="20" r="3" fill="#B57E35"/>
+                                    </svg>
+                                    <span>ANOKHIN AIRWAYS</span>
+                                </div>
+                                <div class="bp-flight">AA-0808</div>
+                            </div>
+                            <div class="bp-route">
+                                <div class="bp-city">
+                                    <span class="bp-code">DME</span>
+                                    <span class="bp-cityname">Moscow</span>
+                                </div>
+                                <div class="bp-route-line">
+                                    <svg viewBox="0 0 120 24" fill="none">
+                                        <path d="M4 12H116" stroke="#CCA05C" stroke-width="0.5" stroke-dasharray="4 4"/>
+                                        <path d="M108 6L116 12L108 18" stroke="#B57E35" stroke-width="1.5" fill="none"/>
+                                    </svg>
+                                </div>
+                                <div class="bp-city">
+                                    <span class="bp-code">LOVE</span>
+                                    <span class="bp-cityname">Forever</span>
+                                </div>
+                            </div>
+                            <div class="bp-grid">
+                                <div class="bp-cell"><span class="bp-label">Пассажир</span><span class="bp-value">GUEST</span></div>
+                                <div class="bp-cell"><span class="bp-label">Класс</span><span class="bp-value">Business</span></div>
+                                <div class="bp-cell"><span class="bp-label">Выход</span><span class="bp-value">A1</span></div>
+                                <div class="bp-cell"><span class="bp-label">Место</span><span class="bp-value">01A</span></div>
+                                <div class="bp-cell"><span class="bp-label">Посадка</span><span class="bp-value">13:00</span></div>
+                                <div class="bp-cell"><span class="bp-label">Дата</span><span class="bp-value">08.08.27</span></div>
+                                <div class="bp-cell-wide">
+                                    <span class="bp-label">Destination</span>
+                                    <span class="bp-value-dest" id="bpDest">LOVE</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="bp-cutout">
+                            <div class="bp-cutout-circle"></div>
+                            <div class="bp-cutout-dots"></div>
+                            <div class="bp-cutout-qr">
+                                <svg viewBox="0 0 100 100" fill="none">
+                                    <text x="50" y="50" text-anchor="middle" fill="#B57E35" font-size="7" font-family="Raleway" letter-spacing="1">АНОХИНЫ</text>
+                                    <text x="50" y="62" text-anchor="middle" fill="#B57E35" font-size="5" font-family="Raleway" letter-spacing="2">СВАДЕБНЫЙ БИЛЕТ</text>
+                                    <circle cx="50" cy="35" r="12" stroke="#B57E35" stroke-width="0.5" fill="none" opacity="0.4"/>
+                                    <path d="M50 28L52 33H57L53 36L54 41L50 38L46 41L47 36L43 33H48L50 28Z" fill="#B57E35" opacity="0.2"/>
+                                </svg>
+                            </div>
+                            <div class="bp-cutout-dots"></div>
+                            <div class="bp-cutout-circle"></div>
+                        </div>
+                    </div>
+                    <div class="bp-perforation-bottom"></div>
+                    <div class="bp-stub">
+                        <span>ПОСАДОЧНЫЙ ТАЛОН</span>
+                        <span>BOARDING PASS</span>
+                        <span class="bp-stub-route">MOS → LOVE</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="dresscode" id="dresscode" aria-label="Dress Code">
-        <div class="section-inner">
-            <div class="dresscode-header">
-                <p class="section-label">Бортовой дресс-код</p>
-                <h2 class="section-title">Стиль полета</h2>
-                <p class="dresscode-subtitle">Элегантность в каждой детали. Выберите палитру, которая резонирует с вашим внутренним миром.</p>
-            </div>
-
-            <div class="dresscode-palette">
-                <div class="dc-color" data-color="Champagne">
-                    <div class="dc-swatch" style="background: #E8D5B7;"></div>
-                    <span class="dc-name">Champagne</span>
-                    <span class="dc-hex">#E8D5B7</span>
-                </div>
-                <div class="dc-color" data-color="Ivory">
-                    <div class="dc-swatch" style="background: #FFFFF0;"></div>
-                    <span class="dc-name">Ivory</span>
-                    <span class="dc-hex">#FFFFF0</span>
-                </div>
-                <div class="dc-color" data-color="Dusty Rose">
-                    <div class="dc-swatch" style="background: #D4A5A5;"></div>
-                    <span class="dc-name">Dusty Rose</span>
-                    <span class="dc-hex">#D4A5A5</span>
-                </div>
-                <div class="dc-color" data-color="Sage">
-                    <div class="dc-swatch" style="background: #9CAF88;"></div>
-                    <span class="dc-name">Sage</span>
-                    <span class="dc-hex">#9CAF88</span>
-                </div>
-                <div class="dc-color" data-color="Navy">
-                    <div class="dc-swatch" style="background: #07111F;"></div>
-                    <span class="dc-name">Navy</span>
-                    <span class="dc-hex">#07111F</span>
-                </div>
-            </div>
-
-            <div class="dresscode-note">
-                <svg viewBox="0 0 24 24" fill="none" class="dc-note-icon">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#D7B26D" stroke-width="1.5" fill="none"/>
-                    <path d="M2 17L12 22L22 17" stroke="#D7B26D" stroke-width="1.5" fill="none"/>
-                    <path d="M2 12L12 17L22 12" stroke="#D7B26D" stroke-width="1.5" fill="none"/>
-                </svg>
-                <p>Мы просим воздержаться от джинсов, спортивной одежды и ярких принтов. Предпочтительны натуральные ткани: шелк, лен, кашемир, бархат.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="baggage" id="baggage" aria-label="Baggage Allowance">
-        <div class="section-inner">
-            <div class="baggage-header">
-                <p class="section-label">Багажное ограничение</p>
-                <h2 class="section-title">Что взять на борт</h2>
-            </div>
-
-            <div class="baggage-grid">
-                <div class="baggage-col baggage-allowed">
-                    <div class="baggage-col-header">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#9CAF88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        <h3>Разрешено к провозу</h3>
+        <!-- Story -->
+        <section class="story" id="story">
+            <div class="section-inner">
+                <div class="story-orb"></div>
+                <div class="story-orb"></div>
+                <p class="section-eyebrow">История рейса</p>
+                <h2 class="section-title">НАШ ПОЛЁТ</h2>
+                <div class="story-content">
+                    <div class="story-photo">
+                        <div class="story-photo-inner">
+                            <span class="story-heart">♡</span>
+                            <p>— будет потом —</p>
+                        </div>
                     </div>
-                    <ul class="baggage-list">
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9CAF88" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#9CAF88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="baggage-text">Хорошее настроение</span></li>
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9CAF88" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#9CAF88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="baggage-text">Любовь</span></li>
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9CAF88" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#9CAF88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="baggage-text">Туфли для танцев</span></li>
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9CAF88" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#9CAF88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="baggage-text">Теплые объятия</span></li>
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#9CAF88" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#9CAF88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="baggage-text">Безлимитное счастье</span></li>
-                    </ul>
+                    <div class="story-text">
+                        <p>Каждый рейс начинается с момента, когда два человека решают лететь вместе. Мы выбрали маршрут Moscow — Forever без пересадок и с бесконечным пробегом.</p>
+                        <p>Этот полёт станет самым важным в нашей жизни. И мы хотим, чтобы вы были на борту.</p>
+                        <p class="story-signature">Nikita & Olga</p>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="baggage-divider">
-                    <svg viewBox="0 0 40 200" fill="none">
-                        <line x1="20" y1="0" x2="20" y2="200" stroke="#D7B26D" stroke-width="0.5" stroke-dasharray="4 4"/>
-                        <circle cx="20" cy="100" r="12" fill="#F8F7F5" stroke="#D7B26D" stroke-width="1"/>
-                        <path d="M14 100L20 94L26 100M20 94L20 106" stroke="#D7B26D" stroke-width="1" fill="none"/>
+        <!-- Route -->
+        <section class="route" id="route">
+            <div class="section-inner">
+                <p class="section-eyebrow">Маршрут полёта</p>
+                <h2 class="section-title">ТРАЕКТОРИЯ</h2>
+                <div class="route-visual">
+                    <svg class="route-svg" viewBox="0 0 360 520" fill="none" preserveAspectRatio="xMidYMid meet">
+                        <defs>
+                            <linearGradient id="routeGrad" x1="0" y1="0" x2="0" y2="520">
+                                <stop offset="0%" stop-color="#B57E35" stop-opacity="0.1"/>
+                                <stop offset="50%" stop-color="#B57E35" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="#B57E35" stop-opacity="0.1"/>
+                            </linearGradient>
+                        </defs>
+                        <path id="flightPath" d="M180 40 C180 40 100 120 180 180 C260 240 260 340 180 400 C100 460 100 480 180 480" stroke="url(#routeGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <g id="routePlane">
+                            <path d="M0 -8L-3 0L-6 2L-6 4L-3 3L0 12L3 3L6 4L6 2L3 0L0 -8Z" fill="#B57E35"/>
+                        </g>
+                        <g class="route-waypoint" data-label="Взлёт">
+                            <circle cx="180" cy="40" r="5" fill="#1C1208" stroke="#B57E35" stroke-width="1.5"/>
+                            <text x="200" y="45" fill="#8A7860" font-size="10" font-family="Raleway">Взлёт</text>
+                        </g>
+                        <g class="route-waypoint" data-label="Круиз">
+                            <circle cx="180" cy="180" r="5" fill="#1C1208" stroke="#B57E35" stroke-width="1.5"/>
+                            <text x="200" y="185" fill="#8A7860" font-size="10" font-family="Raleway">Круиз</text>
+                        </g>
+                        <g class="route-waypoint" data-label="Турбулентность">
+                            <circle cx="180" cy="400" r="5" fill="#1C1208" stroke="#B57E35" stroke-width="1.5"/>
+                            <text x="200" y="405" fill="#8A7860" font-size="10" font-family="Raleway">Турбулентность</text>
+                        </g>
+                        <g class="route-waypoint" data-label="Посадка">
+                            <circle cx="180" cy="480" r="5" fill="#1C1208" stroke="#B57E35" stroke-width="1.5"/>
+                            <text x="200" y="485" fill="#8A7860" font-size="10" font-family="Raleway">Посадка</text>
+                        </g>
                     </svg>
                 </div>
+            </div>
+        </section>
 
-                <div class="baggage-col baggage-forbidden">
-                    <div class="baggage-col-header">
-                        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#C47474" stroke-width="1.5"/><path d="M8 8L16 16M16 8L8 16" stroke="#C47474" stroke-width="1.5" stroke-linecap="round"/></svg>
-                        <h3>Запрещено к провозу</h3>
+        <!-- Timeline -->
+        <section class="timeline" id="timeline">
+            <div class="section-inner">
+                <p class="section-eyebrow">Расписание рейса</p>
+                <h2 class="section-title">ВРЕМЯ В ПУТИ</h2>
+                <div class="timeline-track" id="timelineTrack">
+                    <div class="timeline-plane" id="timelinePlane">✈</div>
+                    <div class="timeline-item" data-time="12:00">
+                        <div class="timeline-label"><span>Регистрация пассажиров</span><span class="timeline-arrow">→</span></div>
+                        <div class="timeline-time">12:00</div>
                     </div>
-                    <ul class="baggage-list">
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#C47474" stroke-width="1.5"/><path d="M8 8L16 16M16 8L8 16" stroke="#C47474" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="baggage-text">Стресс</span></li>
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#C47474" stroke-width="1.5"/><path d="M8 8L16 16M16 8L8 16" stroke="#C47474" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="baggage-text">Рутина</span></li>
-                        <li class="baggage-item"><span class="baggage-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#C47474" stroke-width="1.5"/><path d="M8 8L16 16M16 8L8 16" stroke="#C47474" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="baggage-text">Плохое настроение</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="countdown" id="countdown" aria-label="Countdown">
-        <div class="section-inner">
-            <div class="countdown-header">
-                <p class="section-label">До вылета осталось</p>
-                <h2 class="section-title">Обратный отсчет</h2>
-            </div>
-
-            <div class="countdown-display" id="countdownDisplay">
-                <div class="countdown-unit">
-                    <div class="countdown-flip" id="countDays"><div class="cf-top"><span>00</span></div><div class="cf-bottom"><span>00</span></div></div>
-                    <span class="countdown-label">Дней</span>
-                </div>
-                <div class="countdown-separator">:</div>
-                <div class="countdown-unit">
-                    <div class="countdown-flip" id="countHours"><div class="cf-top"><span>00</span></div><div class="cf-bottom"><span>00</span></div></div>
-                    <span class="countdown-label">Часов</span>
-                </div>
-                <div class="countdown-separator">:</div>
-                <div class="countdown-unit">
-                    <div class="countdown-flip" id="countMinutes"><div class="cf-top"><span>00</span></div><div class="cf-bottom"><span>00</span></div></div>
-                    <span class="countdown-label">Минут</span>
-                </div>
-                <div class="countdown-separator">:</div>
-                <div class="countdown-unit">
-                    <div class="countdown-flip" id="countSeconds"><div class="cf-top"><span>00</span></div><div class="cf-bottom"><span>00</span></div></div>
-                    <span class="countdown-label">Секунд</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="rsvp" id="rsvp" aria-label="RSVP">
-        <div class="section-inner">
-            <div class="rsvp-header">
-                <p class="section-label">Регистрация на рейс</p>
-                <h2 class="section-title">Подтвердите посадку</h2>
-            </div>
-
-            <form class="rsvp-form" id="rsvpForm" novalidate>
-                <div class="rsvp-field">
-                    <label for="rsvpName" class="rsvp-label">Имя пассажира</label>
-                    <input type="text" id="rsvpName" name="name" class="rsvp-input" placeholder="Введите ваше имя" required autocomplete="name">
-                </div>
-
-                <div class="rsvp-field">
-                    <label for="rsvpPhone" class="rsvp-label">Телефон</label>
-                    <input type="tel" id="rsvpPhone" name="phone" class="rsvp-input" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
-                </div>
-
-                <div class="rsvp-field">
-                    <label class="rsvp-label">Предпочтения в питании</label>
-                    <div class="rsvp-options">
-                        <label class="rsvp-option">
-                            <input type="radio" name="meal" value="meat" class="rsvp-radio">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D7B26D" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#D7B26D"/></svg><span>Мясо</span></span>
-                        </label>
-                        <label class="rsvp-option">
-                            <input type="radio" name="meal" value="fish" class="rsvp-radio">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D7B26D" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#D7B26D"/></svg><span>Рыба</span></span>
-                        </label>
-                        <label class="rsvp-option">
-                            <input type="radio" name="meal" value="poultry" class="rsvp-radio">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D7B26D" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#D7B26D"/></svg><span>Птица</span></span>
-                        </label>
-                        <label class="rsvp-option">
-                            <input type="radio" name="meal" value="vegetarian" class="rsvp-radio">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D7B26D" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="#D7B26D"/></svg><span>Вегетарианское</span></span>
-                        </label>
+                    <div class="timeline-item" data-time="13:00">
+                        <div class="timeline-label"><span>Церемония взлёта</span><span class="timeline-arrow">→</span></div>
+                        <div class="timeline-time">13:00</div>
+                    </div>
+                    <div class="timeline-item" data-time="15:00">
+                        <div class="timeline-label"><span>Бортовое питание</span><span class="timeline-arrow">→</span></div>
+                        <div class="timeline-time">15:00</div>
+                    </div>
+                    <div class="timeline-item" data-time="18:00">
+                        <div class="timeline-label"><span>Развлекательная программа</span><span class="timeline-arrow">→</span></div>
+                        <div class="timeline-time">18:00</div>
+                    </div>
+                    <div class="timeline-item" data-time="21:00">
+                        <div class="timeline-label"><span>Сервировка торта</span><span class="timeline-arrow">→</span></div>
+                        <div class="timeline-time">21:00</div>
+                    </div>
+                    <div class="timeline-item" data-time="23:00">
+                        <div class="timeline-label"><span>Приземление</span><span class="timeline-arrow">→</span></div>
+                        <div class="timeline-time">23:00</div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="rsvp-field">
-                    <label class="rsvp-label">Барные предпочтения</label>
-                    <div class="rsvp-options rsvp-options-multi">
-                        <label class="rsvp-option">
-                            <input type="checkbox" name="bar" value="wine" class="rsvp-checkbox">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#D7B26D" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#D7B26D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Вино</span></span>
-                        </label>
-                        <label class="rsvp-option">
-                            <input type="checkbox" name="bar" value="champagne" class="rsvp-checkbox">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#D7B26D" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#D7B26D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Шампанское</span></span>
-                        </label>
-                        <label class="rsvp-option">
-                            <input type="checkbox" name="bar" value="cocktails" class="rsvp-checkbox">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#D7B26D" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#D7B26D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Коктейли</span></span>
-                        </label>
-                        <label class="rsvp-option">
-                            <input type="checkbox" name="bar" value="whiskey" class="rsvp-checkbox">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#D7B26D" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#D7B26D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Виски</span></span>
-                        </label>
-                        <label class="rsvp-option">
-                            <input type="checkbox" name="bar" value="noalcohol" class="rsvp-checkbox">
-                            <span class="rsvp-option-box"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#D7B26D" stroke-width="1.5"/><path d="M8 12L11 15L16 9" stroke="#D7B26D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Без алкоголя</span></span>
-                        </label>
+        <!-- Venue -->
+        <section class="venue" id="venue">
+            <div class="section-inner">
+                <p class="section-eyebrow">Место проведения</p>
+                <h2 class="section-title">АЭРОПОРТ</h2>
+                <div class="venue-card">
+                    <div class="venue-info">
+                        <div class="venue-icon">⌂</div>
+                        <p class="venue-name">Красивое место</p>
+                        <p class="venue-addr">Московская область</p>
+                        <div class="venue-coords">
+                            <div><span class="vc-label">Широта</span><span class="vc-value">55.7558</span></div>
+                            <div><span class="vc-label">Долгота</span><span class="vc-value">37.6176</span></div>
+                        </div>
+                        <a href="https://maps.google.com/?q=55.7558,37.6176" class="venue-btn" target="_blank" rel="noopener">Открыть карту</a>
+                    </div>
+                    <div class="venue-map">
+                        <div class="venue-map-inner">
+                            <p>— будет потом —</p>
+                            <span>Карта</span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="rsvp-field">
-                    <label for="rsvpComments" class="rsvp-label">Комментарий экипажу</label>
-                    <textarea id="rsvpComments" name="comments" class="rsvp-input rsvp-textarea" placeholder="Особые пожелания, аллергии, предпочтения..." rows="4"></textarea>
-                </div>
-
-                <button type="submit" class="rsvp-submit" id="rsvpSubmit">
-                    <span class="rsvp-submit-text">Подтвердить посадку</span>
-                    <span class="rsvp-submit-line"></span>
-                </button>
-            </form>
-
-            <div class="rsvp-success" id="rsvpSuccess" style="display:none;">
-                <div class="rsvp-success-icon">
-                    <svg viewBox="0 0 64 64" fill="none">
-                        <circle cx="32" cy="32" r="30" stroke="#9CAF88" stroke-width="2" fill="none"/>
-                        <path d="M20 32L28 40L44 24" stroke="#9CAF88" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <h3 class="rsvp-success-title">Посадка подтверждена</h3>
-                <p class="rsvp-success-text">Ваш посадочный талон сформирован. Мы отправили детали на указанный номер.</p>
-                <div class="rsvp-success-pass" id="rsvpSuccessPass"></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="main-footer" id="footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <svg viewBox="0 0 40 40" fill="none">
-                    <path d="M20 2L24 14L36 14L26 22L30 34L20 26L10 34L14 22L4 14L16 14L20 2Z" stroke="#D7B26D" stroke-width="1" fill="none"/>
-                    <circle cx="20" cy="20" r="3" fill="#D7B26D"/>
-                </svg>
-                <span>ANOKHIN AIRWAYS</span>
+        <!-- Dress Code -->
+        <section class="dresscode" id="dresscode">
+            <div class="section-inner">
+                <p class="section-eyebrow">Бортовой дресс-код</p>
+                <h2 class="section-title">СТИЛЬ ПОЛЁТА</h2>
+                <p class="section-subtitle">Элегантность в каждой детали. Выберите палитру, которая резонирует с вашим внутренним миром.</p>
+                <div class="dress-swatches">
+                    <div class="dc-item" data-color="Ivory"><div class="dc-swatch" style="background:#F5EFE2"></div><span class="dc-name">Ivory</span></div>
+                    <div class="dc-item" data-color="Champagne"><div class="dc-swatch" style="background:#E0CBA8"></div><span class="dc-name">Champagne</span></div>
+                    <div class="dc-item" data-color="Blush"><div class="dc-swatch" style="background:#CCAB96"></div><span class="dc-name">Blush</span></div>
+                    <div class="dc-item" data-color="Dusty Rose"><div class="dc-swatch" style="background:#BC998A"></div><span class="dc-name">Dusty Rose</span></div>
+                    <div class="dc-item" data-color="Sage"><div class="dc-swatch" style="background:#A8AA98"></div><span class="dc-name">Sage</span></div>
+                    <div class="dc-item" data-color="Taupe"><div class="dc-swatch" style="background:#6E6055"></div><span class="dc-name">Taupe</span></div>
+                </div>
+                <div class="dress-photos">
+                    <div class="dress-photo"><span class="dress-icon">👗</span><p>— будет потом —</p><span>Женский</span></div>
+                    <div class="dress-photo"><span class="dress-icon">👔</span><p>— будет потом —</p><span>Мужской</span></div>
+                </div>
+                <div class="dress-note">
+                    <p>Мы просим воздержаться от джинсов, спортивной одежды и ярких принтов. Предпочтительны натуральные ткани: шёлк, лён, кашемир, бархат.</p>
+                </div>
             </div>
-            <div class="footer-info">
-                <p class="footer-flight">Рейс AA-0808</p>
+        </section>
+
+        <!-- Baggage -->
+        <section class="baggage" id="baggage">
+            <div class="section-inner">
+                <p class="section-eyebrow">Багажное ограничение</p>
+                <h2 class="section-title">ЧТО ВЗЯТЬ НА БОРТ</h2>
+                <div class="baggage-card">
+                    <div class="baggage-col">
+                        <div class="baggage-col-title"><span class="baggage-check">✓</span><h3>Разрешено к провозу</h3></div>
+                        <ul class="baggage-list">
+                            <li><span class="baggage-check">✓</span>Хорошее настроение</li>
+                            <li><span class="baggage-check">✓</span>Любовь</li>
+                            <li><span class="baggage-check">✓</span>Туфли для танцев</li>
+                            <li><span class="baggage-check">✓</span>Тёплые объятия</li>
+                            <li><span class="baggage-check">✓</span>Безлимитное счастье</li>
+                        </ul>
+                    </div>
+                    <div class="baggage-divider"><div class="baggage-plane">✈</div></div>
+                    <div class="baggage-col">
+                        <div class="baggage-col-title"><span class="baggage-cross">✕</span><h3>Запрещено к провозу</h3></div>
+                        <ul class="baggage-list">
+                            <li><span class="baggage-cross">✕</span>Стресс</li>
+                            <li><span class="baggage-cross">✕</span>Рутина</li>
+                            <li><span class="baggage-cross">✕</span>Плохое настроение</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown -->
+        <section class="countdown" id="countdown">
+            <div class="section-inner">
+                <p class="section-eyebrow">До вылета осталось</p>
+                <h2 class="section-title">ОБРАТНЫЙ ОТСЧЁТ</h2>
+                <div class="countdown-display" id="countdownDisplay">
+                    <div class="countdown-unit"><span class="count-num" id="countDays">00</span><span class="count-label">Дней</span></div>
+                    <div class="count-sep">:</div>
+                    <div class="countdown-unit"><span class="count-num" id="countHours">00</span><span class="count-label">Часов</span></div>
+                    <div class="count-sep">:</div>
+                    <div class="countdown-unit"><span class="count-num" id="countMinutes">00</span><span class="count-label">Минут</span></div>
+                    <div class="count-sep">:</div>
+                    <div class="countdown-unit"><span class="count-num" id="countSeconds">00</span><span class="count-label">Секунд</span></div>
+                </div>
+                <div class="countdown-deco">
+                    <span>♡</span><span>✈</span><span>♡</span><span>✈</span><span>♡</span><span>✈</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="rsvp" id="rsvp">
+            <div class="section-inner">
+                <div class="rsvp-orb"></div>
+                <div class="rsvp-orb"></div>
+                <p class="section-eyebrow">Регистрация на рейс</p>
+                <h2 class="section-title">ПОДТВЕРДИТЕ ПОСАДКУ</h2>
+                <form class="rsvp-form" id="rsvpForm" novalidate>
+                    <div class="rsvp-field">
+                        <label for="rsvpName" class="rsvp-label">Имя пассажира</label>
+                        <input type="text" id="rsvpName" name="name" class="rsvp-input" placeholder="Введите ваше имя" required autocomplete="name">
+                    </div>
+                    <div class="rsvp-field">
+                        <label for="rsvpPhone" class="rsvp-label">Телефон</label>
+                        <input type="tel" id="rsvpPhone" name="phone" class="rsvp-input" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
+                    </div>
+                    <div class="rsvp-field">
+                        <label class="rsvp-label">Предпочтения в питании</label>
+                        <div class="rsvp-options">
+                            <label class="rsvp-option"><input type="radio" name="meal" value="meat" class="rsvp-radio" required><span class="rsvp-box">Мясо</span></label>
+                            <label class="rsvp-option"><input type="radio" name="meal" value="fish" class="rsvp-radio"><span class="rsvp-box">Рыба</span></label>
+                            <label class="rsvp-option"><input type="radio" name="meal" value="poultry" class="rsvp-radio"><span class="rsvp-box">Птица</span></label>
+                            <label class="rsvp-option"><input type="radio" name="meal" value="vegetarian" class="rsvp-radio"><span class="rsvp-box">Вегетарианское</span></label>
+                        </div>
+                    </div>
+                    <div class="rsvp-field">
+                        <label class="rsvp-label">Барные предпочтения</label>
+                        <div class="rsvp-options">
+                            <label class="rsvp-option"><input type="checkbox" name="bar" value="wine" class="rsvp-checkbox"><span class="rsvp-box">Вино</span></label>
+                            <label class="rsvp-option"><input type="checkbox" name="bar" value="champagne" class="rsvp-checkbox"><span class="rsvp-box">Шампанское</span></label>
+                            <label class="rsvp-option"><input type="checkbox" name="bar" value="cocktails" class="rsvp-checkbox"><span class="rsvp-box">Коктейли</span></label>
+                            <label class="rsvp-option"><input type="checkbox" name="bar" value="whiskey" class="rsvp-checkbox"><span class="rsvp-box">Виски</span></label>
+                            <label class="rsvp-option"><input type="checkbox" name="bar" value="noalcohol" class="rsvp-checkbox"><span class="rsvp-box">Без алкоголя</span></label>
+                        </div>
+                    </div>
+                    <div class="rsvp-field">
+                        <label for="rsvpComments" class="rsvp-label">Комментарий экипажу</label>
+                        <textarea id="rsvpComments" name="comments" class="rsvp-input" rows="3" placeholder="Особые пожелания, аллергии, предпочтения..."></textarea>
+                    </div>
+                    <button type="submit" class="rsvp-submit" id="rsvpSubmit">Подтвердить посадку</button>
+                </form>
+                <div class="rsvp-success" id="rsvpSuccess" style="display:none">
+                    <p class="rsvp-success-text">Посадка подтверждена!</p>
+                    <p class="rsvp-success-sub">Мы ждём вас на борту рейса AA-0808</p>
+                    <div class="rsvp-success-pass" id="rsvpSuccessPass"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="section-inner">
+                <div class="footer-brand"><span>✈</span><span>ANOKHIN AIRWAYS</span></div>
                 <p class="footer-route">Moscow — Forever</p>
-                <p class="footer-date">08 Августа 2027</p>
+                <p class="footer-date">08.08.2027 · Business Class</p>
+                <p class="footer-names">Nikita & Olga</p>
             </div>
-            <div class="footer-couple">
-                <p>Nikita & Olga Anokhin</p>
-            </div>
-            <div class="footer-legal">
-                <p>Премиальный перелет. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script src="js/countdown.js" defer></script>
     <script src="js/rsvp.js" defer></script>

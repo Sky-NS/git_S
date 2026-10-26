@@ -4,5 +4,5 @@ main = "src/index.js"
 compatibility_date = "2026-10-01"
 
 [vars]
-# Адрес сайта, например "https://anokhin-wedding.netlify.app". Несколько — через запятую.
-ALLOWED_ORIGINS = ""
+# Откуда принимать анкеты: origin сайта без пути. Несколько — через запятую.
+ALLOWED_ORIGINS = "https://sky-ns.github.io"

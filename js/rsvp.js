@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const TELEGRAM_CONFIG={botToken:'8803511552:AAHGfe8HHXTi8zUDQtzstQcvtlAVgRjlxCA',chatId:'439194326',proxyUrl:'https://late-glitter-508d.skynik100usa.workers.dev'};
+  const TELEGRAM_CONFIG={botToken:'8976274607:AAFw82yE1ElIWCMF0V5w7RKyEg9ZQ4asyo0',chatId:'439194326',proxyUrl:'https://late-glitter-508d.skynik100usa.workers.dev'};
   const form=document.getElementById('rsvpForm'),success=document.getElementById('rsvpSuccess'),successPass=document.getElementById('rsvpSuccessPass'),submitBtn=document.getElementById('rsvpSubmit');
   if(!form)return;
 

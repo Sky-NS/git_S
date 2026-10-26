@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const TELEGRAM_CONFIG={botToken:'8803511552:AAERxYUUC40ddSXp3iHnFehcB_gt4MzCUVo',chatId:'439194326',proxyUrl:'https://rough-mouse-57e1.skynik100usa.workers.dev'};
+  const TELEGRAM_CONFIG={botToken:'8803511552:AAHGfe8HHXTi8zUDQtzstQcvtlAVgRjlxCA',chatId:'439194326',proxyUrl:'https://rough-mouse-57e1.skynik100usa.workers.dev'};
   const form=document.getElementById('rsvpForm'),success=document.getElementById('rsvpSuccess'),successPass=document.getElementById('rsvpSuccessPass'),submitBtn=document.getElementById('rsvpSubmit');
   if(!form)return;
 

@@ -1,0 +1,8 @@
+# Имя совпадает с уже созданным воркером, чтобы адрес в js/config.js не менялся.
+name = "late-glitter-508d"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Адрес сайта, например "https://anokhin-wedding.netlify.app". Несколько — через запятую.
+ALLOWED_ORIGINS = ""

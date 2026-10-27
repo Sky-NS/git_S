@@ -20,8 +20,7 @@
         attendanceChoices.removeAttribute('aria-invalid');
     });
 
-    // Живая виза: имя гостя появляется на штампе, пока он его вводит
-    const visa = document.querySelector('.visa');
+    // Живая виза: имя гостя появляется в строке «Виза выдаётся», пока он его вводит
     const visaName = document.getElementById('visaName');
     const visaPlaceholder = visaName ? visaName.textContent : '';
     nameInput.addEventListener('input', () => {
@@ -109,14 +108,18 @@
         document.getElementById('rsvpPassName').textContent = data.name;
 
         form.hidden = true;
-        if (visa && data.attendance === 'yes') {
-            visa.classList.remove('is-stamped');
-            void visa.offsetWidth; // перезапуск анимации штампа
-            visa.classList.add('is-stamped');
+        // Штамп «Въезд разрешён» опускается на визу гостя
+        const stamp = done.querySelector('.visa-stamp');
+        if (stamp && data.attendance === 'yes') {
+            stamp.classList.remove('is-stamped');
+            void stamp.offsetWidth; // перезапуск анимации штампа
+            stamp.classList.add('is-stamped');
         }
         done.hidden = false;
         done.focus({ preventScroll: true });
-        done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Анкета живёт внутри страницы паспорта — прокручиваем саму страницу к началу
+        const page = done.closest('.page');
+        if (page) page.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     form.addEventListener('submit', async (e) => {

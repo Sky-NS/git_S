@@ -2,49 +2,41 @@
     'use strict';
 
     const config = window.WEDDING_CONFIG || {};
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Появление блоков при прокрутке: внутри секции элементы выходят друг за другом
-    const revealEls = document.querySelectorAll('.reveal');
-    document.querySelectorAll('section').forEach((section) => {
-        section.querySelectorAll('.reveal').forEach((el, i) => {
-            el.style.setProperty('--delay', `${Math.min(i, 4) * 80}ms`);
-        });
-    });
-    if (reducedMotion || !('IntersectionObserver' in window)) {
-        revealEls.forEach((el) => el.classList.add('is-visible'));
-    } else {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
+    // Тусклые штампы: города, где мы уже побывали вдвоём (без дат — их не выдумываем)
+    const TRIPS = [
+        ['TOKYO', 'JAPAN'], ['OSAKA', 'JAPAN'], ['KAMAKURA', 'JAPAN'], ['NARA', 'JAPAN'], ['KYOTO', 'JAPAN'],
+        ['FUJIKAWAGUCHIKO', 'JAPAN'], ['HAKONE', 'JAPAN'], ['MISHIMA', 'JAPAN'],
+        ['SHANGHAI', 'CHINA'], ['BEIJING', 'CHINA'], ["XI'AN", 'CHINA'],
+        ['UBUD', 'BALI'], ['KUTA', 'BALI'], ['AMED', 'BALI'], ['DENPASAR', 'BALI'], ['SEMINYAK', 'BALI'],
+        ['CANGGU', 'BALI'], ['NUSA DUA', 'BALI'], ['JIMBARAN', 'BALI'], ['SANUR', 'BALI'], ['TABANAN', 'BALI'],
+        ['МОСКВА', 'РОССИЯ'], ['САНКТ-ПЕТЕРБУРГ', 'РОССИЯ'], ['НИЖНИЙ НОВГОРОД', 'РОССИЯ'], ['РОСТОВ ВЕЛИКИЙ', 'РОССИЯ'], ['ТАРУСА', 'РОССИЯ']
+    ];
+    // Места на странице (в процентах), где штампы не спорят с текстом
+    const SLOTS = [[54, 4], [4, 58], [50, 66], [14, 80], [58, 36]];
+    const SHAPES = ['round', 'rect', 'oval'];
+    const INKS = ['violet', 'blue', 'green', 'red', 'black'];
+    const groups = document.querySelectorAll('.faint[data-stamps]');
+    if (groups.length) {
+        const per = Math.ceil(TRIPS.length / groups.length);
+        groups.forEach((group, g) => {
+            TRIPS.slice(g * per, g * per + per).forEach(([city, country], i) => {
+                const n = g * per + i;
+                const [x, y] = SLOTS[i % SLOTS.length];
+                const el = document.createElement('div');
+                el.className = `stamp stamp--${SHAPES[n % 3]} ink-${INKS[n % INKS.length]}`;
+                el.style.left = `${x}%`;
+                el.style.top = `${y}%`;
+                el.style.setProperty('--r', `${((n * 37) % 30) - 15}deg`);
+                const b = document.createElement('b');
+                b.textContent = city;
+                const small = document.createElement('small');
+                small.textContent = country;
+                el.append(b, small);
+                group.append(el);
             });
-        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-        revealEls.forEach((el) => observer.observe(el));
+        });
     }
-
-    // Самолёт вокруг глобуса — SMIL-анимация, CSS её не останавливает
-    if (reducedMotion) {
-        document.querySelectorAll('.globe').forEach((svg) => svg.pauseAnimations());
-    }
-
-    // Фото, которых ещё нет в assets/, просто не показываем — остаётся заглушка
-    document.querySelectorAll('img[data-optional]').forEach((img) => {
-        const drop = () => {
-            const wrap = img.closest('[data-optional-wrap]');
-            if (wrap) {
-                // вместе с фото убираем подпись и строку автора
-                document.querySelectorAll(`[data-credit="${wrap.dataset.optionalWrap}"]`).forEach((el) => el.remove());
-                wrap.remove();
-            } else {
-                img.remove();
-            }
-        };
-        if (img.complete && img.naturalWidth === 0) drop();
-        else img.addEventListener('error', drop);
-    });
 
     // Обратный отсчёт
     const countdown = document.getElementById('countdown');
@@ -92,31 +84,6 @@
         };
         tick();
         timer = setInterval(tick, 1000);
-    }
-
-    // Обложка паспорта: при прокрутке первого экрана уменьшается и уходит в левый нижний угол
-    const hero = document.querySelector('.hero');
-    const passport = document.getElementById('passport');
-    if (hero && passport && !reducedMotion) {
-        let frame = 0;
-        const update = () => {
-            frame = 0;
-            const rect = hero.getBoundingClientRect();
-            const span = rect.height - window.innerHeight;
-            const p = span > 0 ? Math.min(1, Math.max(0, -rect.top / span)) : 0;
-            // На телефоне обложка остаётся крупнее, иначе экран пустеет
-            const scale = 1 - p * (window.innerWidth < 760 ? 0.5 : 0.72);
-            const stageHeight = passport.parentElement.clientHeight;
-            // Сдвигаем к левому нижнему краю сцены с отступом 24px; точка трансформации — левый нижний угол
-            const dx = -(passport.offsetLeft - 24) * p;
-            const dy = (stageHeight - passport.offsetTop - passport.offsetHeight - 24) * p;
-            passport.style.transform = p ? `translate(${dx}px, ${dy}px) scale(${scale})` : '';
-        };
-        window.addEventListener('scroll', () => {
-            if (!frame) frame = requestAnimationFrame(update);
-        }, { passive: true });
-        window.addEventListener('resize', update);
-        update();
     }
 
     // Старый service worker кэшировал сайт и показывал устаревшие версии — отключаем его у тех, у кого он остался

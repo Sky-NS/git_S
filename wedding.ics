@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Nikita and Olga//Wedding//RU
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:wedding-20270613@sky-ns.github.io
+DTSTAMP:20261027T000000Z
+DTSTART:20270613T110000Z
+DTEND:20270613T200000Z
+SUMMARY:Свадьба Никиты и Ольги
+DESCRIPTION:Сбор гостей в 14:00. Рейс NO-1306\, Москва → Навсегда. https://sky-ns.github.io/git_S/
+LOCATION:Грин Хаус\, Дмитровский муниципальный округ\, Московская область
+GEO:56.193607;37.285189
+END:VEVENT
+END:VCALENDAR

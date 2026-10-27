@@ -20,7 +20,14 @@
         attendanceChoices.removeAttribute('aria-invalid');
     });
 
-    nameInput.addEventListener('input', () => nameInput.removeAttribute('aria-invalid'));
+    // Живая виза: имя гостя появляется на штампе, пока он его вводит
+    const visa = document.querySelector('.visa');
+    const visaName = document.getElementById('visaName');
+    const visaPlaceholder = visaName ? visaName.textContent : '';
+    nameInput.addEventListener('input', () => {
+        nameInput.removeAttribute('aria-invalid');
+        if (visaName) visaName.textContent = nameInput.value.trim() || visaPlaceholder;
+    });
 
     // Маска телефона +7 (XXX) XXX-XX-XX
     phoneInput.addEventListener('input', () => {
@@ -93,15 +100,20 @@
     function showDone(data) {
         const coming = data.attendance === 'yes';
         document.getElementById('rsvpDoneTitle').textContent = coming
-            ? 'Посадка подтверждена!'
+            ? 'Въезд разрешён!'
             : 'Спасибо, что сообщили';
         document.getElementById('rsvpDoneText').textContent = coming
-            ? 'Ждём вас на борту 13 июня. Ваш посадочный талон:'
+            ? 'Виза получена, ждём вас 13 июня. Ваш посадочный талон:'
             : 'Нам будет вас не хватать. Мы обязательно поднимем бокал за вас!';
         document.getElementById('rsvpPass').hidden = !coming;
         document.getElementById('rsvpPassName').textContent = data.name;
 
         form.hidden = true;
+        if (visa && data.attendance === 'yes') {
+            visa.classList.remove('is-stamped');
+            void visa.offsetWidth; // перезапуск анимации штампа
+            visa.classList.add('is-stamped');
+        }
         done.hidden = false;
         done.focus({ preventScroll: true });
         done.scrollIntoView({ behavior: 'smooth', block: 'center' });

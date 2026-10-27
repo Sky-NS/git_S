@@ -94,86 +94,29 @@
         timer = setInterval(tick, 1000);
     }
 
-    // План полёта: пунктирный маршрут-змейка между пунктами и самолёт, летящий по нему при прокрутке
-    const plan = document.querySelector('.plan');
-    if (plan) {
-        const svg = plan.querySelector('.plan__route');
-        const path = plan.querySelector('.plan__path');
-        const marks = plan.querySelector('.plan__marks');
-        const plane = plan.querySelector('.plan__plane');
-        const pinStart = plan.querySelector('.plan__pin--start');
-        const pinEnd = plan.querySelector('.plan__pin--end');
-        const items = plan.querySelectorAll('.plan__item');
-        const NS = 'http://www.w3.org/2000/svg';
-        let length = 0;
-
-        const layout = () => {
-            const w = plan.clientWidth;
-            const h = plan.clientHeight;
-            if (!w || !h) return;
-            svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-
-            // Текст пункта с одной стороны — маршрут проходит с другой
-            const points = [[w / 2, 14]];
-            items.forEach((item, i) => {
-                const y = item.offsetTop + item.offsetHeight / 2;
-                points.push([i % 2 === 0 ? w * 0.62 : w * 0.38, y]);
-            });
-            points.push([w / 2, h - 14]);
-
-            let d = `M${points[0][0]} ${points[0][1]}`;
-            for (let i = 1; i < points.length; i++) {
-                const [x0, y0] = points[i - 1];
-                const [x1, y1] = points[i];
-                const dy = (y1 - y0) / 2;
-                d += ` C${x0} ${y0 + dy} ${x1} ${y1 - dy} ${x1} ${y1}`;
-            }
-            path.setAttribute('d', d);
-            length = path.getTotalLength();
-
-            marks.replaceChildren(...points.slice(1, -1).map(([x, y]) => {
-                const dot = document.createElementNS(NS, 'circle');
-                dot.setAttribute('cx', x);
-                dot.setAttribute('cy', y);
-                dot.setAttribute('r', 3);
-                return dot;
-            }));
-
-            const pinSize = 22;
-            pinStart.setAttribute('x', points[0][0] - pinSize / 2);
-            pinStart.setAttribute('y', points[0][1] - pinSize);
-            pinEnd.setAttribute('x', points[points.length - 1][0] - pinSize / 2);
-            pinEnd.setAttribute('y', points[points.length - 1][1] - pinSize);
-
-            movePlane();
-        };
-
-        const movePlane = () => {
-            if (!length) return;
-            const rect = plan.getBoundingClientRect();
-            const start = window.innerHeight * 0.75;
-            const progress = Math.min(1, Math.max(0, (start - rect.top) / rect.height));
-            const at = Math.max(1, Math.min(length - 1, length * progress));
-            const p = path.getPointAtLength(at);
-            const ahead = path.getPointAtLength(Math.min(length, at + 1));
-            const behind = path.getPointAtLength(Math.max(0, at - 1));
-            const angle = Math.atan2(ahead.y - behind.y, ahead.x - behind.x) * 180 / Math.PI;
-            // Иконка самолёта смотрит вверх, поэтому +90°
-            plane.setAttribute('transform', `translate(${p.x} ${p.y}) rotate(${angle + 90})`);
-        };
-
+    // Обложка паспорта: при прокрутке первого экрана уменьшается и уходит в левый нижний угол
+    const hero = document.querySelector('.hero');
+    const passport = document.getElementById('passport');
+    if (hero && passport && !reducedMotion) {
         let frame = 0;
+        const update = () => {
+            frame = 0;
+            const rect = hero.getBoundingClientRect();
+            const span = rect.height - window.innerHeight;
+            const p = span > 0 ? Math.min(1, Math.max(0, -rect.top / span)) : 0;
+            // На телефоне обложка остаётся крупнее, иначе экран пустеет
+            const scale = 1 - p * (window.innerWidth < 760 ? 0.5 : 0.72);
+            const stageHeight = passport.parentElement.clientHeight;
+            // Сдвигаем к левому нижнему краю сцены с отступом 24px; точка трансформации — левый нижний угол
+            const dx = -(passport.offsetLeft - 24) * p;
+            const dy = (stageHeight - passport.offsetTop - passport.offsetHeight - 24) * p;
+            passport.style.transform = p ? `translate(${dx}px, ${dy}px) scale(${scale})` : '';
+        };
         window.addEventListener('scroll', () => {
-            if (frame) return;
-            frame = requestAnimationFrame(() => {
-                frame = 0;
-                movePlane();
-            });
+            if (!frame) frame = requestAnimationFrame(update);
         }, { passive: true });
-
-        if ('ResizeObserver' in window) new ResizeObserver(layout).observe(plan);
-        else window.addEventListener('resize', layout);
-        layout();
+        window.addEventListener('resize', update);
+        update();
     }
 
     // Старый service worker кэшировал сайт и показывал устаревшие версии — отключаем его у тех, у кого он остался

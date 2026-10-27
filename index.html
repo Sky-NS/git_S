@@ -3,338 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Никита & Ольга — 13 июня 2027</title>
-    <meta name="description" content="Посадочный билет на свадьбу Никиты и Ольги. 13 июня 2027, Грин Хаус, Московская область.">
-    <meta name="theme-color" content="#6c81a3">
+    <title>Никита и Ольга, свадьба 13 июня 2027</title>
+    <meta name="description" content="Паспорт семьи Анохиных: приглашение на свадьбу Никиты и Ольги 13 июня 2027 в Грин Хаусе.">
+    <meta name="theme-color" content="#d8d2ca">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Никита & Ольга — посадочный билет на свадьбу">
-    <meta property="og:description" content="13 июня 2027 · Грин Хаус · Рейс в страну любви">
+    <meta property="og:title" content="Никита и Ольга: паспорт семьи Анохиных">
+    <meta property="og:description" content="13 июня 2027, Грин Хаус. Откройте паспорт и получите визу на наш праздник.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Marck+Script&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&family=PT+Sans:ital,wght@0,400;0,700;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script>document.documentElement.classList.add('js');</script>
-    <script src="js/themes.js"></script>
 </head>
 <body>
     <svg width="0" height="0" class="sprite" aria-hidden="true">
+        <defs>
+            <!-- Неровный оттиск штампа: край «плывёт», краска ложится пятнами -->
+            <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+                <feTurbulence type="fractalNoise" baseFrequency="0.35" numOctaves="2" seed="3" result="blots"/>
+                <feColorMatrix in="blots" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 2.1" result="mask"/>
+                <feComposite in="rough" in2="mask" operator="in"/>
+            </filter>
+        </defs>
         <symbol id="i-plane" viewBox="0 0 24 24">
             <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
         </symbol>
-        <symbol id="i-pin" viewBox="0 0 24 24">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+        <!-- Герб семьи: глобус с сердцем вместо государственного -->
+        <symbol id="i-emblem" viewBox="0 0 240 240">
+            <circle cx="120" cy="120" r="84" fill="none" stroke="currentColor" stroke-width="4"/>
+            <g fill="none" stroke="currentColor" stroke-width="2.4">
+                <ellipse cx="120" cy="120" rx="84" ry="30"/>
+                <ellipse cx="120" cy="120" rx="84" ry="62"/>
+                <ellipse cx="120" cy="120" rx="30" ry="84"/>
+                <ellipse cx="120" cy="120" rx="62" ry="84"/>
+                <path d="M36 120h168M120 36v168"/>
+            </g>
+            <path fill="currentColor" d="M120 150c-2-2-30-19-30-38 0-10 8-17 16-17 6 0 11 3 14 8 3-5 8-8 14-8 8 0 16 7 16 17 0 19-28 36-30 38z"/>
+            <path fill="none" stroke="currentColor" stroke-width="4" d="M40 198c22 16 50 24 80 24s58-8 80-24M58 34c18-10 39-16 62-16s44 6 62 16"/>
         </symbol>
-        <symbol id="i-doodle" viewBox="0 0 170 80">
-            <path d="M2 62C30 74 58 66 80 50c14-10 26-26 42-28 14-2 20 10 12 18-8 8-22 2-18-10 4-12 24-24 52-28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 5" stroke-linecap="round"/>
+        <symbol id="i-chip" viewBox="0 0 64 40">
+            <rect x="2" y="2" width="60" height="36" rx="3" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="32" cy="20" r="9" fill="none" stroke="currentColor" stroke-width="3"/>
+            <path d="M2 20h14M48 20h14" stroke="currentColor" stroke-width="3"/>
         </symbol>
     </svg>
 
-    <div class="sky" aria-hidden="true"></div>
+    <main class="desk">
+        <h1 class="sr-only">Никита и Ольга: приглашение на свадьбу 13 июня 2027, Грин Хаус</h1>
 
-    <nav class="theme-switch" aria-label="Цветовая тема">
-        <button class="theme-switch__toggle" type="button" id="themeToggle" aria-expanded="false" aria-controls="themePanel" aria-label="Выбрать цвета оформления">
-            <span></span><span></span><span></span>
-        </button>
-        <div class="theme-switch__panel" id="themePanel" hidden>
-            <p class="theme-switch__title">Цвета оформления</p>
-            <div id="themeOptions"></div>
-        </div>
-    </nav>
+        <div class="stage" id="stage">
+            <div class="book" id="book" aria-roledescription="паспорт">
 
-    <main class="page">
-
-        <!-- Посадочный талон -->
-        <section class="ticket ticket--hero" aria-labelledby="heroTitle">
-            <div class="ticket__body">
-                <p class="ticket__caption">посадочный билет на свадьбу</p>
-                <hr class="ticket__dash">
-
-                <h1 class="hero__names" id="heroTitle">
-                    <span>Никита</span>
-                    <span class="hero__amp" aria-hidden="true">&amp;</span>
-                    <span class="sr-only">и</span>
-                    <span>Ольга</span>
-                </h1>
-
-                <div class="hero__globe" aria-hidden="true">
-                    <svg viewBox="0 0 240 240" class="globe">
-                        <defs>
-                            <clipPath id="globeClip"><circle cx="120" cy="120" r="84"/></clipPath>
-                        </defs>
-                        <circle cx="120" cy="120" r="84" class="globe__sphere"/>
-                        <g clip-path="url(#globeClip)" class="globe__grid">
-                            <ellipse cx="120" cy="120" rx="84" ry="28"/>
-                            <ellipse cx="120" cy="120" rx="84" ry="60"/>
-                            <line x1="30" y1="120" x2="210" y2="120"/>
-                            <ellipse cx="120" cy="120" rx="28" ry="84"/>
-                            <ellipse cx="120" cy="120" rx="60" ry="84"/>
-                            <line x1="120" y1="30" x2="120" y2="210"/>
-                        </g>
-                        <path class="globe__heart" d="M120 146c-2-2-26-17-26-33 0-9 7-15 14-15 5 0 9 3 12 7 3-4 7-7 12-7 7 0 14 6 14 15 0 16-24 31-26 33z"/>
-                        <path id="orbit" d="M14 132a106 34 -14 1 0 212 -52a106 34 -14 1 0 -212 52" class="globe__orbit"/>
-                        <g class="globe__plane">
-                            <!-- Иконка смотрит носом вверх, а rotate="auto" направляет по движению ось X — поворачиваем на 90° -->
-                            <use href="#i-plane" width="18" height="18" x="-9" y="-9" transform="rotate(90)"/>
-                            <animateMotion dur="16s" repeatCount="indefinite" rotate="auto">
-                                <mpath href="#orbit"/>
-                            </animateMotion>
-                        </g>
-                    </svg>
-                </div>
-
-                <dl class="pass">
-                    <div class="pass__cell">
-                        <dt>flight / date</dt>
-                        <dd>13.06.2027</dd>
-                    </div>
-                    <div class="pass__cell">
-                        <dt>class</dt>
-                        <dd>первый класс</dd>
-                    </div>
-                    <div class="pass__cell pass__cell--wide">
-                        <dt>to / destination</dt>
-                        <dd>билет в страну любви</dd>
-                    </div>
-                </dl>
-
-                <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
-                    <defs>
-                        <path id="stampRing" d="M60 60m-41 0a41 41 0 1 1 82 0a41 41 0 1 1 -82 0"/>
-                    </defs>
-                    <circle cx="60" cy="60" r="54"/>
-                    <circle cx="60" cy="60" r="32"/>
-                    <text><textPath href="#stampRing" startOffset="0">НИКИТА &amp; ОЛЬГА · 13 · 06 · 2027 ·</textPath></text>
-                    <use href="#i-plane" x="44" y="44" width="32" height="32" transform="rotate(45 60 60)"/>
-                </svg>
-
-                <div class="ticket__tear" aria-hidden="true"></div>
-                <p class="ticket__caption">рейс NO-1306 · Москва → Навсегда</p>
-            </div>
-        </section>
-
-        <!-- Приглашение -->
-        <section class="paper invite">
-            <h2 class="invite__title reveal">
-                Дорогие друзья,
-                <span class="script">этим летом</span>
-                мы женимся!
-            </h2>
-            <p class="invite__lead reveal">И очень хотим разделить этот день вместе с вами!</p>
-
-            <figure class="photo reveal">
-                <div class="photo__placeholder" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><use href="#i-plane"/></svg>
-                    <span>здесь будет наше фото</span>
-                </div>
-                <img src="assets/couple.jpg" alt="Никита и Ольга" loading="lazy" data-optional>
-            </figure>
-            <svg class="doodle doodle--invite" aria-hidden="true"><use href="#i-doodle"/></svg>
-
-            <h2 class="section-title section-title--ink reveal">Мы ждём вас!</h2>
-            <p class="invite__lead reveal">На первом празднике нашей семьи</p>
-
-            <div class="calendar reveal" aria-label="13 июня 2027 года, воскресенье">
-                <p class="calendar__month">июнь</p>
-                <div class="calendar__grid" aria-hidden="true">
-                    <span class="calendar__dow">сб</span>
-                    <span class="calendar__dow">вс</span>
-                    <span class="calendar__dow">пн</span>
-                    <span class="calendar__day">12</span>
-                    <span class="calendar__day calendar__day--main">
-                        13
-                        <span class="calendar__note">дата вылета</span>
-                    </span>
-                    <span class="calendar__day">14</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Место и план -->
-        <section class="ticket" aria-labelledby="venueTitle">
-            <div class="ticket__body">
-                <h2 class="section-title reveal" id="venueTitle">Координаты рейса</h2>
-                <p class="venue__name reveal">Грин Хаус</p>
-                <p class="venue__addr reveal">Московская область, Дмитровский муниципальный округ, территориальное управление №&nbsp;3</p>
-
-                <div class="venue__map reveal">
-                    <iframe
-                        src="https://yandex.ru/map-widget/v1/?ll=37.285189%2C56.193607&amp;z=14&amp;pt=37.285189%2C56.193607%2Cpm2blm"
-                        title="Грин Хаус на карте"
-                        loading="lazy"
-                        allowfullscreen></iframe>
-                </div>
-                <p class="venue__coords reveal">56.193607, 37.285189</p>
-                <div class="venue__actions reveal">
-                    <a class="btn" href="https://yandex.ru/maps/?pt=37.285189,56.193607&amp;z=15&amp;l=map" target="_blank" rel="noopener">Яндекс Карты</a>
-                    <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=56.193607,37.285189" target="_blank" rel="noopener">Google Maps</a>
-                </div>
-
-                <h2 class="section-title section-title--spaced reveal">План полёта</h2>
-
-                <div class="plan">
-                    <svg class="plan__route" aria-hidden="true">
-                        <path class="plan__path"/>
-                        <g class="plan__marks"></g>
-                        <use href="#i-pin" width="22" height="22" class="plan__pin plan__pin--start"/>
-                        <use href="#i-pin" width="22" height="22" class="plan__pin plan__pin--end"/>
-                        <use href="#i-plane" width="26" height="26" x="-13" y="-13" class="plan__plane"/>
-                    </svg>
-                    <ol class="plan__list">
-                        <li class="plan__item reveal">
-                            <time>14:00</time>
-                            <span class="plan__tag">регистрация на рейс</span>
-                            <span class="plan__text">Сбор гостей, фуршет</span>
-                        </li>
-                        <li class="plan__item reveal">
-                            <time>15:00</time>
-                            <span class="plan__tag">взлёт</span>
-                            <span class="plan__text">Свадебная церемония, поздравления, общие фото</span>
-                        </li>
-                        <li class="plan__item reveal">
-                            <time>16:00</time>
-                            <span class="plan__tag">бортовое питание</span>
-                            <span class="plan__text">Начало банкета</span>
-                        </li>
-                        <li class="plan__item reveal">
-                            <time>20:30 – 21:00</time>
-                            <span class="plan__tag">сладкая турбулентность</span>
-                            <span class="plan__text">Вынос торта</span>
-                        </li>
-                        <li class="plan__item reveal">
-                            <time>21:00 – 22:00</time>
-                            <span class="plan__tag">танцы на высоте</span>
-                            <span class="plan__text">Диджей и танцпол</span>
-                        </li>
-                        <li class="plan__item reveal">
-                            <time>22:30 – 23:00</time>
-                            <span class="plan__tag">посадка</span>
-                            <span class="plan__text">Сборы домой под звёздами</span>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </section>
-
-        <!-- Дресс-код -->
-        <section class="paper dresscode" aria-labelledby="dressTitle">
-            <svg class="doodle doodle--dress" aria-hidden="true"><use href="#i-doodle"/></svg>
-            <h2 class="section-title section-title--ink reveal" id="dressTitle">Подготовка к&nbsp;рейсу</h2>
-            <p class="dresscode__lead reveal">
-                Форма экипажа — лёгкий романтичный стиль в&nbsp;оттенках нашего праздника.
-                Подробный дресс-код появится здесь совсем скоро.
-            </p>
-            <ul class="palette reveal" id="palette" aria-label="Палитра праздника">
-                <li><span class="palette__swatch" style="--c:#4b4a4f"></span><span>графит</span></li>
-                <li><span class="palette__swatch" style="--c:#5d7194"></span><span>деним</span></li>
-                <li><span class="palette__swatch" style="--c:#8fa5cc"></span><span>небо</span></li>
-                <li><span class="palette__swatch" style="--c:#cfe0ee"></span><span>облако</span></li>
-                <li><span class="palette__swatch" style="--c:#f3efdc"></span><span>ваниль</span></li>
-            </ul>
-        </section>
-
-        <!-- Детали, анкета, отсчёт -->
-        <section class="ticket ticket--last" aria-labelledby="detailsTitle">
-            <div class="ticket__body">
-                <h2 class="section-title reveal" id="detailsTitle">Детали полёта</h2>
-                <div class="details reveal">
-                    <p>Самым главным подарком для нас будет ваше хорошее настроение на нашей свадьбе!</p>
-                </div>
-
-                <h2 class="section-title section-title--spaced reveal" id="rsvp">Анкета</h2>
-                <p class="details reveal">Заполните, пожалуйста, небольшую анкету и подтвердите своё присутствие.</p>
-
-                <form class="rsvp reveal" id="rsvpForm" novalidate>
-                    <div class="field">
-                        <label class="field__label" for="rsvpName">Имя и фамилия</label>
-                        <input class="field__input" id="rsvpName" name="name" type="text" autocomplete="name" maxlength="120" required>
-                    </div>
-
-                    <fieldset class="field">
-                        <legend class="field__label">Вы будете с нами?</legend>
-                        <div class="choices">
-                            <label class="choice"><input type="radio" name="attendance" value="yes" required><span>С радостью буду</span></label>
-                            <label class="choice"><input type="radio" name="attendance" value="no"><span>К сожалению, не смогу</span></label>
+                <!-- Лист 1: обложка и форзац -->
+                <div class="leaf" data-leaf="0">
+                    <section class="face face--front cover" data-face="0" aria-label="Обложка">
+                        <p class="cover__top">Семья Анохиных<br><span>Anokhin family</span></p>
+                        <svg class="cover__emblem" viewBox="0 0 240 240" aria-hidden="true"><use href="#i-emblem"/></svg>
+                        <p class="cover__title">Паспорт<br><span>Passport</span></p>
+                        <svg class="cover__chip" viewBox="0 0 64 40" aria-hidden="true"><use href="#i-chip"/></svg>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                    <section class="face face--back endpaper" data-face="1" aria-labelledby="t1">
+                        <div class="page">
+                            <h2 class="page__title" id="t1">Владельцу паспорта</h2>
+                            <p>Этот паспорт выдан вам, чтобы 13 июня 2027 года вы отправились вместе с нами в главное путешествие нашей жизни.</p>
+                            <p>Листайте страницы пальцем или стрелками. На последних страницах вас ждёт визовая анкета.</p>
+                            <p class="endpaper__valid">Действителен: 13.06.2027<br>Пункт назначения: Грин Хаус</p>
+                            <span class="page__num">1</span>
                         </div>
-                    </fieldset>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                </div>
 
-                    <div class="rsvp__attending" id="rsvpAttending">
-                        <div class="field">
-                            <label class="field__label" for="rsvpCompanions">Кто летит с вами</label>
-                            <input class="field__input" id="rsvpCompanions" name="companions" type="text" maxlength="300" placeholder="Если будете не одни">
-                        </div>
-
-                        <fieldset class="field">
-                            <legend class="field__label">Напитки на борту</legend>
-                            <div class="choices">
-                                <label class="choice"><input type="checkbox" name="drinks" value="champagne"><span>Шампанское</span></label>
-                                <label class="choice"><input type="checkbox" name="drinks" value="white"><span>Белое вино</span></label>
-                                <label class="choice"><input type="checkbox" name="drinks" value="red"><span>Красное вино</span></label>
-                                <label class="choice"><input type="checkbox" name="drinks" value="strong"><span>Крепкое</span></label>
-                                <label class="choice"><input type="checkbox" name="drinks" value="soft"><span>Без алкоголя</span></label>
+                <!-- Лист 2: страница данных и приглашение -->
+                <div class="leaf" data-leaf="1">
+                    <section class="face face--front paper paper--rose" data-face="2" aria-labelledby="t2">
+                        <div class="page datapage">
+                            <h2 class="datapage__head" id="t2">Паспорт <span>Passport</span></h2>
+                            <div class="datapage__body">
+                                <figure class="datapage__photo">
+                                    <img src="assets/couple.jpg" alt="Никита и Ольга" width="2000" height="1333">
+                                </figure>
+                                <dl class="fields">
+                                    <div><dt>Тип / Type</dt><dd>P</dd></div>
+                                    <div><dt>Код / Code</dt><dd>LOVE</dd></div>
+                                    <div class="fields__wide"><dt>Фамилия / Surname</dt><dd>Анохины<br><i>Anokhiny</i></dd></div>
+                                    <div class="fields__wide"><dt>Имена / Given names</dt><dd>Никита и Ольга<br><i>Nikita &amp; Olga</i></dd></div>
+                                    <div><dt>Дата вылета</dt><dd>13.06.2027</dd></div>
+                                    <div><dt>Сбор гостей</dt><dd>14:00</dd></div>
+                                    <div class="fields__wide"><dt>Место / Place</dt><dd>Грин Хаус, Подмосковье</dd></div>
+                                    <div><dt>Срок действия</dt><dd>Навсегда</dd></div>
+                                    <div><dt>Подпись</dt><dd class="fields__sign">Н. и О. Анохины</dd></div>
+                                </dl>
                             </div>
-                        </fieldset>
-                    </div>
-
-                    <div class="field">
-                        <label class="field__label" for="rsvpPhone">Телефон <span class="field__optional">— по желанию</span></label>
-                        <input class="field__input" id="rsvpPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="+7 (___) ___-__-__">
-                    </div>
-
-                    <div class="field">
-                        <label class="field__label" for="rsvpComment">Пожелания экипажу</label>
-                        <textarea class="field__input" id="rsvpComment" name="comment" rows="3" maxlength="1000" placeholder="Аллергии, особенности питания, вопросы"></textarea>
-                    </div>
-
-                    <div class="rsvp__trap" aria-hidden="true">
-                        <label>Не заполняйте это поле <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-                    </div>
-
-                    <p class="rsvp__error" id="rsvpError" role="alert" hidden></p>
-                    <button class="btn btn--solid" type="submit" id="rsvpSubmit">Подтвердить</button>
-                </form>
-
-                <div class="rsvp-done" id="rsvpDone" hidden tabindex="-1">
-                    <p class="rsvp-done__title" id="rsvpDoneTitle"></p>
-                    <p class="rsvp-done__text" id="rsvpDoneText"></p>
-                    <div class="mini-pass" id="rsvpPass" hidden>
-                        <div>
-                            <span class="mini-pass__label">пассажир</span>
-                            <span class="mini-pass__value" id="rsvpPassName"></span>
+                            <p class="mrz" aria-hidden="true">P&lt;LOVANOKHINY&lt;&lt;NIKITA&lt;&lt;OLGA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>NO13062027LOVE2706131GREENHOUSE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;2</p>
                         </div>
-                        <div>
-                            <span class="mini-pass__label">рейс</span>
-                            <span class="mini-pass__value">NO-1306</span>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                    <section class="face face--back paper paper--rose" data-face="3" aria-labelledby="t3">
+                        <div class="page">
+                            <div class="faint" data-stamps="0" aria-hidden="true"></div>
+                            <h2 class="page__title" id="t3">Мы женимся</h2>
+                            <p>Дорогие друзья! 13 июня 2027 года мы отправляемся в главное путешествие нашей жизни и очень хотим, чтобы вы были рядом.</p>
+                            <p>Мы много путешествовали вдвоём: тусклые штампы на страницах — города, где мы уже побывали. Яркие — то, что ждёт нас вместе с вами.</p>
+                            <p class="page__sign">Никита и Ольга</p>
+                            <span class="page__num">3</span>
                         </div>
-                        <div>
-                            <span class="mini-pass__label">дата</span>
-                            <span class="mini-pass__value">13.06.2027</span>
-                        </div>
-                        <div>
-                            <span class="mini-pass__label">посадка</span>
-                            <span class="mini-pass__value">14:00</span>
-                        </div>
-                    </div>
-                    <button class="btn" type="button" id="rsvpAgain">Заполнить ещё раз</button>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
                 </div>
 
-                <h2 class="section-title section-title--spaced reveal">До вылета осталось</h2>
-                <div class="countdown reveal" id="countdown" role="timer" aria-live="off">
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="days">00</span><span class="countdown__label" data-label="days">дней</span></div>
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="hours">00</span><span class="countdown__label" data-label="hours">часов</span></div>
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="minutes">00</span><span class="countdown__label" data-label="minutes">минут</span></div>
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="seconds">00</span><span class="countdown__label" data-label="seconds">секунд</span></div>
+                <!-- Лист 3: программа дня штампами -->
+                <div class="leaf" data-leaf="2">
+                    <section class="face face--front paper paper--green" data-face="4" aria-labelledby="t4">
+                        <div class="page">
+                            <div class="faint" data-stamps="1" aria-hidden="true"></div>
+                            <h2 class="page__title" id="t4">Отметки о вылете</h2>
+                            <p class="page__lead">Программа 13 июня, время московское</p>
+                            <ol class="stamps">
+                                <li class="stamp stamp--rect ink-violet" style="--r:-6deg">
+                                    <span class="stamp__top">Грин Хаус · 13.06.27</span>
+                                    <time class="stamp__time">14:00</time>
+                                    <strong class="stamp__name">Регистрация</strong>
+                                    <span class="stamp__note">сбор гостей, фуршет</span>
+                                </li>
+                                <li class="stamp stamp--round ink-red" style="--r:8deg">
+                                    <span class="stamp__top">Взлёт</span>
+                                    <time class="stamp__time">15:00</time>
+                                    <span class="stamp__note">церемония, поздравления, общие фото</span>
+                                </li>
+                                <li class="stamp stamp--oval ink-green" style="--r:-3deg">
+                                    <time class="stamp__time">16:00</time>
+                                    <strong class="stamp__name">Бортовое питание</strong>
+                                    <span class="stamp__note">начало банкета</span>
+                                </li>
+                            </ol>
+                            <span class="page__num">4</span>
+                        </div>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                    <section class="face face--back paper paper--green" data-face="5" aria-labelledby="t5">
+                        <div class="page">
+                            <div class="faint" data-stamps="2" aria-hidden="true"></div>
+                            <h2 class="page__title" id="t5">Вечерний рейс</h2>
+                            <ol class="stamps">
+                                <li class="stamp stamp--round ink-blue" style="--r:-9deg">
+                                    <span class="stamp__top">20:30 – 21:00</span>
+                                    <strong class="stamp__name">Сладкая турбулентность</strong>
+                                    <span class="stamp__note">вынос торта</span>
+                                </li>
+                                <li class="stamp stamp--rect ink-red" style="--r:5deg">
+                                    <span class="stamp__top">Танцы на высоте</span>
+                                    <time class="stamp__time">21:00</time>
+                                    <span class="stamp__note">до 22:00 диджей и танцпол</span>
+                                </li>
+                                <li class="stamp stamp--rect ink-black" style="--r:-4deg">
+                                    <span class="stamp__top">Посадка · Arrival</span>
+                                    <time class="stamp__time">22:30</time>
+                                    <span class="stamp__note">до 23:00 сборы домой под звёздами</span>
+                                </li>
+                            </ol>
+                            <span class="page__num">5</span>
+                        </div>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
                 </div>
-                <p class="countdown__done" id="countdownDone" hidden>Мы уже в полёте!</p>
 
-                <div class="ticket__tear" aria-hidden="true"></div>
-                <p class="ticket__caption">не упусти свой счастливый билет</p>
+                <!-- Лист 4: виза места и форма экипажа -->
+                <div class="leaf" data-leaf="3">
+                    <section class="face face--front paper paper--blue" data-face="6" aria-labelledby="t6">
+                        <div class="page">
+                            <h2 class="sr-only" id="t6">Виза: Грин Хаус</h2>
+                            <div class="visa-sticker">
+                                <p class="visa-sticker__head">Виза <span>Visa</span></p>
+                                <dl class="fields fields--visa">
+                                    <div class="fields__wide"><dt>Пункт назначения</dt><dd>Грин Хаус</dd></div>
+                                    <div class="fields__wide"><dt>Адрес</dt><dd class="fields__address">Московская обл., Дмитровский муниципальный округ, территориальное управление № 3</dd></div>
+                                    <div><dt>Въезд</dt><dd>13.06.2027</dd></div>
+                                    <div><dt>Время</dt><dd>14:00</dd></div>
+                                    <div><dt>Тип визы</dt><dd>Свадебная</dd></div>
+                                    <div><dt>Въездов</dt><dd>1</dd></div>
+                                    <div class="fields__wide"><dt>Координаты</dt><dd>56.193607, 37.285189</dd></div>
+                                </dl>
+                                <p class="mrz mrz--small" aria-hidden="true">V&lt;LOVGREENHOUSE&lt;&lt;13062027&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+                            </div>
+                            <div class="actions">
+                                <a class="btn" href="https://yandex.ru/maps/?pt=37.285189,56.193607&amp;z=15&amp;l=map" target="_blank" rel="noopener">Яндекс Карты</a>
+                                <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=56.193607,37.285189" target="_blank" rel="noopener">Google Maps</a>
+                            </div>
+                            <div class="stamp stamp--round stamp--small ink-red visa-stamp" style="--r:-14deg" aria-hidden="true">
+                                <span class="stamp__top">Въезд</span>
+                                <strong class="stamp__name">Разрешён</strong>
+                            </div>
+                            <span class="page__num">6</span>
+                        </div>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                    <section class="face face--back paper paper--blue" data-face="7" aria-labelledby="t7">
+                        <div class="page">
+                            <div class="faint" data-stamps="3" aria-hidden="true"></div>
+                            <h2 class="page__title" id="t7">Форма экипажа</h2>
+                            <p>Лёгкий романтичный стиль в оттенках нашего праздника. Подробный дресс-код появится здесь чуть позже.</p>
+                            <ul class="palette" aria-label="Палитра праздника">
+                                <li><span style="--c:#6d1f2c"></span>бордо</li>
+                                <li><span style="--c:#c99a94"></span>пудра</li>
+                                <li><span style="--c:#e3cfaa"></span>шампань</li>
+                                <li><span style="--c:#f1ebe0"></span>айвори</li>
+                                <li><span style="--c:#3b3a3c"></span>графит</li>
+                            </ul>
+                            <h3 class="page__sub">Подарки</h3>
+                            <p>Самым главным подарком для нас будет ваше хорошее настроение.</p>
+                            <span class="page__num">7</span>
+                        </div>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                </div>
+
+                <!-- Лист 5: визовая анкета и отсчёт -->
+                <div class="leaf" data-leaf="4">
+                    <section class="face face--front paper paper--rose" data-face="8" id="rsvp" aria-labelledby="t8">
+                        <div class="page page--form">
+                            <h2 class="page__title" id="t8">Визовая анкета</h2>
+                            <div class="visa" aria-hidden="true">
+                                <span class="visa__label">Виза выдаётся</span>
+                                <span class="visa__name" id="visaName">Ваше имя</span>
+                            </div>
+                            <form class="rsvp" id="rsvpForm" novalidate>
+                                <label class="field">
+                                    <span>Имя и фамилия</span>
+                                    <input id="rsvpName" name="name" type="text" autocomplete="name" maxlength="120" required>
+                                </label>
+
+                                <fieldset class="group">
+                                    <legend>Вы будете с нами?</legend>
+                                    <div class="choices">
+                                        <label class="choice"><input type="radio" name="attendance" value="yes" required><span>Буду</span></label>
+                                        <label class="choice"><input type="radio" name="attendance" value="no"><span>Не смогу</span></label>
+                                    </div>
+                                </fieldset>
+
+                                <div class="rsvp__attending" id="rsvpAttending">
+                                    <label class="field">
+                                        <span>Кто летит с вами</span>
+                                        <input id="rsvpCompanions" name="companions" type="text" maxlength="300" placeholder="Имена спутников">
+                                    </label>
+                                    <fieldset class="group">
+                                        <legend>Напитки на борту</legend>
+                                        <div class="choices">
+                                            <label class="choice"><input type="checkbox" name="drinks" value="champagne"><span>Шампанское</span></label>
+                                            <label class="choice"><input type="checkbox" name="drinks" value="white"><span>Белое вино</span></label>
+                                            <label class="choice"><input type="checkbox" name="drinks" value="red"><span>Красное вино</span></label>
+                                            <label class="choice"><input type="checkbox" name="drinks" value="strong"><span>Крепкое</span></label>
+                                            <label class="choice"><input type="checkbox" name="drinks" value="soft"><span>Без алкоголя</span></label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <label class="field">
+                                    <span>Телефон, по желанию</span>
+                                    <input id="rsvpPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="+7 (___) ___-__-__">
+                                </label>
+                                <label class="field">
+                                    <span>Пожелания</span>
+                                    <textarea id="rsvpComment" name="comment" rows="2" maxlength="1000" placeholder="Аллергии, вопросы"></textarea>
+                                </label>
+
+                                <div class="rsvp__trap" aria-hidden="true">
+                                    <label>Не заполняйте это поле <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+                                </div>
+
+                                <p class="rsvp__error" id="rsvpError" role="alert" hidden></p>
+                                <button class="btn btn--ink" type="submit" id="rsvpSubmit">Получить визу</button>
+                            </form>
+
+                            <div class="rsvp-done" id="rsvpDone" hidden tabindex="-1">
+                                <p class="rsvp-done__title" id="rsvpDoneTitle"></p>
+                                <p class="rsvp-done__text" id="rsvpDoneText"></p>
+                                <div class="visa-sticker visa-sticker--guest" id="rsvpPass" hidden>
+                                    <p class="visa-sticker__head">Виза <span>Visa</span></p>
+                                    <dl class="fields fields--visa">
+                                        <div class="fields__wide"><dt>Пассажир</dt><dd id="rsvpPassName"></dd></div>
+                                        <div><dt>Рейс</dt><dd>NO-1306</dd></div>
+                                        <div><dt>Въезд</dt><dd>13.06.2027</dd></div>
+                                    </dl>
+                                    <div class="stamp stamp--round stamp--small ink-violet visa-stamp is-stamped" style="--r:12deg" aria-hidden="true">
+                                        <span class="stamp__top">Въезд</span>
+                                        <strong class="stamp__name">Разрешён</strong>
+                                    </div>
+                                </div>
+                                <button class="btn" type="button" id="rsvpAgain">Заполнить ещё раз</button>
+                            </div>
+                            <span class="page__num">8</span>
+                        </div>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                    <section class="face face--back paper paper--rose" data-face="9" aria-labelledby="t9">
+                        <div class="page">
+                            <div class="faint" data-stamps="4" aria-hidden="true"></div>
+                            <h2 class="page__title" id="t9">До вылета</h2>
+                            <div class="countdown" id="countdown" role="timer" aria-live="off">
+                                <div><span class="countdown__num" data-unit="days">0</span><span class="countdown__label" data-label="days">дней</span></div>
+                                <div><span class="countdown__num" data-unit="hours">0</span><span class="countdown__label" data-label="hours">часов</span></div>
+                                <div><span class="countdown__num" data-unit="minutes">0</span><span class="countdown__label" data-label="minutes">минут</span></div>
+                                <div><span class="countdown__num" data-unit="seconds">0</span><span class="countdown__label" data-label="seconds">секунд</span></div>
+                            </div>
+                            <p class="countdown__done" id="countdownDone" hidden>Мы уже в полёте!</p>
+                            <p>Сохраните дату, чтобы ничего не планировать на этот день.</p>
+                            <a class="btn btn--ink" href="wedding.ics" download>Добавить в календарь</a>
+                            <span class="page__num">9</span>
+                        </div>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                </div>
+
+                <!-- Лист 6: прощальная страница и задняя обложка -->
+                <div class="leaf" data-leaf="5">
+                    <section class="face face--front endpaper" data-face="10" aria-labelledby="t10">
+                        <div class="page">
+                            <div class="faint" data-stamps="5" aria-hidden="true"></div>
+                            <h2 class="page__title" id="t10">До встречи 13 июня</h2>
+                            <p>Спасибо, что вы с нами в этом путешествии. Будем счастливы видеть вас в Грин Хаусе.</p>
+                            <p class="page__sign">Никита и Ольга</p>
+                            <button class="btn" type="button" data-goto="0">Закрыть паспорт</button>
+                            <span class="page__num">10</span>
+                        </div>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                    <section class="face face--back cover cover--back" data-face="11" aria-label="Задняя обложка">
+                        <svg class="cover__emblem cover__emblem--small" viewBox="0 0 240 240" aria-hidden="true"><use href="#i-emblem"/></svg>
+                        <p class="cover__imprint">Никита и Ольга · 13.06.2027</p>
+                        <span class="shade" aria-hidden="true"></span>
+                    </section>
+                </div>
+
             </div>
-        </section>
+        </div>
 
+        <nav class="controls" aria-label="Листать паспорт">
+            <button class="controls__btn" type="button" id="prevPage" aria-label="Предыдущая страница">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+            </button>
+            <p class="controls__status" id="pageStatus" aria-live="polite">Обложка</p>
+            <button class="controls__btn" type="button" id="nextPage" aria-label="Следующая страница">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </nav>
+        <p class="hint" id="hint">Откройте паспорт: потяните страницу влево или <a href="#rsvp" data-goto="8">сразу к визовой анкете</a></p>
     </main>
 
     <script src="js/config.js"></script>
+    <script src="js/book.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/rsvp.js" defer></script>
 </body>

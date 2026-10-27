@@ -20,7 +20,13 @@
         attendanceChoices.removeAttribute('aria-invalid');
     });
 
-    nameInput.addEventListener('input', () => nameInput.removeAttribute('aria-invalid'));
+    // Живая виза: имя гостя появляется в строке «Виза выдаётся», пока он его вводит
+    const visaName = document.getElementById('visaName');
+    const visaPlaceholder = visaName ? visaName.textContent : '';
+    nameInput.addEventListener('input', () => {
+        nameInput.removeAttribute('aria-invalid');
+        if (visaName) visaName.textContent = nameInput.value.trim() || visaPlaceholder;
+    });
 
     // Маска телефона +7 (XXX) XXX-XX-XX
     phoneInput.addEventListener('input', () => {
@@ -93,18 +99,27 @@
     function showDone(data) {
         const coming = data.attendance === 'yes';
         document.getElementById('rsvpDoneTitle').textContent = coming
-            ? 'Посадка подтверждена!'
+            ? 'Въезд разрешён!'
             : 'Спасибо, что сообщили';
         document.getElementById('rsvpDoneText').textContent = coming
-            ? 'Ждём вас на борту 13 июня. Ваш посадочный талон:'
+            ? 'Виза получена, ждём вас 13 июня. Ваш посадочный талон:'
             : 'Нам будет вас не хватать. Мы обязательно поднимем бокал за вас!';
         document.getElementById('rsvpPass').hidden = !coming;
         document.getElementById('rsvpPassName').textContent = data.name;
 
         form.hidden = true;
+        // Штамп «Въезд разрешён» опускается на визу гостя
+        const stamp = done.querySelector('.visa-stamp');
+        if (stamp && data.attendance === 'yes') {
+            stamp.classList.remove('is-stamped');
+            void stamp.offsetWidth; // перезапуск анимации штампа
+            stamp.classList.add('is-stamped');
+        }
         done.hidden = false;
         done.focus({ preventScroll: true });
-        done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Анкета живёт внутри страницы паспорта — прокручиваем саму страницу к началу
+        const page = done.closest('.page');
+        if (page) page.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     form.addEventListener('submit', async (e) => {

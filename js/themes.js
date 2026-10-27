@@ -43,6 +43,30 @@
             palette: [
                 ['#1f2a3f', 'полночь'], ['#34445f', 'индиго'], ['#b9975c', 'золото'], ['#d9c9a6', 'шампань'], ['#f4f1ea', 'жемчуг']
             ]
+        },
+        {
+            id: 'lavender',
+            name: 'Лаванда',
+            colors: { sky: '#837a9e', skyDeep: '#655d80', skySoft: '#b3abcb', ink: '#433d57', inkSoft: '#736d86', cloud: '#eeecf3' },
+            palette: [
+                ['#4a4360', 'слива'], ['#837a9e', 'лаванда'], ['#b3abcb', 'сирень'], ['#e2dcec', 'туман'], ['#f6f2ea', 'сливки']
+            ]
+        },
+        {
+            id: 'terracotta',
+            name: 'Терракота',
+            colors: { sky: '#a86f56', skyDeep: '#8a5641', skySoft: '#d4a387', ink: '#55382c', inkSoft: '#866a5e', cloud: '#f4ece6' },
+            palette: [
+                ['#5e3a2c', 'корица'], ['#a86f56', 'терракота'], ['#d4a387', 'персик'], ['#eed8c6', 'абрикос'], ['#f7f1e8', 'хлопок']
+            ]
+        },
+        {
+            id: 'ocean',
+            name: 'Морская волна',
+            colors: { sky: '#4f8088', skyDeep: '#3c666d', skySoft: '#93bcc0', ink: '#2c4a4f', inkSoft: '#5f7a7e', cloud: '#e8f0f0' },
+            palette: [
+                ['#24434a', 'глубина'], ['#4f8088', 'бирюза'], ['#93bcc0', 'лагуна'], ['#d2e6e4', 'бриз'], ['#f5f0e4', 'песок']
+            ]
         }
     ];
 

@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Никита & Ольга — 13 июня 2027</title>
+    <title>Никита и Ольга, свадьба 13 июня 2027</title>
     <meta name="description" content="Посадочный билет на свадьбу Никиты и Ольги. 13 июня 2027, Грин Хаус, Московская область.">
-    <meta name="theme-color" content="#6c81a3">
+    <meta name="theme-color" content="#637695">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Никита & Ольга — посадочный билет на свадьбу">
+    <meta property="og:title" content="Никита и Ольга: посадочный билет на свадьбу">
     <meta property="og:description" content="13 июня 2027 · Грин Хаус · Рейс в страну любви">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Marck+Script&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script>document.documentElement.classList.add('js');</script>
     <script src="js/themes.js"></script>
@@ -25,12 +25,7 @@
         <symbol id="i-pin" viewBox="0 0 24 24">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
         </symbol>
-        <symbol id="i-doodle" viewBox="0 0 170 80">
-            <path d="M2 62C30 74 58 66 80 50c14-10 26-26 42-28 14-2 20 10 12 18-8 8-22 2-18-10 4-12 24-24 52-28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 5" stroke-linecap="round"/>
-        </symbol>
     </svg>
-
-    <div class="sky" aria-hidden="true"></div>
 
     <nav class="theme-switch" aria-label="Цветовая тема">
         <button class="theme-switch__toggle" type="button" id="themeToggle" aria-expanded="false" aria-controls="themePanel" aria-label="Выбрать цвета оформления">
@@ -42,20 +37,32 @@
         </div>
     </nav>
 
+    <div class="layout">
+
+    <!-- На широком экране: фото пары и главное о свадьбе слева от билета -->
+    <aside class="cover" aria-label="Коротко о свадьбе">
+        <figure class="cover__photo">
+            <img src="assets/couple.jpg" alt="Никита и Ольга" data-optional>
+        </figure>
+        <div class="cover__info">
+            <p class="cover__when">13 июня 2027, Грин Хаус</p>
+            <a class="btn btn--solid btn--ink" href="#rsvp">Подтвердить присутствие</a>
+        </div>
+    </aside>
+
     <main class="page">
 
         <!-- Посадочный талон -->
         <section class="ticket ticket--hero" aria-labelledby="heroTitle">
             <div class="ticket__body">
-                <p class="ticket__caption">посадочный билет на свадьбу</p>
-                <hr class="ticket__dash">
-
                 <h1 class="hero__names" id="heroTitle">
                     <span>Никита</span>
                     <span class="hero__amp" aria-hidden="true">&amp;</span>
                     <span class="sr-only">и</span>
                     <span>Ольга</span>
                 </h1>
+                <p class="hero__when">13 июня 2027</p>
+                <p class="hero__where">Грин Хаус, Подмосковье</p>
 
                 <div class="hero__globe" aria-hidden="true">
                     <svg viewBox="0 0 240 240" class="globe">
@@ -85,16 +92,16 @@
 
                 <dl class="pass">
                     <div class="pass__cell">
-                        <dt>flight / date</dt>
-                        <dd>13.06.2027</dd>
+                        <dt>Рейс</dt>
+                        <dd>NO-1306</dd>
                     </div>
                     <div class="pass__cell">
-                        <dt>class</dt>
-                        <dd>первый класс</dd>
+                        <dt>Класс</dt>
+                        <dd>Первый</dd>
                     </div>
                     <div class="pass__cell pass__cell--wide">
-                        <dt>to / destination</dt>
-                        <dd>билет в страну любви</dd>
+                        <dt>Куда</dt>
+                        <dd>В страну любви</dd>
                     </div>
                 </dl>
 
@@ -109,18 +116,16 @@
                 </svg>
 
                 <div class="ticket__tear" aria-hidden="true"></div>
-                <p class="ticket__caption">рейс NO-1306 · Москва → Навсегда</p>
+                <div class="ticket__tail">
+                    <a class="btn btn--solid" href="#rsvp">Подтвердить присутствие</a>
+                </div>
             </div>
         </section>
 
         <!-- Приглашение -->
         <section class="paper invite">
-            <h2 class="invite__title reveal">
-                Дорогие друзья,
-                <span class="script">этим летом</span>
-                мы женимся!
-            </h2>
-            <p class="invite__lead reveal">И очень хотим разделить этот день вместе с вами!</p>
+            <h2 class="section-title section-title--ink reveal">Этим летом мы женимся</h2>
+            <p class="invite__lead reveal">Дорогие друзья, мы очень хотим разделить этот день вместе с вами!</p>
 
             <figure class="photo reveal">
                 <div class="photo__placeholder" aria-hidden="true">
@@ -129,25 +134,25 @@
                 </div>
                 <img src="assets/couple.jpg" alt="Никита и Ольга" loading="lazy" data-optional>
             </figure>
-            <svg class="doodle doodle--invite" aria-hidden="true"><use href="#i-doodle"/></svg>
 
             <h2 class="section-title section-title--ink reveal">Мы ждём вас!</h2>
             <p class="invite__lead reveal">На первом празднике нашей семьи</p>
 
-            <div class="calendar reveal" aria-label="13 июня 2027 года, воскресенье">
-                <p class="calendar__month">июнь</p>
-                <div class="calendar__grid" aria-hidden="true">
-                    <span class="calendar__dow">сб</span>
-                    <span class="calendar__dow">вс</span>
-                    <span class="calendar__dow">пн</span>
-                    <span class="calendar__day">12</span>
-                    <span class="calendar__day calendar__day--main">
-                        13
-                        <span class="calendar__note">дата вылета</span>
-                    </span>
-                    <span class="calendar__day">14</span>
-                </div>
-            </div>
+            <table class="calendar reveal">
+                <caption>13 июня 2027, наш день вылета</caption>
+                <tbody>
+                    <tr>
+                        <td>12<span class="calendar__dow">суббота</span></td>
+                        <td class="calendar__main">13<span class="calendar__dow">воскресенье</span></td>
+                        <td>14<span class="calendar__dow">понедельник</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <figure class="band reveal">
+                <img src="assets/wing.jpg" alt="Крыло самолёта над облаками" loading="lazy">
+                <figcaption>Выше облаков: так начинается любое путешествие</figcaption>
+            </figure>
         </section>
 
         <!-- Место и план -->
@@ -156,6 +161,11 @@
                 <h2 class="section-title reveal" id="venueTitle">Координаты рейса</h2>
                 <p class="venue__name reveal">Грин Хаус</p>
                 <p class="venue__addr reveal">Московская область, Дмитровский муниципальный округ, территориальное управление №&nbsp;3</p>
+
+                <figure class="venue__photo reveal" data-optional-wrap="olgovo">
+                    <img src="assets/olgovo.jpg" alt="Пруд в усадьбе Ольгово" loading="lazy" data-optional>
+                    <figcaption>Усадьба Ольгово в Дмитровском округе, где пройдёт наш праздник</figcaption>
+                </figure>
 
                 <div class="venue__map reveal">
                     <iframe
@@ -218,10 +228,9 @@
 
         <!-- Дресс-код -->
         <section class="paper dresscode" aria-labelledby="dressTitle">
-            <svg class="doodle doodle--dress" aria-hidden="true"><use href="#i-doodle"/></svg>
             <h2 class="section-title section-title--ink reveal" id="dressTitle">Подготовка к&nbsp;рейсу</h2>
             <p class="dresscode__lead reveal">
-                Форма экипажа — лёгкий романтичный стиль в&nbsp;оттенках нашего праздника.
+                Форма экипажа: лёгкий романтичный стиль в&nbsp;оттенках нашего праздника.
                 Подробный дресс-код появится здесь совсем скоро.
             </p>
             <ul class="palette reveal" id="palette" aria-label="Палитра праздника">
@@ -231,6 +240,11 @@
                 <li><span class="palette__swatch" style="--c:#cfe0ee"></span><span>облако</span></li>
                 <li><span class="palette__swatch" style="--c:#f3efdc"></span><span>ваниль</span></li>
             </ul>
+
+            <figure class="band reveal">
+                <img src="assets/il-18.jpg" alt="Самолёт Ил-18 в ливрее «Аэрофлота»" loading="lazy">
+                <figcaption>Ил-18 «Аэрофлота» в авиамузее: классика, которая не выходит из моды</figcaption>
+            </figure>
         </section>
 
         <!-- Детали, анкета, отсчёт -->
@@ -277,7 +291,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="field__label" for="rsvpPhone">Телефон <span class="field__optional">— по желанию</span></label>
+                        <label class="field__label" for="rsvpPhone">Телефон <span class="field__optional">(по желанию)</span></label>
                         <input class="field__input" id="rsvpPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="32" placeholder="+7 (___) ___-__-__">
                     </div>
 
@@ -299,19 +313,19 @@
                     <p class="rsvp-done__text" id="rsvpDoneText"></p>
                     <div class="mini-pass" id="rsvpPass" hidden>
                         <div>
-                            <span class="mini-pass__label">пассажир</span>
+                            <span class="mini-pass__label">Пассажир</span>
                             <span class="mini-pass__value" id="rsvpPassName"></span>
                         </div>
                         <div>
-                            <span class="mini-pass__label">рейс</span>
+                            <span class="mini-pass__label">Рейс</span>
                             <span class="mini-pass__value">NO-1306</span>
                         </div>
                         <div>
-                            <span class="mini-pass__label">дата</span>
+                            <span class="mini-pass__label">Дата</span>
                             <span class="mini-pass__value">13.06.2027</span>
                         </div>
                         <div>
-                            <span class="mini-pass__label">посадка</span>
+                            <span class="mini-pass__label">Посадка</span>
                             <span class="mini-pass__value">14:00</span>
                         </div>
                     </div>
@@ -320,19 +334,44 @@
 
                 <h2 class="section-title section-title--spaced reveal">До вылета осталось</h2>
                 <div class="countdown reveal" id="countdown" role="timer" aria-live="off">
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="days">00</span><span class="countdown__label" data-label="days">дней</span></div>
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="hours">00</span><span class="countdown__label" data-label="hours">часов</span></div>
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="minutes">00</span><span class="countdown__label" data-label="minutes">минут</span></div>
-                    <div class="countdown__unit"><span class="countdown__num" data-unit="seconds">00</span><span class="countdown__label" data-label="seconds">секунд</span></div>
+                    <div class="countdown__unit"><span class="countdown__num" data-unit="days">0</span><span class="countdown__label" data-label="days">дней</span></div>
+                    <div class="countdown__unit"><span class="countdown__num" data-unit="hours">0</span><span class="countdown__label" data-label="hours">часов</span></div>
+                    <div class="countdown__unit"><span class="countdown__num" data-unit="minutes">0</span><span class="countdown__label" data-label="minutes">минут</span></div>
+                    <div class="countdown__unit"><span class="countdown__num" data-unit="seconds">0</span><span class="countdown__label" data-label="seconds">секунд</span></div>
                 </div>
                 <p class="countdown__done" id="countdownDone" hidden>Мы уже в полёте!</p>
 
                 <div class="ticket__tear" aria-hidden="true"></div>
-                <p class="ticket__caption">не упусти свой счастливый билет</p>
+                <div class="ticket__tail">
+                    <p class="ticket__caption">Не упусти свой счастливый билет</p>
+                </div>
             </div>
         </section>
 
+        <footer class="credits">
+            <p>
+                Фото:
+                <a href="https://www.flickr.com/photos/21063397@N00/986293551" target="_blank" rel="noopener">«Over the Pacific»</a>, Swami Stream,
+                <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>;
+                <a href="https://www.flickr.com/photos/88531234@N00/1358905360" target="_blank" rel="noopener">«Airplane Window»</a>, contraption,
+                <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>;
+                <a href="https://commons.wikimedia.org/w/index.php?curid=32560704" target="_blank" rel="noopener">«CCCP-75634 Ilyushin IL.18 Aeroflot»</a>, Aeroprints.com,
+                <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>;
+                <span data-credit="olgovo"><a href="https://commons.wikimedia.org/w/index.php?curid=21544545" target="_blank" rel="noopener">«Пруд в усадьбе Ольгово»</a>, Julevnochka,
+                <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</span>
+                Фотографии обрезаны по кадру.
+            </p>
+        </footer>
     </main>
+
+    <aside class="cover cover--right" aria-label="Фото к рейсу">
+        <figure class="cover__photo">
+            <img src="assets/sky.jpg" alt="Облака в иллюминаторе самолёта">
+            <figcaption class="cover__caption">Место у окна уже забронировано</figcaption>
+        </figure>
+    </aside>
+
+    </div>
 
     <script src="js/config.js"></script>
     <script src="js/main.js" defer></script>

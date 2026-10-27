@@ -4,8 +4,13 @@
     const config = window.WEDDING_CONFIG || {};
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Появление блоков при прокрутке
+    // Появление блоков при прокрутке: внутри секции элементы выходят друг за другом
     const revealEls = document.querySelectorAll('.reveal');
+    document.querySelectorAll('section').forEach((section) => {
+        section.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.setProperty('--delay', `${Math.min(i, 4) * 80}ms`);
+        });
+    });
     if (reducedMotion || !('IntersectionObserver' in window)) {
         revealEls.forEach((el) => el.classList.add('is-visible'));
     } else {
@@ -27,7 +32,16 @@
 
     // Фото, которых ещё нет в assets/, просто не показываем — остаётся заглушка
     document.querySelectorAll('img[data-optional]').forEach((img) => {
-        const drop = () => img.remove();
+        const drop = () => {
+            const wrap = img.closest('[data-optional-wrap]');
+            if (wrap) {
+                // вместе с фото убираем подпись и строку автора
+                document.querySelectorAll(`[data-credit="${wrap.dataset.optionalWrap}"]`).forEach((el) => el.remove());
+                wrap.remove();
+            } else {
+                img.remove();
+            }
+        };
         if (img.complete && img.naturalWidth === 0) drop();
         else img.addEventListener('error', drop);
     });
@@ -72,7 +86,7 @@
                 seconds: Math.floor(diff / 1e3) % 60
             };
             Object.keys(values).forEach((unit) => {
-                nums[unit].textContent = String(values[unit]).padStart(2, '0');
+                nums[unit].textContent = String(values[unit]);
                 labels[unit].textContent = plural(values[unit], forms[unit]);
             });
         };

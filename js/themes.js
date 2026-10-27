@@ -7,7 +7,7 @@
         {
             id: 'sky',
             name: 'Небо',
-            colors: { sky: '#6c81a3', skyDeep: '#56698a', skySoft: '#8fa5cc', ink: '#3d4b66', inkSoft: '#6b7890', cloud: '#e8ecf2' },
+            colors: { sky: '#637695', skyDeep: '#56698a', skySoft: '#8fa5cc', ink: '#3d4b66', inkSoft: '#6b7890', cloud: '#e8ecf2' },
             palette: [
                 ['#4b4a4f', 'графит'], ['#5d7194', 'деним'], ['#8fa5cc', 'небо'], ['#cfe0ee', 'облако'], ['#f3efdc', 'ваниль']
             ]
@@ -15,7 +15,7 @@
         {
             id: 'sage',
             name: 'Шалфей',
-            colors: { sky: '#738c79', skyDeep: '#58705e', skySoft: '#a3baa8', ink: '#3b4a3f', inkSoft: '#69786d', cloud: '#eaeee9' },
+            colors: { sky: '#647a69', skyDeep: '#58705e', skySoft: '#a3baa8', ink: '#3b4a3f', inkSoft: '#69786d', cloud: '#eaeee9' },
             palette: [
                 ['#3f4a42', 'хвоя'], ['#6b8571', 'шалфей'], ['#a3baa8', 'олива'], ['#dbe5d8', 'мята'], ['#f4efe2', 'лён']
             ]
@@ -23,7 +23,7 @@
         {
             id: 'rose',
             name: 'Пыльная роза',
-            colors: { sky: '#a5767b', skyDeep: '#85575d', skySoft: '#cfa6aa', ink: '#553a3e', inkSoft: '#86696c', cloud: '#f3ebea' },
+            colors: { sky: '#946a6e', skyDeep: '#85575d', skySoft: '#cfa6aa', ink: '#553a3e', inkSoft: '#86696c', cloud: '#f3ebea' },
             palette: [
                 ['#5a3e42', 'вишня'], ['#a5767b', 'роза'], ['#cfa6aa', 'пудра'], ['#ecd9d6', 'зефир'], ['#f6efe6', 'крем']
             ]
@@ -31,7 +31,7 @@
         {
             id: 'sand',
             name: 'Песок и сафари',
-            colors: { sky: '#998570', skyDeep: '#7a6754', skySoft: '#c8b49c', ink: '#4c4033', inkSoft: '#7c6f61', cloud: '#f1ece4' },
+            colors: { sky: '#82715f', skyDeep: '#7a6754', skySoft: '#c8b49c', ink: '#4c4033', inkSoft: '#7c6f61', cloud: '#f1ece4' },
             palette: [
                 ['#4c4033', 'кофе'], ['#8a7560', 'карамель'], ['#c8b49c', 'песок'], ['#e6dccd', 'латте'], ['#f8f3ea', 'молоко']
             ]
@@ -47,7 +47,7 @@
         {
             id: 'lavender',
             name: 'Лаванда',
-            colors: { sky: '#837a9e', skyDeep: '#655d80', skySoft: '#b3abcb', ink: '#433d57', inkSoft: '#736d86', cloud: '#eeecf3' },
+            colors: { sky: '#786f90', skyDeep: '#655d80', skySoft: '#b3abcb', ink: '#433d57', inkSoft: '#736d86', cloud: '#eeecf3' },
             palette: [
                 ['#4a4360', 'слива'], ['#837a9e', 'лаванда'], ['#b3abcb', 'сирень'], ['#e2dcec', 'туман'], ['#f6f2ea', 'сливки']
             ]
@@ -55,7 +55,7 @@
         {
             id: 'terracotta',
             name: 'Терракота',
-            colors: { sky: '#a86f56', skyDeep: '#8a5641', skySoft: '#d4a387', ink: '#55382c', inkSoft: '#866a5e', cloud: '#f4ece6' },
+            colors: { sky: '#9d6750', skyDeep: '#8a5641', skySoft: '#d4a387', ink: '#55382c', inkSoft: '#866a5e', cloud: '#f4ece6' },
             palette: [
                 ['#5e3a2c', 'корица'], ['#a86f56', 'терракота'], ['#d4a387', 'персик'], ['#eed8c6', 'абрикос'], ['#f7f1e8', 'хлопок']
             ]
@@ -63,7 +63,7 @@
         {
             id: 'ocean',
             name: 'Морская волна',
-            colors: { sky: '#4f8088', skyDeep: '#3c666d', skySoft: '#93bcc0', ink: '#2c4a4f', inkSoft: '#5f7a7e', cloud: '#e8f0f0' },
+            colors: { sky: '#4d7c84', skyDeep: '#3c666d', skySoft: '#93bcc0', ink: '#2c4a4f', inkSoft: '#5f7a7e', cloud: '#e8f0f0' },
             palette: [
                 ['#24434a', 'глубина'], ['#4f8088', 'бирюза'], ['#93bcc0', 'лагуна'], ['#d2e6e4', 'бриз'], ['#f5f0e4', 'песок']
             ]

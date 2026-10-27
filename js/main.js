@@ -103,7 +103,7 @@
             const points = [[w / 2, 14]];
             items.forEach((item, i) => {
                 const y = item.offsetTop + item.offsetHeight / 2;
-                points.push([i % 2 === 0 ? w * 0.8 : w * 0.2, y]);
+                points.push([i % 2 === 0 ? w * 0.62 : w * 0.38, y]);
             });
             points.push([w / 2, h - 14]);
 

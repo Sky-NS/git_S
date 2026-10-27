@@ -3,39 +3,48 @@
 
     const config = window.WEDDING_CONFIG || {};
 
-    // Тусклые штампы: города, где мы уже побывали вдвоём (без дат — их не выдумываем)
-    const TRIPS = [
-        ['TOKYO', 'JAPAN'], ['OSAKA', 'JAPAN'], ['KAMAKURA', 'JAPAN'], ['NARA', 'JAPAN'], ['KYOTO', 'JAPAN'],
-        ['FUJIKAWAGUCHIKO', 'JAPAN'], ['HAKONE', 'JAPAN'], ['MISHIMA', 'JAPAN'],
-        ['SHANGHAI', 'CHINA'], ['BEIJING', 'CHINA'], ["XI'AN", 'CHINA'],
-        ['UBUD', 'BALI'], ['KUTA', 'BALI'], ['AMED', 'BALI'], ['DENPASAR', 'BALI'], ['SEMINYAK', 'BALI'],
-        ['CANGGU', 'BALI'], ['NUSA DUA', 'BALI'], ['JIMBARAN', 'BALI'], ['SANUR', 'BALI'], ['TABANAN', 'BALI'],
-        ['МОСКВА', 'РОССИЯ'], ['САНКТ-ПЕТЕРБУРГ', 'РОССИЯ'], ['НИЖНИЙ НОВГОРОД', 'РОССИЯ'], ['РОСТОВ ВЕЛИКИЙ', 'РОССИЯ'], ['ТАРУСА', 'РОССИЯ']
-    ];
-    // Места на странице (в процентах), где штампы не спорят с текстом
-    const SLOTS = [[54, 4], [4, 58], [50, 66], [14, 80], [58, 36]];
-    const SHAPES = ['round', 'rect', 'oval'];
-    const INKS = ['violet', 'blue', 'green', 'red', 'black'];
-    const groups = document.querySelectorAll('.faint[data-stamps]');
-    if (groups.length) {
-        const per = Math.ceil(TRIPS.length / groups.length);
-        groups.forEach((group, g) => {
-            TRIPS.slice(g * per, g * per + per).forEach(([city, country], i) => {
-                const n = g * per + i;
-                const [x, y] = SLOTS[i % SLOTS.length];
-                const el = document.createElement('div');
-                el.className = `stamp stamp--${SHAPES[n % 3]} ink-${INKS[n % INKS.length]}`;
-                el.style.left = `${x}%`;
-                el.style.top = `${y}%`;
-                el.style.setProperty('--r', `${((n * 37) % 30) - 15}deg`);
-                const b = document.createElement('b');
-                b.textContent = city;
-                const small = document.createElement('small');
-                small.textContent = country;
-                el.append(b, small);
-                group.append(el);
+    // Фото пары: пока нет своего снимка в assets/photos, показываем общее фото
+    document.querySelectorAll('img[data-fallback]').forEach((img) => {
+        const swap = () => {
+            if (img.src.endsWith(img.dataset.fallback)) return;
+            img.src = img.dataset.fallback;
+        };
+        img.addEventListener('error', swap, { once: true });
+        if (img.complete && img.naturalWidth === 0) swap();
+    });
+
+    // Штрихкод на посадочном талоне: полосы разной ширины, одинаковые при каждом открытии
+    const barcode = document.getElementById('barcode');
+    if (barcode) {
+        const ns = 'http://www.w3.org/2000/svg';
+        let x = 0;
+        let seed = 13062027;
+        while (x < 160) {
+            seed = (seed * 1103515245 + 12345) % 2147483648;
+            const w = 1 + (seed % 4);
+            const bar = document.createElementNS(ns, 'rect');
+            bar.setAttribute('x', x);
+            bar.setAttribute('y', 0);
+            bar.setAttribute('width', Math.min(w, 160 - x));
+            bar.setAttribute('height', 50);
+            barcode.append(bar);
+            x += w + 1 + ((seed >> 4) % 3);
+        }
+    }
+
+    // Блоки проявляются, когда до них доходит прокрутка
+    const revealables = document.querySelectorAll('.reveal, .stamp, .trail');
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
             });
-        });
+        }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+        revealables.forEach((el) => io.observe(el));
+    } else {
+        revealables.forEach((el) => el.classList.add('is-visible'));
     }
 
     // Обратный отсчёт

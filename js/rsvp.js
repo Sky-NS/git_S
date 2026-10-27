@@ -20,7 +20,7 @@
         attendanceChoices.removeAttribute('aria-invalid');
     });
 
-    // Живая виза: имя гостя появляется в строке «Виза выдаётся», пока он его вводит
+    // Сбрасываем подсветку ошибки, пока гость вводит имя
     const visaName = document.getElementById('visaName');
     const visaPlaceholder = visaName ? visaName.textContent : '';
     nameInput.addEventListener('input', () => {
@@ -99,10 +99,10 @@
     function showDone(data) {
         const coming = data.attendance === 'yes';
         document.getElementById('rsvpDoneTitle').textContent = coming
-            ? 'Въезд разрешён!'
+            ? 'Посадка подтверждена!'
             : 'Спасибо, что сообщили';
         document.getElementById('rsvpDoneText').textContent = coming
-            ? 'Виза получена, ждём вас 13 июня. Ваш посадочный талон:'
+            ? 'Ждём вас на борту 13 июня. Ваш посадочный талон:'
             : 'Нам будет вас не хватать. Мы обязательно поднимем бокал за вас!';
         document.getElementById('rsvpPass').hidden = !coming;
         document.getElementById('rsvpPassName').textContent = data.name;
@@ -117,9 +117,7 @@
         }
         done.hidden = false;
         done.focus({ preventScroll: true });
-        // Анкета живёт внутри страницы паспорта — прокручиваем саму страницу к началу
-        const page = done.closest('.page');
-        if (page) page.scrollTo({ top: 0, behavior: 'smooth' });
+        done.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     form.addEventListener('submit', async (e) => {
@@ -139,7 +137,7 @@
             showError(`Не получилось отправить анкету. Проверьте интернет и попробуйте ещё раз — или напишите нам напрямую. (Код: ${err.message})`);
         } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Подтвердить';
+            submitBtn.textContent = 'Отправить!';
         }
     });
 

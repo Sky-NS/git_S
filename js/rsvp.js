@@ -121,7 +121,7 @@
             showDone(data);
         } catch (err) {
             console.error('RSVP send failed:', err);
-            showError('Не получилось отправить анкету. Проверьте интернет и попробуйте ещё раз — или напишите нам напрямую.');
+            showError(`Не получилось отправить анкету. Проверьте интернет и попробуйте ещё раз — или напишите нам напрямую. (Код: ${err.message})`);
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Подтвердить';

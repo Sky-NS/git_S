@@ -26,66 +26,85 @@ const DRINKS = {
 
 export default {
     async fetch(request, env) {
-        const cors = corsHeaders(request, env);
+        const origin = request.headers.get('Origin') || '';
+        // CORS-заголовки отдаём всегда, чтобы сайт мог прочитать код ошибки, а не получал «CORS error»
+        const cors = corsHeaders(origin);
 
-        if (request.method === 'OPTIONS') {
-            return new Response(null, { status: cors ? 204 : 403, headers: cors || {} });
-        }
-        if (request.method !== 'POST') {
-            return json({ ok: false, error: 'method_not_allowed' }, 405, cors);
-        }
-        if (!cors) {
-            return json({ ok: false, error: 'forbidden_origin' }, 403);
-        }
-        if (!env.BOT_TOKEN || !env.CHAT_ID) {
-            console.error('BOT_TOKEN or CHAT_ID secret is not set');
-            return json({ ok: false, error: 'not_configured' }, 500, cors);
-        }
-
-        let body;
         try {
-            body = await request.json();
-        } catch {
-            return json({ ok: false, error: 'bad_json' }, 400, cors);
+            if (request.method === 'OPTIONS') {
+                return new Response(null, { status: 204, headers: cors });
+            }
+            if (request.method !== 'POST') {
+                return json({ ok: false, error: 'method_not_allowed' }, 405, cors);
+            }
+            if (!isAllowedOrigin(origin, env)) {
+                console.error(`Origin ${origin} is not in ALLOWED_ORIGINS`);
+                return json({ ok: false, error: 'forbidden_origin' }, 403, cors);
+            }
+            return await handleRsvp(request, env, cors);
+        } catch (err) {
+            console.error('Unexpected error:', err);
+            return json({ ok: false, error: 'internal_error' }, 500, cors);
         }
-
-        // Скрытое поле заполняют только боты — отвечаем «ок», но ничего не отправляем
-        if (body && body.website) {
-            return json({ ok: true }, 200, cors);
-        }
-
-        const rsvp = parseRsvp(body);
-        if (!rsvp) {
-            return json({ ok: false, error: 'invalid_data' }, 400, cors);
-        }
-
-        const text = formatMessage(rsvp);
-        const chatIds = splitList(env.CHAT_ID);
-        const results = await Promise.all(chatIds.map((chatId) => sendMessage(env.BOT_TOKEN, chatId, text)));
-
-        // Если хотя бы в один чат ушло — считаем успехом, иначе гость отправит анкету повторно и будут дубли
-        if (!results.some(Boolean)) {
-            return json({ ok: false, error: 'telegram_error' }, 502, cors);
-        }
-        return json({ ok: true }, 200, cors);
     }
 };
 
-function corsHeaders(request, env) {
-    const allowed = splitList(env.ALLOWED_ORIGINS);
-    const origin = request.headers.get('Origin') || '';
-    let allowOrigin = null;
-    if (allowed.length === 0) allowOrigin = '*';
-    else if (allowed.includes(origin)) allowOrigin = origin;
-    if (!allowOrigin) return null;
+async function handleRsvp(request, env, cors) {
+    if (!env.BOT_TOKEN || !env.CHAT_ID) {
+        console.error('BOT_TOKEN or CHAT_ID secret is not set');
+        return json({ ok: false, error: 'not_configured' }, 500, cors);
+    }
 
+    let body;
+    try {
+        body = await request.json();
+    } catch {
+        return json({ ok: false, error: 'bad_json' }, 400, cors);
+    }
+
+    // Скрытое поле заполняют только боты — отвечаем «ок», но ничего не отправляем
+    if (body && body.website) {
+        return json({ ok: true }, 200, cors);
+    }
+
+    const rsvp = parseRsvp(body);
+    if (!rsvp) {
+        return json({ ok: false, error: 'invalid_data' }, 400, cors);
+    }
+
+    const text = formatMessage(rsvp);
+    const chatIds = splitList(env.CHAT_ID);
+    const results = await Promise.all(chatIds.map((chatId) => sendMessage(env.BOT_TOKEN, chatId, text)));
+
+    // Если хотя бы в один чат ушло — считаем успехом, иначе гость отправит анкету повторно и будут дубли
+    if (!results.some(Boolean)) {
+        return json({ ok: false, error: 'telegram_error' }, 502, cors);
+    }
+    return json({ ok: true }, 200, cors);
+}
+
+function corsHeaders(origin) {
     return {
-        'Access-Control-Allow-Origin': allowOrigin,
+        'Access-Control-Allow-Origin': origin || '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Max-Age': '86400',
         'Vary': 'Origin'
     };
+}
+
+// Сравниваем только origin, так что «https://site.github.io/repo/» в настройках тоже сработает
+function isAllowedOrigin(origin, env) {
+    const allowed = splitList(env.ALLOWED_ORIGINS).map(toOrigin);
+    return allowed.length === 0 || allowed.includes(toOrigin(origin));
+}
+
+function toOrigin(value) {
+    try {
+        return new URL(value).origin;
+    } catch {
+        return value.replace(/\/+$/, '').toLowerCase();
+    }
 }
 
 function parseRsvp(body) {

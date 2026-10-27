@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Forum&family=Marck+Script&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script>document.documentElement.classList.add('js');</script>
+    <script src="js/themes.js"></script>
 </head>
 <body>
     <svg width="0" height="0" class="sprite" aria-hidden="true">
@@ -30,6 +31,16 @@
     </svg>
 
     <div class="sky" aria-hidden="true"></div>
+
+    <nav class="theme-switch" aria-label="Цветовая тема">
+        <button class="theme-switch__toggle" type="button" id="themeToggle" aria-expanded="false" aria-controls="themePanel" aria-label="Выбрать цвета оформления">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="theme-switch__panel" id="themePanel" hidden>
+            <p class="theme-switch__title">Цвета оформления</p>
+            <div id="themeOptions"></div>
+        </div>
+    </nav>
 
     <main class="page">
 
@@ -213,7 +224,7 @@
                 Форма экипажа — лёгкий романтичный стиль в&nbsp;оттенках нашего праздника.
                 Подробный дресс-код появится здесь совсем скоро.
             </p>
-            <ul class="palette reveal" aria-label="Палитра праздника">
+            <ul class="palette reveal" id="palette" aria-label="Палитра праздника">
                 <li><span class="palette__swatch" style="--c:#4b4a4f"></span><span>графит</span></li>
                 <li><span class="palette__swatch" style="--c:#5d7194"></span><span>деним</span></li>
                 <li><span class="palette__swatch" style="--c:#8fa5cc"></span><span>небо</span></li>
